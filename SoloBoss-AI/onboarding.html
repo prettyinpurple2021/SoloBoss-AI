@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to SoloBoss AI!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/css/fonts.css" rel="stylesheet">
+    <!-- Visualization & Content Choices:
+        - Welcome Screen: Inform/Engage -> Large welcome message, brand logo -> Static -> Exciting first impression -> HTML/Tailwind
+        - Hub Intro: Inform -> Brief explanation with conceptual visual -> Static -> Orient user to main dashboard -> HTML/Tailwind
+        - Meet AI Crew: Inform/Navigate -> Carousel/slides for each agent (icon, name, one-liner) -> JS for navigation -> Introduce core functionalities -> HTML/Tailwind/JS
+        - Guide to First Action: Interact/Guide -> Suggestion with clear CTA button -> JS to direct to Hub (mock) -> Encourage engagement -> HTML/Tailwind
+        - Completion Screen: Inform/Motivate -> Final encouraging message, link to Hub -> Static -> Positive send-off -> HTML/Tailwind
+        - Overall UI: Consistent Branding -> Use of brand fonts, colors, "punk rock girlboss" elements -> Static -> Reinforce SoloBoss AI brand identity -> HTML/Tailwind/CSS
+        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1A1A2E; /* Deep Space */
+            color: #FFFFFF; /* Bold White */
+            overflow: hidden; /* Prevent scrollbars during step transitions */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .font-header { font-family: 'Emilys Candy', cursive; }
+        .font-body-alt { font-family: 'Henny Penny', cursive; }
+        .font-accent-alt { font-family: 'Crafty Girls', cursive; }
+
+        .bg-power-purple { background-color: #A044FF; }
+        .text-power-purple { color: #A044FF; }
+        .border-power-purple { border-color: #A044FF; }
+
+        .bg-electric-pink { background-color: #FF3EA5; }
+        .text-electric-pink { color: #FF3EA5; }
+        .border-electric-pink { border-color: #FF3EA5; }
+        
+        .bg-rebel-teal { background-color: #00D9C0; }
+        .text-rebel-teal { color: #00D9C0; }
+        .border-rebel-teal { border-color: #00D9C0; }
+
+        .onboarding-container {
+            background-color: #232336; /* Slightly lighter dark for card */
+            border-radius: 0.75rem; /* rounded-xl */
+            padding: 2rem; /* p-8 */
+            width: 100%;
+            max-width: 700px; /* Wider for onboarding content */
+            min-height: 500px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6), 0 0 25px rgba(160, 68, 255, 0.25) inset;
+            border: 1px solid rgba(160, 68, 255, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .onboarding-step {
+            display: none; /* Hidden by default */
+            width: 100%;
+            animation: fadeIn 0.5s ease-out;
+        }
+        .onboarding-step.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn-onboarding {
+            background-color: #FF3EA5; /* Electric Pink */
+            color: #FFFFFF;
+            font-weight: 700; /* bold */
+            padding: 0.875rem 2rem; /* py-3.5 px-8 */
+            border-radius: 0.375rem;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 62, 165, 0.3);
+            margin-top: 1.5rem; /* mt-6 */
+        }
+        .btn-onboarding:hover {
+            background-color: #E04A9A;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 62, 165, 0.4);
+        }
+        .btn-onboarding-secondary {
+            background-color: transparent;
+            color: #00D9C0; /* Rebel Teal */
+            border: 2px solid #00D9C0;
+            font-weight: 600;
+             padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .btn-onboarding-secondary:hover {
+            background-color: rgba(0, 217, 192, 0.1);
+            color: #FFFFFF;
+        }
+        .progress-dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem; /* mt-8 */
+        }
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.2);
+            margin: 0 5px;
+            transition: background-color 0.3s ease;
+        }
+        .dot.active {
+            background-color: #FF3EA5; /* Electric Pink */
+        }
+        .agent-intro-card {
+            background-color: rgba(255,255,255,0.05);
+            border: 1px solid rgba(160, 68, 255, 0.3);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+        }
+        .agent-intro-icon {
+            font-size: 2rem; /* text-3xl */
+            margin-bottom: 0.5rem; /* mb-2 */
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="onboarding-container">
+
+        <div id="step1" class="onboarding-step active">
+            <img src="assets/images/logo.png" alt="SoloBoss AI Logo" class="h-24 md:h-32 mx-auto mb-6">
+            <h1 class="font-header text-4xl md:text-5xl text-power-purple mb-3">Welcome to the Rebellion, Boss!</h1>
+            <p class="font-body-alt text-lg text-white/80 mb-8">
+                You're officially part of the SoloBoss AI crew. Get ready to unleash your AI-powered team and conquer your startup dreams.
+            </p>
+            <button class="btn-onboarding" data-next="step2">Let's Get Started! 🔥</button>
+        </div>
+
+        <div id="step2" class="onboarding-step">
+            <h2 class="font-header text-3xl md:text-4xl text-rebel-teal mb-4">Your Command Center: The Hub</h2>
+            <p class="font-body-alt text-md text-white/70 mb-6 max-w-md mx-auto">
+                The SoloBoss AI Hub is where you'll find everything you need. Think of it as your mission control for world (or at least market) domination.
+            </p>
+            <div class="bg-deep-space p-6 rounded-lg border border-power-purple/30 shadow-lg mb-6">
+                <p class="font-accent-alt text-2xl text-power-purple">HUB MOCKUP AREA</p>
+                <p class="text-xs text-white/60 mt-2">(Imagine a cool visual of the main dashboard here, showing access to AI agents, projects, etc.)</p>
+                <ul class="text-xs text-left text-white/60 mt-3 list-disc list-inside pl-2 space-y-1">
+                    <li>Access all your AI Agents</li>
+                    <li>Manage your projects & tasks</li>
+                    <li>Find your saved work in "The Briefcase"</li>
+                </ul>
+            </div>
+            <button class="btn-onboarding" data-next="step3">Meet Your AI Crew! 🤖</button>
+        </div>
+
+        <div id="step3" class="onboarding-step">
+            <h2 class="font-header text-3xl md:text-4xl text-electric-pink mb-6">Your Personal AI Dream Team!</h2>
+            <p class="font-body-alt text-md text-white/70 mb-6 max-w-lg mx-auto">
+                These aren't just tools; they're your specialized AI partners, each with a unique personality and skillset. Let's do a quick intro:
+            </p>
+            <div id="agentCarousel" class="relative w-full max-w-md mx-auto">
+                </div>
+            <div class="flex justify-between w-full max-w-xs mx-auto mt-4">
+                <button id="prevAgentBtn" class="btn-onboarding-secondary text-sm">← Prev</button>
+                <button id="nextAgentBtn" class="btn-onboarding-secondary text-sm">Next →</button>
+            </div>
+             <button class="btn-onboarding" data-next="step4">Got It, Let's Roll! 🚀</button>
+        </div>
+        
+        <div id="step4" class="onboarding-step">
+            <h2 class="font-header text-3xl md:text-4xl text-power-purple mb-4">Ready to Make Your First Move?</h2>
+            <p class="font-body-alt text-md text-white/70 mb-8 max-w-md mx-auto">
+                Your AI crew is on standby. What's your first mission, Boss?
+                We suggest diving in and meeting an agent, or starting your first big project!
+            </p>
+            <div class="space-y-4 md:space-y-0 md:space-x-4 flex flex-col md:flex-row justify-center">
+                <button class="btn-onboarding bg-rebel-teal text-deep-space hover:bg-rebel-teal/80" data-action="gotoHub">Explore the Hub</button>
+                <button class="btn-onboarding bg-electric-pink hover:bg-electric-pink/80" data-action="meetLexi">Chat with Lexi (Strategist)</button>
+            </div>
+             <p class="text-xs text-white/50 mt-6 font-accent-alt">Remember, you can always find your agents in the Hub!</p>
+        </div>
+
+        <div id="step5" class="onboarding-step">
+            <div class="text-6xl mb-6">🎉</div>
+            <h2 class="font-header text-3xl md:text-4xl text-success-green mb-4">You're All Set, Boss!</h2>
+            <p class="font-body-alt text-md text-white/70 mb-8 max-w-md mx-auto">
+                Onboarding complete. Your SoloBoss AI empire awaits. Time to make some magic (and money!).
+            </p>
+                            <a href="app_hub.html" class="btn-onboarding bg-power-purple hover:bg-power-purple/80">Enter the Hub & Conquer!</a>
+        </div>
+
+        <div id="progressDotsContainer" class="progress-dots">
+            </div>
+    </div>
+
+    <script>
+        const steps = document.querySelectorAll('.onboarding-step');
+        const nextButtons = document.querySelectorAll('.btn-onboarding[data-next]');
+        const actionButtons = document.querySelectorAll('.btn-onboarding[data-action]');
+        const progressDotsContainer = document.getElementById('progressDotsContainer');
+        let currentStep = 0;
+
+        const agents = [
+            { name: "Vox", role: "Executive Assistant", icon: "🧠", color: "text-primary-purple", description: "Your sassy, hyper-organized second brain for planning, calendars, and tasks." },
+            { name: "Lexi", role: "Startup Strategist", icon: "💡", color: "text-accent-pink", description: "Your badass biz coach for idea validation, business plans, and market domination." },
+            { name: "Roxie", role: "Brand Designer", icon: "🎨", color: "text-accent-teal", description: "Your creative partner for UI/UX, moodboards, and all things visually stunning." },
+            { name: "Quinn", role: "Marketing Maven", icon: "📢", color: "text-yellow-400", description: "Your social-savvy hype queen for crafting scroll-stopping content and campaigns." },
+            { name: "Vex", role: "Technical Architect", icon: "/>_", color: "text-blue-400", description: "Your logic-brained engineer for tech specs, stack choices, and decoding the matrix." },
+            { name: "Lumi", role: "Legal & Docs Helper", icon: "⚖️", color: "text-green-400", description: "Your meticulous guide for paperwork, compliance, and keeping things official." }
+        ];
+        let currentAgentIndex = 0;
+        const agentCarouselEl = document.getElementById('agentCarousel');
+        const prevAgentBtn = document.getElementById('prevAgentBtn');
+        const nextAgentBtn = document.getElementById('nextAgentBtn');
+
+
+        function updateProgressDots() {
+            progressDotsContainer.innerHTML = '';
+            steps.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                if (index === currentStep) {
+                    dot.classList.add('active');
+                }
+                progressDotsContainer.appendChild(dot);
+            });
+        }
+
+        function showStep(stepIndex) {
+            steps.forEach((step, index) => {
+                step.classList.toggle('active', index === stepIndex);
+            });
+            currentStep = stepIndex;
+            updateProgressDots();
+
+            if (steps[stepIndex].id === 'step3') { // If it's the agent carousel step
+                renderAgentCarousel();
+            }
+        }
+
+        function renderAgentCarousel() {
+            if (!agentCarouselEl) return;
+            const agent = agents[currentAgentIndex];
+            agentCarouselEl.innerHTML = `
+                <div class="agent-intro-card animate-fadeIn">
+                    <span class="agent-intro-icon ${agent.color}">${agent.icon}</span>
+                    <h4 class="font-header text-xl ${agent.color}">${agent.name}</h4>
+                    <p class="font-body-alt text-sm text-white/80">${agent.role}</p>
+                    <p class="text-xs text-white/60 mt-1">${agent.description}</p>
+                </div>
+            `;
+        }
+
+        if (prevAgentBtn && nextAgentBtn && agentCarouselEl) {
+            prevAgentBtn.addEventListener('click', () => {
+                currentAgentIndex = (currentAgentIndex - 1 + agents.length) % agents.length;
+                renderAgentCarousel();
+            });
+            nextAgentBtn.addEventListener('click', () => {
+                currentAgentIndex = (currentAgentIndex + 1) % agents.length;
+                renderAgentCarousel();
+            });
+        }
+
+
+        nextButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const nextStepId = button.dataset.next;
+                const nextStepIndex = Array.from(steps).findIndex(step => step.id === nextStepId);
+                if (nextStepIndex !== -1) {
+                    showStep(nextStepIndex);
+                }
+            });
+        });
+
+        actionButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const action = button.dataset.action;
+                if (action === "gotoHub") {
+                    // In a real app, redirect to the hub page
+                    alert("Redirecting to Hub Page (Mock Action)!");
+                    // window.location.href = "app_hub.html";
+                    showStep(Array.from(steps).findIndex(step => step.id === 'step5')); // Go to completion for demo
+                } else if (action === "meetLexi") {
+                    // In a real app, redirect to Lexi's page
+                    alert("Redirecting to Lexi's Page (Mock Action)!");
+                    // window.location.href = "lexi_strategist.html";
+                    showStep(Array.from(steps).findIndex(step => step.id === 'step5')); // Go to completion for demo
+                }
+            });
+        });
+        
+        // Initialize
+        showStep(0);
+
+    </script>
+
+</body>
+</html>

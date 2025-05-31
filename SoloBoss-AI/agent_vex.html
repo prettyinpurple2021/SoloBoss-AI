@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vex - Technical Architect | SoloBoss AI</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/css/fonts.css" rel="stylesheet">
+    <link href="assets/css/styles.css" rel="stylesheet">
+    <link href="assets/css/components.css" rel="stylesheet">
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/productivity-dashboard.js"></script>
+    <script src="assets/js/quick-actions.js"></script>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #1A1A2E; /* Deep Space for main background of the shell */
+            color: #FFFFFF; /* Bold White */
+            overflow-x: hidden;
+        }
+        .font-header { font-family: 'Emilys Candy', cursive; }
+        .font-subheading { font-family: 'Henny Penny', cursive; } 
+        .font-accent-alt { font-family: 'Crafty Girls', cursive; }
+        .font-body-tech { font-family: 'Fira Code', monospace; } 
+        .font-body { font-family: 'Poppins', sans-serif; }
+        .font-ui { font-family: 'Inter', sans-serif; }
+
+        .bg-primary-purple { background-color: #A044FF; }
+        .text-primary-purple { color: #A044FF; }
+        .border-primary-purple { border-color: #A044FF; }
+
+        .bg-accent-teal { background-color: #00D9C0; }
+        .text-accent-teal { color: #00D9C0; }
+        .border-accent-teal { border-color: #00D9C0; }
+
+        .bg-accent-pink { background-color: #FF3EA5; }
+        .text-accent-pink { color: #FF3EA5; }
+        .border-accent-pink { border-color: #FF3EA5; }
+        
+        .bg-content-area { background-color: #171727; } 
+        .bg-sidebar-dark { background-color: #131325; } 
+
+        .app-shell-sidebar {
+            border-right: 1px solid rgba(160, 68, 255, 0.2); 
+            transition: width 0.3s ease;
+        }
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem; 
+            border-radius: 0.375rem; 
+            color: rgba(255,255,255,0.7);
+            font-size: 0.875rem; 
+            font-weight: 500; 
+            transition: background-color 0.2s ease, color 0.2s ease, border-left-color 0.2s ease;
+            border-left: 4px solid transparent;
+        }
+        .sidebar-link:hover {
+            background-color: rgba(255, 62, 165, 0.1); 
+            color: #FF3EA5;
+            border-left-color: #FF3EA5;
+        }
+        .sidebar-link.active {
+            background-color: rgba(160, 68, 255, 0.2); 
+            color: #FFFFFF;
+            border-left-color: #A044FF;
+            font-weight: 600; 
+        }
+        .sidebar-link .icon {
+            margin-right: 0.75rem; 
+            width: 1.25rem; 
+            height: 1.25rem; 
+            opacity: 0.8;
+        }
+        .sidebar-link.active .icon {
+            opacity: 1;
+        }
+        .sidebar-group-title {
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem; 
+            font-weight: 600; 
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 1rem;
+        }
+        .vex-input-field {
+            background-color: rgba(255,255,255,0.05);
+            border: 1px solid rgba(68, 136, 255, 0.4);
+            border-radius: 0.375rem;
+            padding: 0.75rem 1rem;
+            width: 100%;
+            color: #FFFFFF;
+            font-family: 'Fira Code', monospace;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .vex-input-field:focus {
+            outline: none;
+            border-color: #4488FF;
+            box-shadow: 0 0 0 3px rgba(68, 136, 255, 0.25);
+        }
+        .vex-code-block {
+            background-color: #1e1e2e;
+            border: 1px solid rgba(68, 136, 255, 0.3);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.875rem;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        .tech-stack-card {
+            background-color: rgba(68, 136, 255, 0.1);
+            border: 1px solid rgba(68, 136, 255, 0.3);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .tech-stack-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(68, 136, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="flex h-screen antialiased">
+
+    <aside class="app-shell-sidebar bg-sidebar-dark w-64 min-h-screen flex flex-col p-4 space-y-1 fixed inset-y-0 left-0 z-40 overflow-y-auto">
+        <a href="app_hub.html" class="block text-center py-4 mb-4 border-b border-white/10" title="Return to Hub">
+            <img src="assets/images/logo.png" alt="SoloBoss AI Logo" class="h-16 mx-auto mb-2">
+            <h1 class="font-header text-2xl text-power-purple">SoloBoss AI</h1>
+        </a>
+
+        <a href="app_hub.html" data-page="hub" class="sidebar-link" title="View Dashboard">
+            <span class="icon">🏠</span> Hub / Dashboard
+        </a>
+        
+        <div>
+            <p class="sidebar-group-title">AI Agents</p>
+            <a href="agent_vox.html" data-page="vox" class="sidebar-link" title="Access Vox - Executive Assistant">
+                <span class="icon">🧠</span> Vox (EA)
+            </a>
+            <a href="agent_lexi.html" data-page="lexi" class="sidebar-link" title="Access Lexi - Startup Strategist">
+                <span class="icon">💡</span> Lexi (Strategist)
+            </a>
+            <a href="agent_roxie.html" data-page="roxie" class="sidebar-link" title="Access Roxie - Brand Designer">
+                <span class="icon">🎨</span> Roxie (Designer)
+            </a>
+            <a href="agent_quinn.html" data-page="quinn" class="sidebar-link" title="Access Quinn - Marketing Maven">
+                <span class="icon">📢</span> Quinn (Marketing)
+            </a>
+            <a href="agent_vex.html" data-page="vex" class="sidebar-link active" title="Access Vex - Technical Architect">
+                <span class="icon">/>_</span> Vex (Tech Architect)
+            </a>
+            <a href="agent_lumi.html" data-page="lumi" class="sidebar-link" title="Access Lumi - Legal Helper">
+                <span class="icon">⚖️</span> Lumi (Legal & Docs)
+            </a>
+        </div>
+
+        <div>
+            <p class="sidebar-group-title">Workspace</p>
+            <a href="briefcase.html" data-page="briefcase" class="sidebar-link" title="Access Briefcase">
+                <span class="icon">🧰</span> The Briefcase
+            </a>
+        </div>
+        
+        <div class="mt-auto pt-4 border-t border-white/10">
+            <a href="profile.html" data-page="profile" class="sidebar-link" title="View Profile">
+                <span class="icon">👤</span> My Profile
+            </a>
+            <a href="billing.html" data-page="billing" class="sidebar-link" title="Manage Subscription">
+                <span class="icon">💳</span> Subscription
+            </a>
+            <a href="help.html" data-page="help" class="sidebar-link" title="Get Help">
+                <span class="icon">❓</span> Boss Manual (Help)
+            </a>
+            <a href="login.html" class="sidebar-link mt-2 text-red-400 hover:bg-red-500/20 hover:text-red-300 hover:border-red-400" title="Log Out">
+                <span class="icon">🚪</span> Logout
+            </a>
+        </div>
+    </aside>
+
+    <main class="flex-1 ml-64 bg-content-area p-6 md:p-10 overflow-y-auto">
+        <div class="text-center mb-8">
+            <h1 class="font-header text-4xl md:text-5xl mb-4 leading-tight">
+                <span class="text-blue-400">Vex</span> - Technical Architect
+            </h1>
+            <p class="font-body text-xl text-white/80 max-w-2xl mx-auto">
+                Your logic-brained engineer for tech specs, stack choices, and decoding the matrix.
+            </p>
+        </div>
+
+        <!-- System Design Pad -->
+        <section class="mb-8">
+            <h2 class="font-header text-2xl text-blue-400 mb-4">System Design Pad</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="card">
+                    <h3 class="font-semibold text-lg mb-3">Project Requirements</h3>
+                    <textarea 
+                        id="projectRequirements" 
+                        class="vex-input-field h-32 resize-none" 
+                        placeholder="Describe your project requirements, features, and goals..."
+                        data-autosave></textarea>
+                </div>
+                <div class="card">
+                    <h3 class="font-semibold text-lg mb-3">Technical Constraints</h3>
+                    <textarea 
+                        id="technicalConstraints" 
+                        class="vex-input-field h-32 resize-none" 
+                        placeholder="Budget, timeline, team size, existing systems..."
+                        data-autosave></textarea>
+                </div>
+            </div>
+            <div class="mt-4 text-center">
+                <button id="generateSpecBtn" class="btn btn-primary">
+                    <span class="loading-spinner hidden"></span>
+                    ✨ Generate System Spec
+                </button>
+            </div>
+            <div id="systemSpecOutput" class="mt-6 hidden">
+                <h3 class="font-header text-xl text-blue-400 mb-3">Vex's System Architecture</h3>
+                <div class="vex-code-block" id="specContent"></div>
+            </div>
+        </section>
+
+        <!-- Tech Stack Oracle -->
+        <section class="mb-8">
+            <h2 class="font-header text-2xl text-blue-400 mb-4">Tech Stack Oracle</h2>
+            <div class="grid md:grid-cols-3 gap-4 mb-6">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Project Type</label>
+                    <select id="projectType" class="vex-input-field" title="Select your project type">
+                        <option value="">Select project type</option>
+                        <option value="web-app">Web Application</option>
+                        <option value="mobile-app">Mobile App</option>
+                        <option value="api">API/Backend</option>
+                        <option value="ecommerce">E-commerce</option>
+                        <option value="saas">SaaS Platform</option>
+                        <option value="portfolio">Portfolio Site</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Priority</label>
+                    <select id="priority" class="vex-input-field" title="Select your development priority">
+                        <option value="">Select priority</option>
+                        <option value="speed">Development Speed</option>
+                        <option value="performance">Performance</option>
+                        <option value="scalability">Scalability</option>
+                        <option value="cost">Cost Efficiency</option>
+                        <option value="learning">Learning Opportunity</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Experience Level</label>
+                    <select id="experienceLevel" class="vex-input-field" title="Select your experience level">
+                        <option value="">Select level</option>
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
+                </div>
+            </div>
+            <button id="getStackRecommendationBtn" class="btn btn-secondary mb-4">
+                🔮 Get Stack Recommendation
+            </button>
+            <div id="stackRecommendation" class="hidden">
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4" id="stackCards"></div>
+            </div>
+        </section>
+
+        <!-- Code Deconstructed -->
+        <section class="mb-8">
+            <h2 class="font-header text-2xl text-blue-400 mb-4">Code Deconstructed</h2>
+            <div class="card">
+                <div class="mb-4">
+                    <label class="block text-sm font-medium mb-2">Concept to Explain</label>
+                    <input 
+                        type="text" 
+                        id="conceptInput" 
+                        class="vex-input-field" 
+                        placeholder="e.g., 'REST API authentication', 'React hooks', 'database indexing'">
+                </div>
+                <button id="deconstructBtn" class="btn btn-primary mb-4">
+                    <span class="loading-spinner hidden"></span>
+                    🔍 Deconstruct with AI
+                </button>
+                <div id="conceptExplanation" class="hidden">
+                    <h3 class="font-header text-lg text-blue-400 mb-3">Vex's Explanation</h3>
+                    <div class="vex-code-block" id="explanationContent"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Platform Link-Up -->
+        <section class="mb-8">
+            <h2 class="font-header text-2xl text-blue-400 mb-4">Platform Link-Up</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <button class="platform-btn tech-stack-card text-center" data-platform="bubble">
+                    <div class="text-3xl mb-2">🫧</div>
+                    <h3 class="font-semibold">Bubble.io</h3>
+                    <p class="text-sm text-white/70">No-code platform</p>
+                </button>
+                <button class="platform-btn tech-stack-card text-center" data-platform="gcp">
+                    <div class="text-3xl mb-2">☁️</div>
+                    <h3 class="font-semibold">Google Cloud</h3>
+                    <p class="text-sm text-white/70">Cloud infrastructure</p>
+                </button>
+                <button class="platform-btn tech-stack-card text-center" data-platform="openai">
+                    <div class="text-3xl mb-2">🤖</div>
+                    <h3 class="font-semibold">OpenAI API</h3>
+                    <p class="text-sm text-white/70">AI integration</p>
+                </button>
+                <button class="platform-btn tech-stack-card text-center" data-platform="vercel">
+                    <div class="text-3xl mb-2">▲</div>
+                    <h3 class="font-semibold">Vercel</h3>
+                    <p class="text-sm text-white/70">Deployment</p>
+                </button>
+            </div>
+            <div id="platformGuidance" class="mt-6 hidden">
+                <h3 class="font-header text-lg text-blue-400 mb-3">Platform Integration Guide</h3>
+                <div class="card" id="guidanceContent"></div>
+            </div>
+        </section>
+
+        <!-- Vex's System Log -->
+        <section>
+            <h2 class="font-header text-2xl text-blue-400 mb-4">Vex's System Log</h2>
+            <div class="vex-code-block h-48 overflow-y-auto" id="systemLog">
+                <div class="text-green-400">[INIT] Vex Technical Architect v2.1.0 online</div>
+                <div class="text-blue-400">[INFO] Ready to architect your digital empire</div>
+                <div class="text-yellow-400">[WARN] Remember: premature optimization is the root of all evil</div>
+                <div class="text-green-400">[READY] Awaiting your technical challenges...</div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Local JavaScript Files -->
+    <script type="module" src="assets/js/app.js"></script>
+    <script type="module" src="assets/js/"></script>
+    <script type="module" src="assets/js/storage-manager.js"></script>
+    <script type="module" src="assets/js/"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Generate System Spec
+            document.getElementById('generateSpecBtn').addEventListener('click', async function() {
+                const btn = this;
+                const spinner = btn.querySelector('.loading-spinner');
+                const requirements = document.getElementById('projectRequirements').value;
+                const constraints = document.getElementById('technicalConstraints').value;
+
+                if (!requirements.trim()) {
+                    SoloBossApp.showAlert('Please enter project requirements first', 'warning');
+                    return;
+                }
+
+                btn.disabled = true;
+                spinner.classList.remove('hidden');
+                addToSystemLog('Analyzing requirements and generating system specification...');
+
+                try {
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                    
+                    const specContent = `// System Architecture Specification
+// Generated by Vex - Technical Architect
+
+## Core Requirements Analysis
+${requirements}
+
+## Technical Constraints
+${constraints || 'None specified'}
+
+## Recommended Architecture
+
+### Frontend Layer
+- Framework: React.js with TypeScript
+- State Management: Redux Toolkit
+- Styling: Tailwind CSS
+- Build Tool: Vite
+
+### Backend Layer
+- Runtime: Node.js
+- Framework: Express.js
+- Database: PostgreSQL with Prisma ORM
+- Authentication: JWT with refresh tokens
+
+### Infrastructure
+- Hosting: Vercel (Frontend) + Railway (Backend)
+- CDN: Cloudflare
+- Monitoring: Sentry
+- Analytics: Plausible
+
+### Security Considerations
+- HTTPS everywhere
+- Input validation and sanitization
+- Rate limiting
+- CORS configuration
+- Environment variable management
+
+### Scalability Plan
+- Database indexing strategy
+- Caching layer (Redis)
+- Load balancing preparation
+- Microservices migration path
+
+## Next Steps
+1. Set up development environment
+2. Create project structure
+3. Implement core authentication
+4. Build MVP features
+5. Deploy to staging environment
+
+// End of specification`;
+
+                    document.getElementById('specContent').textContent = specContent;
+                    document.getElementById('systemSpecOutput').classList.remove('hidden');
+                    addToSystemLog('System specification generated successfully');
+                    
+                } catch (error) {
+                    SoloBossApp.showAlert('Failed to generate specification', 'error');
+                    addToSystemLog('ERROR: Failed to generate specification');
+                } finally {
+                    btn.disabled = false;
+                    spinner.classList.add('hidden');
+                }
+            });
+
+            // Tech Stack Recommendation
+            document.getElementById('getStackRecommendationBtn').addEventListener('click', function() {
+                const projectType = document.getElementById('projectType').value;
+                const priority = document.getElementById('priority').value;
+                const experience = document.getElementById('experienceLevel').value;
+
+                if (!projectType || !priority || !experience) {
+                    SoloBossApp.showAlert('Please fill in all fields for better recommendations', 'warning');
+                    return;
+                }
+
+                const recommendations = getStackRecommendations(projectType, priority, experience);
+                displayStackRecommendations(recommendations);
+                addToSystemLog(`Generated tech stack recommendations for ${projectType} project`);
+            });
+
+            // Code Deconstruction
+            document.getElementById('deconstructBtn').addEventListener('click', async function() {
+                const btn = this;
+                const spinner = btn.querySelector('.loading-spinner');
+                const concept = document.getElementById('conceptInput').value;
+
+                if (!concept.trim()) {
+                    SoloBossApp.showAlert('Please enter a concept to explain', 'warning');
+                    return;
+                }
+
+                btn.disabled = true;
+                spinner.classList.remove('hidden');
+                addToSystemLog(`Deconstructing concept: ${concept}`);
+
+                try {
+                    const explanation = await generateConceptExplanation(concept);
+                    document.getElementById('explanationContent').textContent = explanation;
+                    document.getElementById('conceptExplanation').classList.remove('hidden');
+                    addToSystemLog('Concept explanation generated');
+                } catch (error) {
+                    SoloBossApp.showAlert('Failed to generate explanation', 'error');
+                    addToSystemLog('ERROR: Failed to generate explanation');
+                } finally {
+                    btn.disabled = false;
+                    spinner.classList.add('hidden');
+                }
+            });
+
+            // Platform Integration
+            document.querySelectorAll('.platform-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const platform = this.dataset.platform;
+                    showPlatformGuidance(platform);
+                    addToSystemLog(`Displaying integration guide for ${platform}`);
+                });
+            });
+        });
+
+        function getStackRecommendations(projectType, priority, experience) {
+            const stacks = {
+                'web-app': {
+                    'speed': {
+                        'beginner': [
+                            { name: 'Next.js + Supabase', description: 'Full-stack React with backend-as-a-service', pros: ['Quick setup', 'Built-in auth', 'Real-time features'] },
+                            { name: 'Gatsby + Netlify CMS', description: 'Static site with content management', pros: ['Fast loading', 'SEO friendly', 'Easy deployment'] }
+                        ],
+                        'intermediate': [
+                            { name: 'React + Backend API', description: 'Frontend framework with custom backend', pros: ['Real-time capabilities', 'Easy scaling', 'Custom integration'] },
+                            { name: 'Vue.js + Nuxt', description: 'Progressive framework with SSR', pros: ['Gentle learning curve', 'Great performance', 'SEO ready'] }
+                        ],
+                        'advanced': [
+                            { name: 'React + Node.js + PostgreSQL', description: 'Full JavaScript stack', pros: ['Full control', 'Scalable', 'Industry standard'] },
+                            { name: 'Svelte + SvelteKit', description: 'Compile-time optimized framework', pros: ['Smallest bundle size', 'Great performance', 'Simple syntax'] }
+                        ]
+                    }
+                }
+            };
+
+            return stacks[projectType]?.[priority]?.[experience] || [
+                { name: 'Custom Recommendation Needed', description: 'Contact Vex for personalized advice', pros: ['Tailored solution', 'Expert guidance'] }
+            ];
+        }
+
+        function displayStackRecommendations(recommendations) {
+            const container = document.getElementById('stackCards');
+            container.innerHTML = '';
+
+            recommendations.forEach(stack => {
+                const card = document.createElement('div');
+                card.className = 'tech-stack-card';
+                card.innerHTML = `
+                    <h3 class="font-semibold text-lg mb-2 text-blue-400">${stack.name}</h3>
+                    <p class="text-sm text-white/80 mb-3">${stack.description}</p>
+                    <div class="space-y-1">
+                        ${stack.pros.map(pro => `<div class="text-xs text-green-400">✓ ${pro}</div>`).join('')}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            document.getElementById('stackRecommendation').classList.remove('hidden');
+        }
+
+        async function generateConceptExplanation(concept) {
+            // Use Gemini API to generate real technical explanations
+            const prompt = `You are Vex, a technical AI architect with deep knowledge of software engineering, system design, and development best practices. 
+
+Explain the technical concept: "${concept}"
+
+Provide a comprehensive but accessible explanation that includes:
+1. What it is (clear definition)
+2. How it works (technical implementation details)
+3. A practical code example (if applicable)
+4. Best practices for implementation
+5. Common pitfalls to avoid
+6. When and why to use it
+7. Alternative approaches or related concepts
+
+Keep it technical but approachable. Use Vex's personality - logical, systematic, but not condescending. Format with clear sections and include code snippets where helpful.`;
+
+            try {
+                const explanation = await callGeminiAPI(prompt);
+                return explanation;
+            } catch (error) {
+                console.error('Error generating explanation:', error);
+                // Fallback to mock explanation
+                return `
+// ${concept.toUpperCase()} - Explained by Vex
+
+## What is ${concept}?
+${concept} is a fundamental concept in software development that provides structured approaches to solving common programming challenges.
+
+## How it works:
+1. Step one: Initialize the process
+2. Step two: Handle the core logic  
+3. Step three: Return or process results
+
+## Code Example:
+\`\`\`javascript
+// Example implementation
+function example${concept.replace(/\s+/g, '')}() {
+    // Core logic here
+    return "Implementation details";
+}
+\`\`\`
+
+## Best Practices:
+- Always validate inputs
+- Handle edge cases
+- Write tests
+- Document your code
+
+## Common Pitfalls:
+- Not handling errors properly
+- Overcomplicating the solution
+- Ignoring performance implications
+
+## When to use:
+Use ${concept} when you need to implement reliable, scalable solutions for your application architecture.
+
+## Alternatives:
+Consider these alternatives: [Alternative approaches based on your specific requirements]
+
+// End of explanation - Consult the docs for deeper implementation details
+            `;
+            }
+        }
+
+        // Add Gemini API function
+        async function callGeminiAPI(prompt) {
+            const apiUrl = "https://us-central1-soloboss-ai-fun.cloudfunctions.net/geminiProxy";
+            const payload = { contents: [{ role: "user", parts: [{ text: prompt }] }] };
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    let errorMessage = 'Unknown error';
+                    if (errorData && errorData.error && errorData.error.message) {
+                        errorMessage = errorData.error.message;
+                    }
+                    throw new Error(`API request failed with status ${response.status}. Details: ${errorMessage}`);
+                }
+                const result = await response.json();
+                if (result && result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts && 
+                    result.candidates[0].content.parts.length > 0 && result.candidates[0].content.parts[0].text) {
+                    const explanation = result.candidates[0].content.parts[0].text;
+                    // Save to localStorage for user
+                    saveAgentContent('vex', explanation);
+                    return explanation;
+                } else {
+                    throw new Error("Unexpected response structure from API.");
+                }
+            } catch (error) {
+                throw error; 
+            }
+        }
+
+        function showPlatformGuidance(platform) {
+            const guidance = {
+                'bubble': `
+                    <h4 class="font-semibold mb-2">Bubble.io Integration Guide</h4>
+                    <p class="mb-3">Bubble is perfect for rapid prototyping and MVP development.</p>
+                    <ul class="space-y-1 text-sm">
+                        <li>• Start with their free tier for testing</li>
+                        <li>• Use workflows for backend logic</li>
+                        <li>• Leverage their plugin ecosystem</li>
+                        <li>• Consider API connections for external services</li>
+                    </ul>
+                `,
+                'gcp': `
+                    <h4 class="font-semibold mb-2">Google Cloud Platform Setup</h4>
+                    <p class="mb-3">Scalable cloud infrastructure for your applications.</p>
+                    <ul class="space-y-1 text-sm">
+                        <li>• Start with Cloud Run for containerized apps</li>
+                        <li>• Use Firestore for NoSQL database needs</li>
+                        <li>• Implement Cloud Functions for serverless logic</li>
+                        <li>• Set up IAM for security management</li>
+                    </ul>
+                `,
+                'openai': `
+                    <h4 class="font-semibold mb-2">OpenAI API Integration</h4>
+                    <p class="mb-3">Add AI capabilities to your application.</p>
+                    <ul class="space-y-1 text-sm">
+                        <li>• Get API key from OpenAI platform</li>
+                        <li>• Use GPT-4 for text generation</li>
+                        <li>• Implement proper rate limiting</li>
+                        <li>• Handle API errors gracefully</li>
+                    </ul>
+                `,
+                'vercel': `
+                    <h4 class="font-semibold mb-2">Vercel Deployment</h4>
+                    <p class="mb-3">Deploy your frontend applications with ease.</p>
+                    <ul class="space-y-1 text-sm">
+                        <li>• Connect your GitHub repository</li>
+                        <li>• Configure build settings</li>
+                        <li>• Set up environment variables</li>
+                        <li>• Use preview deployments for testing</li>
+                    </ul>
+                `
+            };
+
+            document.getElementById('guidanceContent').innerHTML = guidance[platform] || 'Platform guidance not available';
+            document.getElementById('platformGuidance').classList.remove('hidden');
+        }
+
+        function addToSystemLog(message) {
+            const log = document.getElementById('systemLog');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.className = 'text-cyan-400';
+            logEntry.textContent = `[${timestamp}] ${message}`;
+            log.appendChild(logEntry);
+            log.scrollTop = log.scrollHeight;
+        }
+
+        // Helper to save agent content
+        function saveAgentContent(agent, content) {
+            const userEmail = sessionStorage.getItem('userEmail');
+            if (!userEmail) return;
+            const key = `soloboss_agent_${agent}_${userEmail}`;
+            let history = JSON.parse(localStorage.getItem(key) || '[]');
+            history.push({ content, timestamp: Date.now() });
+            localStorage.setItem(key, JSON.stringify(history));
+        }
+    </script>
+</body>
+</html>

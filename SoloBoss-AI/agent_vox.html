@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vox - Executive Assistant | SoloBoss AI</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/css/fonts.css" rel="stylesheet">
+    <!-- Visualization & Content Choices:
+        - Sidebar: Navigate/Brand -> Logo, grouped navigation links, Logout -> Click to navigate -> Core app navigation -> HTML/Tailwind/JS (for active link)
+        - Main Content Area (Vox):
+            - Header: Inform -> Title & Subheadline -> Static -> Clear page identity -> HTML/Tailwind (Emilys Candy/Poppins)
+            - "Refresh My Day" Button: Interact -> Triggers JS to populate daily info (including Gemini for motivation) -> HTML/Tailwind
+            - Motivational Check-in: Engage/Inform -> Styled quote block -> JS calls Gemini API, populates -> Set a productive tone -> HTML/Tailwind/JS
+            - Daily Overview (Enhanced): Today's Focus, Upcoming Appointments, Priority Tasks -> JS populates with mock data, tasks can be augmented by Gemini -> Display dynamic daily plan -> HTML/Tailwind/JS
+            - Quick Actions: Interact -> Buttons -> "Brain Dump" opens modal for Gemini task breakdown -> Quick access to common EA tasks -> HTML/Tailwind/JS
+            - Vox's Pep Talk: Inform/Engage -> Small styled text area -> JS populates -> Personal touch from Vox -> HTML/Tailwind
+        - Overall UI: Consistent Branding -> Use of brand fonts, colors, "punk rock girlboss" elements -> Static -> Reinforce SoloBoss AI brand identity -> HTML/Tailwind/CSS
+        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #1A1A2E; /* Deep Space for main background of the shell */
+            color: #FFFFFF; /* Bold White */
+            overflow-x: hidden;
+        }
+        .font-header { font-family: 'Emilys Candy', cursive; }
+        .font-subheading { font-family: 'Henny Penny', cursive; } 
+        .font-accent-alt { font-family: 'Crafty Girls', cursive; }
+        .font-accent-vox { font-family: 'Crafty Girls', cursive; }
+        .font-body { font-family: 'Poppins', sans-serif; }
+        .font-ui { font-family: 'Inter', sans-serif; }
+
+        .bg-primary-purple { background-color: #A044FF; }
+        .text-primary-purple { color: #A044FF; }
+        .border-primary-purple { border-color: #A044FF; }
+
+        .bg-accent-teal { background-color: #00D9C0; }
+        .text-accent-teal { color: #00D9C0; }
+        .border-accent-teal { border-color: #00D9C0; }
+
+        .bg-accent-pink { background-color: #FF3EA5; }
+        .text-accent-pink { color: #FF3EA5; }
+        .border-accent-pink { border-color: #FF3EA5; }
+        
+        .bg-content-area { background-color: #232336; } /* Main content area background */
+        .bg-sidebar-dark { background-color: #131325; } /* Sidebar background */
+
+        .app-shell-sidebar {
+            border-right: 1px solid rgba(160, 68, 255, 0.2); 
+            transition: width 0.3s ease;
+        }
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem; 
+            border-radius: 0.375rem; 
+            color: rgba(255,255,255,0.7);
+            font-size: 0.875rem; 
+            font-weight: 500; 
+            transition: background-color 0.2s ease, color 0.2s ease, border-left-color 0.2s ease;
+            border-left: 4px solid transparent;
+        }
+        .sidebar-link:hover {
+            background-color: rgba(255, 62, 165, 0.1); 
+            color: #FF3EA5;
+            border-left-color: #FF3EA5;
+        }
+        .sidebar-link.active {
+            background-color: rgba(160, 68, 255, 0.2); 
+            color: #FFFFFF;
+            border-left-color: #A044FF;
+            font-weight: 600; 
+        }
+        .sidebar-link .icon {
+            margin-right: 0.75rem; 
+            width: 1.25rem; 
+            height: 1.25rem; 
+            opacity: 0.8;
+        }
+        .sidebar-link.active .icon {
+            opacity: 1;
+        }
+        .sidebar-group-title {
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem; 
+            font-weight: 600; 
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 1rem;
+        }
+
+        .vox-content-card { 
+            background-color: #2a2a3e; 
+            border-radius: 0.5rem; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); 
+            padding: 1.5rem; 
+        }
+        .vox-btn { 
+            padding-top: 0.75rem; 
+            padding-bottom: 0.75rem;
+            padding-left: 1.5rem; 
+            padding-right: 1.5rem;
+            border-radius: 0.375rem; 
+            font-weight: 600; 
+            transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out, box-shadow 0.2s ease-out;
+            min-height: 48px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .vox-btn:active {
+            transform: scale(0.98);
+        }
+        .vox-btn-purple {
+            background-color: #A044FF;
+            color: #FFFFFF;
+            box-shadow: 0 2px 5px rgba(160, 68, 255, 0.3);
+        }
+        .vox-btn-purple:hover {
+            background-color: #8c3add;
+            box-shadow: 0 4px 10px rgba(160, 68, 255, 0.4);
+        }
+        .vox-btn-teal {
+            background-color: #00D9C0;
+            color: #1A1A2E; 
+        }
+        .vox-btn-teal:hover {
+            background-color: #00bfa5;
+        }
+        .vox-btn-pink-outline {
+            background-color: transparent;
+            color: #FF3EA5;
+            border: 2px solid #FF3EA5;
+        }
+        .vox-btn-pink-outline:hover {
+            background-color: rgba(255, 105, 180, 0.1);
+        }
+        .vox-action-zone-item-btn { /* Smaller buttons for action zone */
+            padding: 0.375rem 0.75rem; /* py-1.5 px-3 */
+            font-size: 0.75rem; /* text-xs */
+            min-height: 0;
+        }
+
+        .vox-task-item input[type="checkbox"] { 
+            appearance: none;
+            width: 1.25rem; 
+            height: 1.25rem; 
+            border: 2px solid rgba(160, 68, 255, 0.7); 
+            border-radius: 0.25rem; 
+            margin-right: 0.75rem; 
+            cursor: pointer;
+            position: relative;
+            flex-shrink: 0;
+            background-color: rgba(255,255,255,0.1);
+        }
+        .vox-task-item input[type="checkbox"]:checked {
+            background-color: #A044FF;
+        }
+        .vox-task-item input[type="checkbox"]:checked::after {
+            content: '✔'; 
+            color: white;
+            font-size: 0.875rem; 
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .vox-task-item label {
+            color: #E0E0E0; 
+            transition: color 0.2s ease, text-decoration 0.2s ease;
+            font-size: 0.875rem;
+        }
+        .vox-task-item input[type="checkbox"]:checked + label {
+            text-decoration: line-through;
+            color: #9CA3AF; /* gray-400 */
+        }
+        .vox-output-section { 
+            min-height: 50px; 
+            transition: opacity 0.5s ease-in-out;
+            border-radius: 0.5rem;
+        }
+        .vox-section-spacing > * + * { 
+            margin-top: 24px; 
+        }
+        @media (min-width: 768px) { 
+            .vox-section-spacing > * + * {
+                margin-top: 32px;
+            }
+        }
+        .modal-backdrop {
+            background-color: rgba(26, 26, 46, 0.8);
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background-color: #232336;
+            border: 1px solid #A044FF;
+            max-width: 500px;
+        }
+        .loading-indicator {
+            font-family: 'Fira Code', monospace;
+            color: #00D9C0;
+            text-align: center;
+            padding: 0.5rem;
+            font-size: 0.875rem;
+        }
+        .action-zone-card {
+            border-left: 3px solid #FF3EA5; /* Electric pink accent for action zone */
+        }
+        .action-zone-item {
+            background-color: rgba(255,255,255,0.03);
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+    </style>
+</head>
+<body class="flex h-screen antialiased">
+
+    <aside id="appSidebar" class="app-shell-sidebar bg-sidebar-dark w-64 min-h-screen flex flex-col p-4 space-y-1 fixed inset-y-0 left-0 z-40 overflow-y-auto">
+        <a href="index.html" class="block text-center py-4 mb-4 border-b border-white/10">
+            <img src="assets/images/logo.png" alt="SoloBoss AI Logo" class="h-16 mx-auto mb-2">
+            <h1 class="font-header text-2xl text-power-purple">SoloBoss AI</h1>
+        </a>
+        <a href="index.html" data-page="hub" class="sidebar-link"> <span class="icon">🏠</span> Hub / Dashboard </a>
+        <div>
+            <p class="sidebar-group-title">AI Agents</p>
+            <a href="agent_vox.html" data-page="vox" class="sidebar-link"> <span class="icon">🧠</span> Vox (EA) </a>
+            <a href="agent_lexi.html" data-page="lexi" class="sidebar-link"> <span class="icon">💡</span> Lexi (Strategist) </a>
+            <a href="agent_roxie.html" data-page="roxie" class="sidebar-link"> <span class="icon">🎨</span> Roxie (Designer) </a>
+            <a href="agent_quinn.html" data-page="quinn" class="sidebar-link"> <span class="icon">📢</span> Quinn (Marketing) </a>
+            <a href="agent_vex.html" data-page="vex" class="sidebar-link"> <span class="icon">/>_</span> Vex (Tech Architect) </a>
+            <a href="agent_lumi.html" data-page="lumi" class="sidebar-link"> <span class="icon">⚖️</span> Lumi (Legal & Docs) </a>
+            <a href="#" data-page="glitch" class="sidebar-link opacity-50 cursor-not-allowed" title="Glitch - Coming Soon!"> <span class="icon">🐞</span> Glitch (QA) </a>
+        </div>
+        <div>
+            <p class="sidebar-group-title">Workspace</p>
+            <a href="briefcase.html" data-page="briefcase" class="sidebar-link"> <span class="icon">🧰</span> The Briefcase </a>
+        </div>
+        <div class="mt-auto pt-4 border-t border-white/10">
+             <a href="profile.html" data-page="profile" class="sidebar-link"> <span class="icon">👤</span> My Profile </a>
+             <a href="billing.html" data-page="billing" class="sidebar-link"> <span class="icon">💳</span> Subscription </a>
+             <a href="help.html" data-page="help" class="sidebar-link"> <span class="icon">❓</span> Boss Manual (Help) </a>
+            <a href="login.html" class="sidebar-link mt-2 text-red-400 hover:bg-red-500/20 hover:text-red-300 hover:border-red-400"> <span class="icon">🚪</span> Logout </a>
+        </div>
+    </aside>
+
+    <main class="flex-1 ml-64 bg-content-area p-6 md:p-10 overflow-y-auto">
+        <div class="container mx-auto max-w-4xl vox-section-spacing">
+
+            <header class="text-center mb-8 md:mb-12">
+                <div class="inline-block bg-primary-purple p-3 rounded-full shadow-lg mb-3">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg> 
+                </div>
+                <h1 class="font-header text-primary-purple text-3xl sm:text-4xl md:text-[28px] font-bold">Vox – Executive Assistant</h1>
+                <p class="font-body text-white/80 text-lg sm:text-xl md:text-[16px] mt-2">Your sassy, hyper-organized second brain.</p>
+            </header>
+    
+            <section class="text-center mb-8 md:mb-12">
+                <button id="refreshDayBtn" class="vox-btn vox-btn-purple text-lg">✨ Refresh My Day's Plan ✨</button>
+            </section>
+    
+            <section id="motivationalCheckin" class="vox-content-card border-l-4 border-accent-pink vox-output-section hidden">
+                <div id="motivationalQuoteLoading" class="loading-indicator hidden">Vox is brewing some motivation...</div>
+                <p id="motivationalQuote" class="font-accent-vox text-accent-pink text-xl md:text-2xl italic text-center"></p>
+            </section>
+
+            <section id="strategicActionZone" class="vox-content-card action-zone-card mt-6 md:mt-8">
+                <h3 class="font-header text-electric-pink text-xl md:text-[20px] font-bold mb-4">🎯 Strategic Action Zone</h3>
+                <div id="lexiIntelList" class="space-y-3">
+                    <p id="emptyActionZoneText" class="text-sm text-white/60 italic">No new strategic directives at the moment. Looks like you're ahead of the game, Boss!</p>
+                </div>
+            </section>
+    
+            <section id="dailyOverviewSection" class="mt-6 md:mt-8 hidden">
+                <h2 class="font-header text-white text-2xl md:text-[24px] font-bold mb-4 md:mb-6 text-center md:text-left">Your Daily Domination Plan</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    <div class="vox-content-card lg:col-span-1 order-1 lg:order-1 vox-output-section">
+                        <h3 class="font-subheading text-accent-teal text-xl md:text-[20px] font-bold mb-3">🎯 Today's #1 Focus</h3>
+                        <div id="todayFocusContent" class="bg-accent-teal/10 p-4 rounded-md font-body"></div>
+                    </div>
+                    <div class="vox-content-card lg:col-span-2 order-2 lg:order-2 vox-output-section">
+                        <h3 class="font-subheading text-primary-purple text-xl md:text-[20px] font-bold mb-3">🗓️ Upcoming Appointments</h3>
+                        <div id="upcomingAppointmentsList" class="space-y-3 font-body"></div>
+                    </div>
+                    <div class="vox-content-card md:col-span-2 lg:col-span-3 order-3 vox-output-section">
+                        <h3 class="font-subheading text-accent-pink text-xl md:text-[20px] font-bold mb-4">🔥 Priority Tasks</h3>
+                        <div id="priorityTaskList" class="space-y-3 font-body"></div>
+                    </div>
+                </div>
+            </section>
+    
+            <section class="mt-6 md:mt-8 vox-content-card">
+                <h3 class="font-header text-gray-300 text-xl md:text-[20px] font-bold mb-4 text-center">Quick Actions by Vox</h3>
+                <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+                    <button id="addTaskBtn" type="button" class="vox-btn vox-btn-purple w-full text-sm">➕ Add New Task</button>
+                    <button id="scheduleMeetingBtn" type="button" class="vox-btn vox-btn-teal w-full text-sm">🗓️ Schedule Meeting</button>
+                    <button id="brainDumpBtn" type="button" class="vox-btn vox-btn-pink-outline w-full text-sm">🧠 Brain Dump to Vox</button>
+                </div>
+            </section>
+    
+            <section id="voxPepTalkSection" class="mt-6 md:mt-8 text-center vox-output-section hidden">
+                <div class="inline-block bg-white/5 p-4 rounded-lg shadow-sm border border-white/10 max-w-md">
+                    <p id="voxPepTalkText" class="font-accent-vox text-sm text-white/80"></p>
+                </div>
+            </section>
+        </div>
+        </main>
+
+    <div id="brainDumpModal" class="fixed inset-0 z-50 modal-backdrop items-center justify-center flex hidden">
+        <div class="modal-content p-6 rounded-lg shadow-2xl w-full">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-header text-2xl text-electric-pink">🧠 Brain Dump to Vox</h3>
+                <button id="closeBrainDumpModal" class="text-white/70 hover:text-electric-pink text-3xl">&times;</button>
+            </div>
+            <p class="text-sm text-white/70 mb-3">Got a big goal or project? Drop it here, and Vox will help break it down into actionable steps!</p>
+            <div>
+                <label for="brainDumpInput" class="sr-only">Your big goal or project:</label>
+                <textarea id="brainDumpInput" rows="4" class="w-full p-2 rounded-md bg-white/10 border border-power-purple/50 focus:border-electric-pink focus:ring-2 focus:ring-electric-pink/50 outline-none text-sm" placeholder="E.g., Launch new 'Rebel Collection' product line by end of Q3..."></textarea>
+            </div>
+            <div id="brainDumpLoading" class="loading-indicator hidden mt-3">Vox is strategizing...</div>
+            <div id="brainDumpError" class="text-xs text-red-400 mt-2 hidden"></div>
+            <button id="breakdownTaskBtn" class="vox-btn vox-btn-teal w-full mt-4">✨ Breakdown with Vox AI ✨</button>
+        </div>
+    </div>
+
+    <!-- Local JavaScript Files -->
+    <script type="module" src="assets/js/app.js"></script>
+    <script type="module" src="assets/js/"></script>
+    <script type="module" src="assets/js/storage-manager.js"></script>
+    <script type="module" src="assets/js/"></script>
+    <script type="module" src="assets/js/migration-helper.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarLinks = document.querySelectorAll('.sidebar-link');
+            const currentPage = 'vox'; 
+            sidebarLinks.forEach(link => {
+                link.classList.toggle('active', link.dataset.page === currentPage);
+            });
+            renderStrategicActionItems(); 
+        });
+        
+        const refreshDayBtn = document.getElementById('refreshDayBtn');
+        const motivationalCheckinSection = document.getElementById('motivationalCheckin');
+        const motivationalQuoteEl = document.getElementById('motivationalQuote');
+        const motivationalQuoteLoadingEl = document.getElementById('motivationalQuoteLoading');
+        const dailyOverviewSection = document.getElementById('dailyOverviewSection');
+        const todayFocusContentEl = document.getElementById('todayFocusContent');
+        const upcomingAppointmentsListEl = document.getElementById('upcomingAppointmentsList');
+        const priorityTaskListEl = document.getElementById('priorityTaskList');
+        const voxPepTalkSection = document.getElementById('voxPepTalkSection');
+        const voxPepTalkTextEl = document.getElementById('voxPepTalkText');
+
+        const brainDumpBtn = document.getElementById('brainDumpBtn');
+        const brainDumpModal = document.getElementById('brainDumpModal');
+        const closeBrainDumpModalBtn = document.getElementById('closeBrainDumpModal');
+        const brainDumpInput = document.getElementById('brainDumpInput');
+        const breakdownTaskBtn = document.getElementById('breakdownTaskBtn');
+        const brainDumpLoadingEl = document.getElementById('brainDumpLoading');
+        const brainDumpErrorEl = document.getElementById('brainDumpError');
+
+        const lexiIntelListEl = document.getElementById('lexiIntelList');
+        const emptyActionZoneTextEl = document.getElementById('emptyActionZoneText');
+
+        let baseTasks = [ 
+            { id_prefix: "voxTask", id: "base1", text: "Review brand moodboard from Roxie AI", checked: true },
+            { id_prefix: "voxTask", id: "base2", text: "Pay Q2 estimated taxes (Lumi reminder)", checked: false }
+        ];
+        let allTasks = [...baseTasks]; 
+
+        let strategicActionItems = [
+            { id: 'lexiItem1', source: 'Lexi', text: "Conduct 5 'problem discovery' interviews with your target audience for 'Rebel Creator Planner'."},
+            { id: 'lexiItem2', source: 'Lexi', text: "Set up a 'smoke test' landing page with a waitlist for the new planner."},
+            { id: 'lexiItem3', source: 'Lexi', text: "Map out 3 direct/indirect competitors for the planner and identify unique selling points."}
+        ];
+
+        const focusItems = [
+            { title: "Finalize Pitch Deck for Investors", note: "Block out 2 solid hours. No distractions. You got this!" },
+            { title: "Outline Q4 Marketing Strategy", note: "Think big, then break it down. Quinn can help brainstorm!" },
+        ];
+        const appointments = [
+            { time: "10:00 AM", title: "Strategy Sync with Lexi AI", topic: "Q3 Growth Plan", color: "border-primary-purple", textColor: "text-primary-purple" },
+            { time: "02:30 PM", title: "Client Call - Project Alpha", topic: "Discuss new requirements", color: "border-gray-400", textColor: "text-gray-300" }
+        ];
+        const pepTalks = [
+            "Remember why you started, Boss. You're building an empire, one perfectly planned day at a time. Now go make some magic happen! (And don't forget to hydrate. Seriously.) 💖",
+            "Another day, another slay! You're doing amazing. Keep that fire burning and let's tick off those goals. I'm here cheering you on (and keeping your schedule pristine). ✨"
+        ];
+
+        function getRandomItem(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        // Helper to save agent content using new storage system
+        async function saveAgentContent(agent, content) {
+            try {
+                if (window.StorageManager) {
+                    await window.StorageManager.saveConversation(agent, { content, timestamp: Date.now() });
+                } else {
+                    // Fallback to old method if storage manager not available
+                    const userEmail = sessionStorage.getItem('userEmail');
+                    if (!userEmail) return;
+                    const key = `soloboss_agent_${agent}_${userEmail}`;
+                    let history = JSON.parse(localStorage.getItem(key) || '[]');
+                    history.push({ content, timestamp: Date.now() });
+                    localStorage.setItem(key, JSON.stringify(history));
+                }
+            } catch (error) {
+                console.error('Error saving agent content:', error);
+            }
+        }
+
+        async function callGeminiAPI(prompt) {
+            // Try using the global AI service first
+            if (window.SoloBossAI && window.SoloBossAI.apiKey) {
+                try {
+                    return await window.SoloBossAI.callGeminiAPI(prompt);
+                } catch (error) {
+                    console.error('Direct API call failed:', error);
+                    // Fall through to original method
+                }
+            }
+
+            // Fallback to original Cloud Functions method
+            const apiUrl = "https://us-central1-soloboss-ai-fun.cloudfunctions.net/geminiProxy";
+            const payload = { contents: [{ role: "user", parts: [{ text: prompt }] }] };
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    let errorMessage = 'Unknown error';
+                    if (errorData && errorData.error && errorData.error.message) {
+                        errorMessage = errorData.error.message;
+                    }
+                    throw new Error(`API request failed with status ${response.status}. Details: ${errorMessage}`);
+                }
+                const result = await response.json();
+                if (result && result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts && 
+                    result.candidates[0].content.parts.length > 0 && result.candidates[0].content.parts[0].text) {
+                    return result.candidates[0].content.parts[0].text;
+                } else {
+                    throw new Error("Unexpected response structure from API.");
+                }
+            } catch (error) {
+                // If both methods fail, show a helpful message
+                if (error.message.includes('API key not configured')) {
+                    throw new Error('AI not set up yet. Please add your Gemini API key in the console: setupAI("your-api-key")');
+                }
+                throw error; 
+            }
+        }
+
+        async function generateMotivationalQuote() {
+            if(motivationalQuoteLoadingEl) motivationalQuoteLoadingEl.classList.remove('hidden');
+            if(motivationalQuoteEl) motivationalQuoteEl.innerHTML = '';
+            
+            const prompt = "You are Vox, a sassy, witty, and stylish AI executive assistant. Generate a short (1-2 sentences) unique motivational quote or check-in for a solo founder to crush their day. Make it punchy and empowering. Example: 'What's the one thing we're crushing today, Boss?'";
+            try {
+                const quote = await callGeminiAPI(prompt);
+                if(motivationalQuoteEl) motivationalQuoteEl.innerHTML = quote;
+                // Save to localStorage for user
+                saveAgentContent('vox', quote);
+            } catch (error) {
+                if(motivationalQuoteEl) motivationalQuoteEl.innerHTML = "Vox's usual pep talk: 'Even AIs have off days. You got this, Boss!'";
+            } finally {
+                if(motivationalQuoteLoadingEl) motivationalQuoteLoadingEl.classList.add('hidden');
+                if(motivationalCheckinSection) {
+                     motivationalCheckinSection.classList.remove('hidden');
+                     motivationalCheckinSection.style.opacity = 0;
+                     setTimeout(() => { if(motivationalCheckinSection) motivationalCheckinSection.style.opacity = 1; }, 50);
+                }
+            }
+        }
+        
+        function renderTasks() {
+            if(!priorityTaskListEl) return;
+            priorityTaskListEl.innerHTML = ''; 
+            allTasks.forEach(task => {
+                const taskDiv = document.createElement('div');
+                taskDiv.className = 'vox-task-item flex items-center p-2 bg-accent-pink/10 rounded-md';
+                const checkboxId = task.id_prefix ? `${task.id_prefix}${task.id}` : '';
+                taskDiv.innerHTML = `
+                    <input type="checkbox" id="${checkboxId}" name="${checkboxId}" ${task.checked ? 'checked' : ''}>
+                    <label for="${checkboxId}" class="ml-2">${task.text}</label>
+                `;
+                priorityTaskListEl.appendChild(taskDiv);
+            });
+        }
+
+        function renderStrategicActionItems() {
+            if(!lexiIntelListEl) return;
+            lexiIntelListEl.innerHTML = '';
+            strategicActionItems.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'action-zone-item p-2 rounded-md';
+                itemDiv.innerHTML = `
+                    <p class="text-sm text-white/80">${item.text}</p>
+                `;
+                lexiIntelListEl.appendChild(itemDiv);
+            });
+        }
+
+        function renderDailyOverview() {
+            if(!todayFocusContentEl || !upcomingAppointmentsListEl || !priorityTaskListEl) return;
+            
+            // Today's Focus
+            const randomFocus = getRandomItem(focusItems);
+            todayFocusContentEl.innerHTML = `
+                <div>
+                    <h4 class="font-semibold text-white mb-2">${randomFocus.title}</h4>
+                    <p class="text-xs text-white/70">${randomFocus.note}</p>
+                </div>
+            `;
+
+            // Upcoming Appointments
+            upcomingAppointmentsListEl.innerHTML = '';
+            appointments.forEach(appointment => {
+                const appointmentDiv = document.createElement('div');
+                appointmentDiv.className = `flex items-center justify-between p-3 bg-white/5 rounded-md border-l-4 ${appointment.color}`;
+                appointmentDiv.innerHTML = `
+                    <div>
+                        <h4 class="font-semibold ${appointment.textColor}">${appointment.title}</h4>
+                        <p class="text-xs text-white/70">${appointment.topic}</p>
+                    </div>
+                    <span class="text-sm text-white/60">${appointment.time}</span>
+                `;
+                upcomingAppointmentsListEl.appendChild(appointmentDiv);
+            });
+
+            // Render tasks
+            renderTasks();
+
+            // Show the overview section
+            dailyOverviewSection.classList.remove('hidden');
+        }
+
+        function showVoxPepTalk() {
+            if(!voxPepTalkTextEl || !voxPepTalkSection) return;
+            const randomPepTalk = getRandomItem(pepTalks);
+            voxPepTalkTextEl.textContent = randomPepTalk;
+            voxPepTalkSection.classList.remove('hidden');
+            voxPepTalkSection.style.opacity = 0;
+            setTimeout(() => {
+                if(voxPepTalkSection) voxPepTalkSection.style.opacity = 1;
+            }, 100);
+        }
+
+        // Event listeners
+        if(refreshDayBtn) {
+            refreshDayBtn.addEventListener('click', async () => {
+                refreshDayBtn.disabled = true;
+                refreshDayBtn.textContent = '✨ Loading...';
+                
+                await generateMotivationalQuote();
+                renderDailyOverview();
+                showVoxPepTalk();
+                
+                refreshDayBtn.disabled = false;
+                refreshDayBtn.textContent = '✨ Refresh My Day\'s Plan ✨';
+            });
+        }
+
+        if(brainDumpBtn) {
+            brainDumpBtn.addEventListener('click', () => {
+                brainDumpModal.classList.remove('hidden');
+            });
+        }
+
+        if(closeBrainDumpModalBtn) {
+            closeBrainDumpModalBtn.addEventListener('click', () => {
+                brainDumpModal.classList.add('hidden');
+                brainDumpInput.value = '';
+                brainDumpErrorEl.classList.add('hidden');
+            });
+        }
+
+        if(breakdownTaskBtn) {
+            breakdownTaskBtn.addEventListener('click', async () => {
+                const userInput = brainDumpInput.value.trim();
+                if (!userInput) {
+                    brainDumpErrorEl.textContent = 'Please enter a goal or project to break down.';
+                    brainDumpErrorEl.classList.remove('hidden');
+                    return;
+                }
+
+                brainDumpLoadingEl.classList.remove('hidden');
+                brainDumpErrorEl.classList.add('hidden');
+                breakdownTaskBtn.disabled = true;
+
+                try {
+                    const prompt = `You are Vox, a sassy AI executive assistant. The user wants to break down this goal: "${userInput}". Provide 3-5 specific, actionable steps to achieve this goal. Keep it concise and motivating. Format as a simple numbered list."`;
+                    const breakdown = await callGeminiAPI(prompt);
+                    
+                    // Add the breakdown as new tasks
+                    const newTasks = breakdown.split('\n').filter(line => line.trim()).map((step, index) => ({
+                        id_prefix: 'brainDump',
+                        id: Date.now() + index,
+                        text: step.replace(/^\d+\.?\s*/, ''),
+                        checked: false
+                    }));
+                    
+                    allTasks = [...allTasks, ...newTasks];
+                    renderTasks();
+                    
+                    brainDumpModal.classList.add('hidden');
+                    brainDumpInput.value = '';
+                    
+                    alert('Great! Vox has broken down your goal into actionable tasks. Check your Priority Tasks section!');
+                } catch (error) {
+                    brainDumpErrorEl.textContent = 'Sorry, Vox is having trouble right now. Try again in a moment.';
+                    brainDumpErrorEl.classList.remove('hidden');
+                } finally {
+                    brainDumpLoadingEl.classList.add('hidden');
+                    breakdownTaskBtn.disabled = false;
+                }
+            });
+        }
+
+        // Close modal when clicking outside
+        if(brainDumpModal) {
+            brainDumpModal.addEventListener('click', (e) => {
+                if (e.target === brainDumpModal) {
+                    brainDumpModal.classList.add('hidden');
+                    brainDumpInput.value = '';
+                    brainDumpErrorEl.classList.add('hidden');
+                }
+            });
+        }
+
+        // Add Task Button
+        const addTaskBtn = document.getElementById('addTaskBtn');
+        if(addTaskBtn) {
+            addTaskBtn.addEventListener('click', () => {
+                const newTaskText = prompt('What new task would you like to add?');
+                if (newTaskText && newTaskText.trim()) {
+                    const newTask = {
+                        id_prefix: 'userTask',
+                        id: Date.now(),
+                        text: newTaskText.trim(),
+                        checked: false
+                    };
+                    allTasks.push(newTask);
+                    renderTasks();
+                    alert('Task added successfully!');
+                }
+            });
+        }
+
+        // Schedule Meeting Button
+        const scheduleMeetingBtn = document.getElementById('scheduleMeetingBtn');
+        if(scheduleMeetingBtn) {
+            scheduleMeetingBtn.addEventListener('click', () => {
+                alert('🗓️ Meeting scheduling feature coming soon! For now, you can add this as a task or use your favorite calendar app.');
+            });
+        }
+    </script>
+</body>
+</html>
