@@ -1,515 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lexi - Startup Strategist | SoloBoss AI</title>
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="assets/css/fonts.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #1A1A2E; /* Deep Space for main background of the shell */
-            color: #FFFFFF; /* Bold White */
-            overflow-x: hidden;
-        }
-        .font-header { font-family: 'Emilys Candy', cursive; }
-        .font-subheading { font-family: 'Henny Penny', cursive; } 
-        .font-accent-alt { font-family: 'Crafty Girls', cursive; }
-        .font-accent-lexi-nudge { font-family: 'Crafty Girls', cursive; }
-        .font-body { font-family: 'Poppins', sans-serif; }
-        .font-ui { font-family: 'Inter', sans-serif; }
-
-        .bg-primary-purple { background-color: #A044FF; }
-        .text-primary-purple { color: #A044FF; }
-        .border-primary-purple { border-color: #A044FF; }
-
-        .bg-accent-teal { background-color: #00D9C0; }
-        .text-accent-teal { color: #00D9C0; }
-        .border-accent-teal { border-color: #00D9C0; }
-
-        .bg-accent-pink { background-color: #FF3EA5; }
-        .text-accent-pink { color: #FF3EA5; }
-        .border-accent-pink { border-color: #FF3EA5; }
-        
-        .bg-content-area { background-color: #232336; } /* Main content area background */
-        .bg-sidebar-dark { background-color: #131325; } /* Sidebar background */
-
-        .app-shell-sidebar {
-            border-right: 1px solid rgba(160, 68, 255, 0.2); 
-            transition: width 0.3s ease;
-        }
-        .sidebar-link {
-            display: flex;
-            align-items: center;
-            padding: 0.75rem 1rem; 
-            border-radius: 0.375rem; 
-            color: rgba(255,255,255,0.7);
-            font-size: 0.875rem; 
-            font-weight: 500; 
-            transition: background-color 0.2s ease, color 0.2s ease, border-left-color 0.2s ease;
-            border-left: 4px solid transparent;
-        }
-        .sidebar-link:hover {
-            background-color: rgba(255, 62, 165, 0.1); 
-            color: #FF3EA5;
-            border-left-color: #FF3EA5;
-        }
-        .sidebar-link.active {
-            background-color: rgba(160, 68, 255, 0.2); 
-            color: #FFFFFF;
-            border-left-color: #A044FF;
-            font-weight: 600; 
-        }
-        .sidebar-link .icon {
-            margin-right: 0.75rem; 
-            width: 1.25rem; 
-            height: 1.25rem; 
-            opacity: 0.8;
-        }
-        .sidebar-link.active .icon {
-            opacity: 1;
-        }
-        .sidebar-group-title {
-            padding: 0.5rem 1rem;
-            font-size: 0.75rem; 
-            font-weight: 600; 
-            color: rgba(255,255,255,0.4);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-top: 1rem;
-        }
-
-        /* Styles from Lexi's Page */
-        .lexi-input-field { /* Renamed to avoid conflict if global .input-field style exists */
-            background-color: rgba(255,255,255,0.08); /* Slightly lighter for Lexi's inputs on dark content bg */
-            border: 1px solid rgba(160, 68, 255, 0.5); /* Power Purple border */
-            border-radius: 0.375rem; 
-            padding: 0.75rem 1rem;
-            width: 100%;
-            color: #FFFFFF;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
-        }
-        .lexi-input-field:focus {
-            outline: none;
-            border-color: #FF3EA5; /* Electric Pink focus */
-            box-shadow: 0 0 0 3px rgba(255, 62, 165, 0.3);
-        }
-        .lexi-btn {
-            padding-top: 0.75rem; 
-            padding-bottom: 0.75rem; 
-            padding-left: 1.5rem; 
-            padding-right: 1.5rem; 
-            border-radius: 0.375rem; 
-            font-weight: 600; 
-            transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out, box-shadow 0.2s ease;
-            min-height: 48px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-        .lexi-btn:active {
-            transform: scale(0.98);
-        }
-        .lexi-btn-purple {
-            background-color: #A044FF;
-            color: #FFFFFF;
-            box-shadow: 0 2px 5px rgba(160, 68, 255, 0.3);
-        }
-        .lexi-btn-purple:hover {
-            background-color: #8c3add;
-            box-shadow: 0 4px 10px rgba(160, 68, 255, 0.4);
-        }
-        .lexi-btn-teal-outline {
-            background-color: transparent;
-            color: #00D9C0;
-            border: 2px solid #00D9C0;
-        }
-        .lexi-btn-teal-outline:hover {
-            background-color: rgba(0, 217, 192, 0.1);
-        }
-        .lexi-btn-pink {
-            background-color: #FF3EA5;
-            color: #FFFFFF;
-            box-shadow: 0 2px 5px rgba(255, 105, 180, 0.3);
-        }
-        .lexi-btn-pink:hover {
-            background-color: #f05aa0;
-            box-shadow: 0 4px 10px rgba(255, 105, 180, 0.4);
-        }
-        .lexi-content-card {
-            background-color: rgba(255,255,255,0.03); /* Very subtle card background */
-            border-radius: 0.5rem; 
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
-            padding: 1.5rem; 
-            border-left: 3px solid #A044FF; /* Power Purple accent */
-        }
-        .lexi-nudge-card {
-            background-color: rgba(0, 217, 192, 0.05); /* Rebel Teal subtle bg */
-            border-left: 4px solid #00D9C0; /* Rebel Teal */
-            padding: 1rem;
-            border-radius: 0.375rem;
-        }
-        /* Spacing between major components on Lexi's page */
-        .lexi-section-spacing > * + * {
-            margin-top: 24px; 
-        }
-        @media (min-width: 768px) { 
-            .lexi-section-spacing > * + * {
-                margin-top: 32px;
-            }
-        }
-        .lexi-header { font-family: 'Emilys Candy', cursive; color: #A044FF; font-size: 2.2rem; text-align: center; margin-top: 2rem; letter-spacing: 1px; text-shadow: 0 2px 12px #A044FF33; }
-        .lexi-subtitle { font-family: 'Henny Penny', cursive; color: #00D9C0; font-size: 1.15rem; text-align: center; margin-bottom: 2.5rem; }
-        .lexi-content-card { background: #232336; border-radius: 1.25rem; box-shadow: 0 8px 32px #A044FF22; padding: 2rem; margin-bottom: 2.5rem; border-left: 6px solid #A044FF; position: relative; }
-        .lexi-btn { background: #00D9C0; color: #1A1A2E; border: none; border-radius: 0.5rem; padding: 0.5rem 1.5rem; font-size: 1.05rem; font-family: 'Inter', sans-serif; font-weight: 700; box-shadow: 0 2px 8px #00D9C055; transition: background 0.2s, color 0.2s, transform 0.1s; cursor: pointer; }
-        .lexi-btn:hover { background: #A044FF; color: #fff; transform: scale(1.04); }
-        .lexi-btn-teal-outline { background: transparent; color: #00D9C0; border: 2px solid #00D9C0; }
-        .lexi-btn-teal-outline:hover { background: #00D9C0; color: #1A1A2E; }
-        .paint-splatter { position: absolute; border-radius: 50%; opacity: 0.10; pointer-events: none; z-index: 0; }
-        .splatter-purple { background: #A044FF; width: 120px; height: 120px; top: -40px; left: -40px; filter: blur(10px); }
-        .splatter-pink { background: #FF3EA5; width: 90px; height: 90px; bottom: -30px; right: -30px; filter: blur(8px); }
-        .splatter-teal { background: #00D9C0; width: 70px; height: 70px; top: 50%; left: 90%; transform: translateY(-50%); filter: blur(12px); }
-        @media (max-width: 600px) { .lexi-content-card { padding: 1rem; } .lexi-header { font-size: 1.3rem; } }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lexi - Startup Strategist | SoloBoss AI</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="assets/css/fonts.css" rel="stylesheet">
+  <style>
+    body { font-family: 'Poppins', sans-serif; background-color: #1A1A2E; color: #FFFFFF; overflow-x: hidden; }
+    .lexi-header { font-family: 'Emilys Candy', cursive; color: #A044FF; font-size: 2.2rem; text-align: center; margin-top: 2rem; }
+    .lexi-subtitle { font-family: 'Henny Penny', cursive; color: #00D9C0; font-size: 1.15rem; text-align: center; margin-bottom: 2.5rem; }
+    .lexi-input-field { background-color: rgba(255,255,255,0.08); border: 1px solid rgba(160, 68, 255, 0.5); border-radius: 0.375rem; padding: 0.75rem 1rem; width: 100%; color: #FFFFFF; }
+    .lexi-btn { background: #00D9C0; color: #1A1A2E; border: none; border-radius: 0.5rem; padding: 0.5rem 1.5rem; font-size: 1.05rem; font-family: 'Inter', sans-serif; font-weight: 700; cursor: pointer; }
+    .lexi-btn:hover { background: #A044FF; color: #fff; }
+    .lexi-content-card { background: #232336; border-radius: 1.25rem; padding: 2rem; margin-bottom: 2.5rem; border-left: 6px solid #A044FF; }
+  </style>
 </head>
-<body class="flex h-screen antialiased">
+<body class="flex h-screen">
+  <main class="flex-1 mx-auto p-6 md:p-10">
+    <div class="container mx-auto max-w-2xl py-10">
+      <h1 class="lexi-header">Lexi - Startup Strategist</h1>
+      <div class="lexi-subtitle">Your AI-powered business coach for validation, monetization, and more.</div>
+      <section class="lexi-content-card">
+        <label for="businessIdea" class="block text-sm font-medium text-white/80 mb-1">What's your business idea?</label>
+        <textarea id="businessIdea" name="businessIdea" rows="4" class="lexi-input-field mb-4" placeholder="E.g., A digital planner for neurodivergent creators"></textarea>
 
-    <aside id="appSidebar" class="app-shell-sidebar bg-sidebar-dark w-64 min-h-screen flex flex-col p-4 space-y-1 fixed inset-y-0 left-0 z-40 overflow-y-auto">
-        <a href="index.html" class="block text-center py-4 mb-4 border-b border-white/10" title="Return to Homepage">
-            <img src="assets/images/logo.png" alt="SoloBoss AI Logo" class="h-16 mx-auto mb-2">
-            <h1 class="font-header text-2xl text-power-purple">SoloBoss AI</h1>
-        </a>
+        <label for="ideaStage" class="block text-sm font-medium text-white/80 mb-1">What stage are you in?</label>
+        <select id="ideaStage" name="ideaStage" class="lexi-input-field mb-6">
+          <option>Just an idea</option>
+          <option>Prototyping</option>
+          <option>Pre-launch</option>
+          <option>Launched</option>
+        </select>
 
-        <a href="index.html" data-page="hub" class="sidebar-link">
-            <span class="icon">🏠</span> Hub / Dashboard
-        </a>
-        
-        <div>
-            <p class="sidebar-group-title">AI Agents</p>
-            <a href="agent_vox.html" data-page="vox" class="sidebar-link">
-                <span class="icon">🧠</span> Vox (EA)
-            </a>
-            <a href="agent_lexi.html" data-page="lexi" class="sidebar-link">
-                <span class="icon">💡</span> Lexi (Strategist)
-            </a>
-            <a href="agent_roxie.html" data-page="roxie" class="sidebar-link">
-                <span class="icon">🎨</span> Roxie (Designer)
-            </a>
-            <a href="agent_quinn.html" data-page="quinn" class="sidebar-link">
-                <span class="icon">📢</span> Quinn (Marketing)
-            </a>
-            <a href="agent_vex.html" data-page="vex" class="sidebar-link">
-                <span class="icon">/>_</span> Vex (Tech Architect)
-            </a>
-            <a href="agent_lumi.html" data-page="lumi" class="sidebar-link">
-                <span class="icon">⚖️</span> Lumi (Legal & Docs)
-            </a>
-            <a href="#" data-page="glitch" class="sidebar-link opacity-50 cursor-not-allowed" title="Glitch - Coming Soon!">
-                <span class="icon">🐞</span> Glitch (QA)
-            </a>
+        <button type="button" id="getStrategyBtn" class="lexi-btn w-full">🚀 Get Strategy</button>
+      </section>
+
+      <section id="strategicInsightsOutput" class="mt-6 hidden">
+        <div class="lexi-content-card">
+          <h3 class="text-primary-purple text-xl font-bold mb-2">Idea Validation Deep Dive</h3>
+          <div id="validationContent" class="text-white/70 text-sm"></div>
         </div>
-
-        <div>
-            <p class="sidebar-group-title">Workspace</p>
-            <a href="briefcase.html" data-page="briefcase" class="sidebar-link">
-                <span class="icon">🧰</span> The Briefcase
-            </a>
+        <div class="lexi-content-card">
+          <h3 class="text-primary-purple text-xl font-bold mb-2">Monetization Pathways</h3>
+          <div id="monetizationContent" class="text-white/70 text-sm"></div>
         </div>
-        
-        <div class="mt-auto pt-4 border-t border-white/10">
-             <a href="profile.html" data-page="profile" class="sidebar-link">
-                <span class="icon">👤</span> My Profile
-            </a>
-             <a href="billing.html" data-page="billing" class="sidebar-link">
-                <span class="icon">💳</span> Subscription
-            </a>
-             <a href="help.html" data-page="help" class="sidebar-link">
-                <span class="icon">❓</span> Boss Manual (Help)
-            </a>
-            <a href="login.html" class="sidebar-link mt-2 text-red-400 hover:bg-red-500/20 hover:text-red-300 hover:border-red-400">
-                <span class="icon">🚪</span> Logout
-            </a>
+        <div class="lexi-content-card">
+          <h3 class="text-primary-purple text-xl font-bold mb-2">Ideal User Persona Sketch</h3>
+          <div id="personaContent" class="text-white/70 text-sm"></div>
         </div>
-    </aside>
+      </section>
+    </div>
+  </main>
+  <script>
+    async function callLexiAPI(prompt) {
+      const apiUrl = "https://agents.anyscaleapis.com/v1/agents/mQF_TJyd3HU1Y51mdjg6OCDokynX2Qe4/generate";
+      const payload = { input: prompt };
 
-    <main class="flex-1 ml-64 bg-content-area p-6 md:p-10 overflow-y-auto">
-        <div class="container mx-auto max-w-2xl py-10 relative">
-            <span class="paint-splatter splatter-purple"></span>
-            <span class="paint-splatter splatter-pink"></span>
-            <span class="paint-splatter splatter-teal"></span>
-            <h1 class="lexi-header">Lexi - Startup Strategist</h1>
-            <div class="lexi-subtitle">Your AI-powered business coach for validation, monetization, and more.</div>
-            <section class="lexi-content-card">
-                <label for="businessIdea" class="block text-sm font-medium text-white/80 mb-1">What's your business idea?</label>
-                <textarea id="businessIdea" name="businessIdea" rows="4" class="lexi-input-field mb-4" placeholder="E.g., A digital planner for neurodivergent creators"></textarea>
-    
-                <label for="ideaStage" class="block text-sm font-medium text-white/80 mb-1">What stage are you in?</label>
-                <select id="ideaStage" name="ideaStage" class="lexi-input-field mb-6 appearance-none">
-                    <option>Just an idea</option>
-                    <option>Prototyping</option>
-                    <option>Pre-launch</option>
-                    <option>Launched</option>
-                </select>
-    
-                <button type="button" id="getStrategyBtn" class="lexi-btn lexi-btn-purple w-full">🚀 Get Strategy</button>
-            </section>
-    
-            <section id="strategicInsightsOutput" class="mt-6 md:mt-8 hidden">
-                <h2 class="font-header text-white text-2xl md:text-[24px] font-bold mb-4 md:mb-6 text-center md:text-left">Lexi's Strategic Insights</h2>
-                
-                <div class="space-y-6 md:space-y-8">
-                    <div class="lexi-content-card">
-                        <h3 class="font-header text-primary-purple text-xl md:text-[20px] font-bold mb-2">Idea Validation Deep Dive</h3>
-                        <div id="validationContent" class="font-body text-white/70 text-sm md:text-[14px] space-y-2">
-                            </div>
-                    </div>
-    
-                    <div class="lexi-content-card">
-                        <h3 class="font-header text-primary-purple text-xl md:text-[20px] font-bold mb-3">Monetization Pathways</h3>
-                        <div id="monetizationContent" class="font-body text-white/70 text-sm md:text-[14px] space-y-2">
-                            </div>
-                    </div>
-    
-                    <div class="lexi-content-card">
-                        <h3 class="font-header text-primary-purple text-xl md:text-[20px] font-bold mb-2">Ideal User Persona Sketch</h3>
-                        <div id="personaContent" class="font-body text-white/70 text-sm md:text-[14px] space-y-1">
-                            </div>
-                    </div>
-                </div>
-    
-                <div id="lexiNudgeSection" class="lexi-nudge-card mt-8 hidden">
-                    <h4 class="font-accent-lexi-nudge text-lg text-accent-teal mb-1">Lexi's Strategic Nudge 🎯</h4>
-                    <p id="lexiNudgeText" class="text-sm text-rebel-teal/80"></p>
-                </div>
-            </section>
-    
-            <section id="exportOptionsSection" class="mt-8 md:mt-10 hidden">
-                <div class="grid sm:grid-cols-2 gap-4 md:gap-6">
-                    <button type="button" class="lexi-btn lexi-btn-teal-outline w-full">
-                        Send to Vox (Convert to Tasks)
-                    </button>
-                    <button type="button" class="lexi-btn lexi-btn-pink w-full">
-                        Save All to Briefcase
-                    </button>
-                </div>
-            </section>
-    
-            <section id="lexiHistorySection" class="lexi-content-card mt-8 hidden">
-                <h2 class="font-header text-primary-purple text-xl mb-3">Lexi History</h2>
-                <div id="lexiHistoryList" class="space-y-3"></div>
-                <button id="closeLexiHistoryBtn" class="lexi-btn lexi-btn-teal-outline mt-4 w-full">Close History</button>
-            </section>
-            <button id="viewLexiHistoryBtn" class="lexi-btn lexi-btn-teal-outline mt-8 w-full">View My History</button>
-    
-        </div>
-        </main>
-
-    <!-- Local JavaScript Files -->
-    <script type="module" src="assets/js/app.js"></script>
-    <script type="module" src="assets/js/"></script>
-    <script type="module" src="assets/js/storage-manager.js"></script>
-    <script type="module" src="assets/js/"></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const sidebarLinks = document.querySelectorAll('.sidebar-link');
-            const currentPage = 'lexi'; // Set this for the current page
-
-            sidebarLinks.forEach(link => {
-                if (link.dataset.page === currentPage) {
-                    link.classList.add('active');
-                } else {
-                    link.classList.remove('active');
-                }
-            });
+      try {
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: {
+            'Authorization': 'Bearer mQF_TJyd3HU1Y51mdjg6OCDokynX2Qe4',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
         });
-
-        // Add Gemini API function
-        async function callGeminiAPI(prompt) {
-            const apiUrl = "https://us-central1-soloboss-ai-fun.cloudfunctions.net/geminiProxy";
-            const payload = { contents: [{ role: "user", parts: [{ text: prompt }] }] };
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    let errorMessage = 'Unknown error';
-                    if (errorData && errorData.error && errorData.error.message) {
-                        errorMessage = errorData.error.message;
-                    }
-                    throw new Error(`API request failed with status ${response.status}. Details: ${errorMessage}`);
-                }
-                const result = await response.json();
-                if (result && result.candidates && result.candidates.length > 0 &&
-                    result.candidates[0].content && result.candidates[0].content.parts && 
-                    result.candidates[0].content.parts.length > 0 && result.candidates[0].content.parts[0].text) {
-                    return result.candidates[0].content.parts[0].text;
-                } else {
-                    throw new Error("Unexpected response structure from API.");
-                }
-            } catch (error) {
-                throw error; 
-            }
+        const result = await response.json();
+        if (result && result.output) {
+          return result.output;
+        } else {
+          throw new Error('No output returned.');
         }
+      } catch (error) {
+        console.error("Lexi API error:", error);
+        return "Oops — Lexi hit a snag. Try again in a bit.";
+      }
+    }
 
-        // Script from Lexi's Enhanced Response Page
-        const getStrategyBtn = document.getElementById('getStrategyBtn');
-        const strategicInsightsOutput = document.getElementById('strategicInsightsOutput');
-        const exportOptionsSection = document.getElementById('exportOptionsSection');
-        
-        const validationContentEl = document.getElementById('validationContent');
-        const monetizationContentEl = document.getElementById('monetizationContent');
-        const personaContentEl = document.getElementById('personaContent');
-        const lexiNudgeSection = document.getElementById('lexiNudgeSection');
-        const lexiNudgeTextEl = document.getElementById('lexiNudgeText');
+    document.getElementById('getStrategyBtn').addEventListener('click', async () => {
+      const idea = document.getElementById('businessIdea').value;
+      const stage = document.getElementById('ideaStage').value;
 
-        if(getStrategyBtn) { // Check if button exists
-            getStrategyBtn.addEventListener('click', async () => {
-                const idea = document.getElementById('businessIdea').value || "your brilliant idea";
-                const stage = document.getElementById('ideaStage').value;
+      const validationPrompt = `You are Lexi, the SoloBoss AI strategist. The founder has this idea: "${idea}" and is currently at the "${stage}" stage. Provide 3 validation strategies to test the idea with confident, clear, and actionable steps.`;
+      const monetizationPrompt = `You are Lexi. For the startup idea "${idea}", provide 2-3 monetization strategies that would be ideal for the "${stage}" stage. Include bullet points and founder-friendly advice.`;
+      const personaPrompt = `You are Lexi. Create a quick user persona for "${idea}". Include their name, pain points, goals, and motivations in a short outline.`;
 
-                // Disable button and show loading
-                getStrategyBtn.disabled = true;
-                getStrategyBtn.textContent = '🔮 Lexi is strategizing...';
+      const validation = await callLexiAPI(validationPrompt);
+      const monetization = await callLexiAPI(monetizationPrompt);
+      const persona = await callLexiAPI(personaPrompt);
 
-                try {
-                    // Generate AI-powered validation content
-                    const validationPrompt = `You are Lexi, a sassy, strategic AI business advisor. The user has this business idea: "${idea}" and they're at stage: "${stage}". Provide a validation strategy with 3 specific, actionable steps for problem/solution fit, market demand testing, and competitive analysis. Keep it punchy, practical, and motivating. Use Lexi's voice - confident, direct, and empowering.`;
-                    
-                    const validationContent = await callGeminiAPI(validationPrompt);
-                    
-                    // Generate monetization strategy
-                    const monetizationPrompt = `You are Lexi, a strategic AI business advisor. For this business idea: "${idea}" at stage "${stage}", suggest 2-3 realistic monetization models. Include pricing psychology tips and revenue stream ideas. Keep it practical and actionable. Use bullet points and be direct.`;
-                    
-                    const monetizationContent = await callGeminiAPI(monetizationPrompt);
-                    
-                    // Generate customer persona
-                    const personaPrompt = `You are Lexi, a strategic AI business advisor. Create a detailed customer persona for this business idea: "${idea}". Include name, bio, key motivations, major pain points, and specific behavioral insights. Make it realistic and actionable for targeting.`;
-                    
-                    const personaContent = await callGeminiAPI(personaPrompt);
+      document.getElementById('validationContent').innerHTML = validation.replace(/\n/g, '<br>');
+      document.getElementById('monetizationContent').innerHTML = monetization.replace(/\n/g, '<br>');
+      document.getElementById('personaContent').innerHTML = persona.replace(/\n/g, '<br>');
 
-                    // Update content areas with AI responses
-                    if (validationContentEl) validationContentEl.innerHTML = `<div class="ai-generated-content">${validationContent.replace(/\n/g, '<br>')}</div>`;
-                    if (monetizationContentEl) monetizationContentEl.innerHTML = `<div class="ai-generated-content">${monetizationContent.replace(/\n/g, '<br>')}</div>`;
-                    if (personaContentEl) personaContentEl.innerHTML = `<div class="ai-generated-content">${personaContent.replace(/\n/g, '<br>')}</div>`;
-
-                    // Save to localStorage for user
-                    saveAgentContent('lexi', validationContent);
-                    saveAgentContent('lexi', monetizationContent);
-                    saveAgentContent('lexi', personaContent);
-
-                    // Lexi's Nudge
-                    if (lexiNudgeTextEl) lexiNudgeTextEl.textContent = `Solid foundation, Boss! Your strategy is locked and loaded. Pick ONE validation step and execute it this week. Action beats perfection every time. Let's make it happen! 🚀`;
-                    if (lexiNudgeSection) lexiNudgeSection.classList.remove('hidden');
-
-                    if (strategicInsightsOutput) strategicInsightsOutput.classList.remove('hidden');
-                    if (exportOptionsSection) exportOptionsSection.classList.remove('hidden');
-                    if (strategicInsightsOutput) strategicInsightsOutput.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-                } catch (error) {
-                    console.error('Error generating strategy:', error);
-                    
-                    // Fallback to original static content
-                    let validationHtml = `<p>Lexi's Insight for <strong class="text-accent-pink">'${idea}'</strong> (Stage: ${stage}):</p>
-                                        <p>"Okay, Boss! This has legs. But before we sprint, let's ensure a solid foundation. True validation isn't just about *if* it can be built, but *if anyone cares*."</p>
-                                        <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
-                                            <li><strong>Problem/Solution Fit:</strong> Are you solving a real, painful problem? <span class="text-accent-teal">Try This:</span> Conduct 5-10 'problem discovery' interviews. Don't pitch, just listen.</li>
-                                            <li><strong>Market Demand:</strong> Is there a hungry audience? <span class="text-accent-teal">Try This:</span> Set up a simple 'smoke test' landing page with a waitlist. Drive a tiny bit of traffic. Do people sign up?</li>
-                                            <li><strong>Uniqueness Check:</strong> What makes your angle different? <span class="text-accent-teal">Try This:</span> Map out 3 direct/indirect competitors. What's your 'secret sauce' they can't easily copy?</li>
-                                        </ul>`;
-                    if (validationContentEl) validationContentEl.innerHTML = validationHtml;
-
-                    // Monetization Content
-                    let monetizationHtml = `<p><strong class="text-accent-pink">Revenue Model Options for '${idea}'</strong></p>
-                                           <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
-                                               <li><strong>Subscription (SaaS):</strong> Monthly/Annual recurring revenue. Great for tools or ongoing services.</li>
-                                               <li><strong>One-time Purchase:</strong> Digital products, courses, or premium features.</li>
-                                               <li><strong>Freemium:</strong> Free basic version + paid premium features. Attracts users, converts subset.</li>
-                                           </ul>
-                                           <p class="mt-3 text-accent-teal"><strong>Lexi's Pricing Psychology Tip:</strong> "Price based on value delivered, not cost to build. Start higher than you think - it's easier to lower than raise prices later."</p>`;
-                    if (monetizationContentEl) monetizationContentEl.innerHTML = monetizationHtml;
-
-                    // Persona Content
-                    let personaHtml = `<p class="font-semibold text-white">Name: Alex "The Hustler" Reed</p>
-                                    <p><strong>Bio:</strong> Mid-20s, solo founder juggling a side-hustle with a full-time gig. Passionate about '${idea.split(' ')[0] || 'their niche'}' but short on time and resources. Tech-savvy but not a coder.</p>
-                                    <p class="mt-2 font-semibold">Key Motivations:</p>
-                                    <ul class="list-disc list-inside ml-4 text-xs"><li>Financial freedom</li><li>Creative expression</li><li>Building something impactful</li></ul>
-                                    <p class="mt-2 font-semibold">Major Pain Points:</p>
-                                    <ul class="list-disc list-inside ml-4 text-xs"><li>Overwhelm from wearing too many hats.</li><li>Struggles with consistent marketing.</li><li>Needs tools that are simple, fast, and deliver results without a steep learning curve.</li></ul>
-                                    <p class="mt-2 text-accent-teal font-semibold">Lexi's Note: "This is a starting sketch, Boss. Get out there and talk to real people to refine this!"</p>`;
-                    if (personaContentEl) personaContentEl.innerHTML = personaHtml;
-
-                    // Lexi's Nudge
-                    if (lexiNudgeTextEl) lexiNudgeTextEl.textContent = `Solid start, Boss! Your next power move? Take ONE validation step from above and commit to it this week. Action trumps perfection. Let's go!`;
-                    if (lexiNudgeSection) lexiNudgeSection.classList.remove('hidden');
-
-                    if (strategicInsightsOutput) strategicInsightsOutput.classList.remove('hidden');
-                    if (exportOptionsSection) exportOptionsSection.classList.remove('hidden');
-                    if (strategicInsightsOutput) strategicInsightsOutput.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                } finally {
-                    // Re-enable button
-                    getStrategyBtn.disabled = false;
-                    getStrategyBtn.textContent = '🚀 Get Strategy';
-                }
-            });
-        }
-
-        // Helper to save agent content
-        function saveAgentContent(agent, content) {
-            const userEmail = sessionStorage.getItem('userEmail');
-            if (!userEmail) return;
-            const key = `soloboss_agent_${agent}_${userEmail}`;
-            let history = JSON.parse(localStorage.getItem(key) || '[]');
-            history.push({ content, timestamp: Date.now() });
-            localStorage.setItem(key, JSON.stringify(history));
-        }
-
-        // History UI logic
-        const viewLexiHistoryBtn = document.getElementById('viewLexiHistoryBtn');
-        const lexiHistorySection = document.getElementById('lexiHistorySection');
-        const lexiHistoryList = document.getElementById('lexiHistoryList');
-        const closeLexiHistoryBtn = document.getElementById('closeLexiHistoryBtn');
-        function renderLexiHistory() {
-            const userEmail = sessionStorage.getItem('userEmail');
-            const key = `soloboss_agent_lexi_${userEmail}`;
-            const history = JSON.parse(localStorage.getItem(key) || '[]');
-            lexiHistoryList.innerHTML = '';
-            if (!history.length) {
-                lexiHistoryList.innerHTML = '<div class="text-white/60 italic">No history yet.</div>';
-                return;
-            }
-            history.slice().reverse().forEach((entry, idx) => {
-                const div = document.createElement('div');
-                div.className = 'bg-white/5 p-3 rounded-md flex justify-between items-start';
-                div.innerHTML = `<div class="text-sm text-white/90">${entry.content.replace(/\n/g, '<br>')}</div><button class="copy-btn ml-4 text-xs text-accent-teal underline">Copy</button>`;
-                div.querySelector('.copy-btn').addEventListener('click', () => {
-                    navigator.clipboard.writeText(entry.content);
-                });
-                lexiHistoryList.appendChild(div);
-            });
-        }
-        if(viewLexiHistoryBtn && lexiHistorySection) {
-            viewLexiHistoryBtn.addEventListener('click', () => {
-                renderLexiHistory();
-                lexiHistorySection.classList.remove('hidden');
-                viewLexiHistoryBtn.classList.add('hidden');
-            });
-        }
-        if(closeLexiHistoryBtn && lexiHistorySection) {
-            closeLexiHistoryBtn.addEventListener('click', () => {
-                lexiHistorySection.classList.add('hidden');
-                viewLexiHistoryBtn.classList.remove('hidden');
-            });
-        }
-    </script>
-
+      document.getElementById('strategicInsightsOutput').classList.remove('hidden');
+    });
+  </script>
 </body>
 </html>
