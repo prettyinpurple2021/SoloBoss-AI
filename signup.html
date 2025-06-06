@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - SoloBoss AI | Join the Rebellion</title>
+    <meta name="description" content="Create your SoloBoss AI account and get instant access to your AI startup team. Join thousands of solo entrepreneurs who stopped doing it all alone.">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="canonical" href="https://soloboss.ai/signup">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/css/fonts.css" rel="stylesheet">
+    <link href="assets/css/styles.css" rel="stylesheet">
+    <link href="assets/css/components.css" rel="stylesheet">
+    <script src="assets/js/app.js"></script>
+    <!-- Visualization & Content Choices:
+        - Logo: Brand -> Image -> Static -> Prominent brand display -> HTML/Tailwind
+        - Title/Welcome: Inform -> Heading -> Static -> Clear page purpose -> HTML/Tailwind
+        - Input Fields (Name, Email, DOB, Password, Confirm Password): Interact/Collect -> Standard HTML inputs -> User input -> Data collection for registration -> HTML/Tailwind
+        - Newsletter Checkbox: Interact/Collect -> Checkbox input -> User selection -> Opt-in for newsletter -> HTML/Tailwind
+        - Sign Up Button: Interact/Action -> Button -> Click (mock action, JS validation) -> Submit registration details -> HTML/Tailwind/JS
+        - Link (Login): Navigate -> Anchor tag -> Click (mock navigation) -> Path for existing users -> HTML/Tailwind
+        - Overall UI: Consistent Branding -> Use of brand fonts, colors, "punk rock girlboss" elements (subtle accents) -> Static -> Reinforce SoloBoss AI brand identity -> HTML/Tailwind/CSS
+        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1A1A2E; /* Deep Space */
+            color: #FFFFFF; /* Bold White */
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 1rem;
+        }
+        .font-header { font-family: 'Emilys Candy', cursive; }
+        .font-body-alt { font-family: 'Henny Penny', cursive; }
+        .font-accent-alt { font-family: 'Crafty Girls', cursive; }
+
+        .bg-power-purple { background-color: #A044FF; }
+        .text-power-purple { color: #A044FF; }
+        .border-power-purple { border-color: #A044FF; }
+
+        .bg-electric-pink { background-color: #FF3EA5; }
+        .text-electric-pink { color: #FF3EA5; }
+        .border-electric-pink { border-color: #FF3EA5; }
+        
+        .bg-rebel-teal { background-color: #00D9C0; }
+        .text-rebel-teal { color: #00D9C0; }
+        .border-rebel-teal { border-color: #00D9C0; }
+
+        .signup-card {
+            background-color: #232336; /* Slightly lighter dark for card */
+            border-radius: 0.75rem; /* rounded-xl */
+            padding: 2rem 2.5rem; /* p-8 md:p-10 */
+            width: 100%;
+            max-width: 450px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px rgba(0, 217, 192, 0.2) inset; /* Rebel Teal inset shadow */
+            border: 1px solid rgba(0, 217, 192, 0.2); /* Rebel Teal border */
+            position: relative;
+            overflow: hidden;
+        }
+         .signup-card::before { 
+            content: '';
+            position: absolute;
+            bottom: -70px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, rgba(160, 68, 255, 0.15), transparent); /* Power Purple accent */
+            transform: rotate(30deg);
+            opacity: 0.8;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .input-field-signup {
+            background-color: rgba(255,255,255,0.05);
+            border: 1px solid rgba(0, 217, 192, 0.4); /* Rebel Teal border */
+            border-radius: 0.375rem; /* rounded-md */
+            padding: 0.875rem 1rem; /* py-3.5 px-4 */
+            width: 100%;
+            color: #FFFFFF;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .input-field-signup::placeholder {
+            color: rgba(255,255,255,0.4);
+        }
+        .input-field-signup:focus {
+            outline: none;
+            border-color: #FF3EA5; /* Electric Pink focus */
+            box-shadow: 0 0 0 3px rgba(255, 62, 165, 0.3);
+        }
+        /* Style for date input placeholder text */
+        .input-field-signup[type="date"]:invalid {
+            color: rgba(255,255,255,0.4);
+        }
+        .input-field-signup[type="date"] {
+             color-scheme: dark; /* Helps with date picker in dark mode */
+        }
+
+
+        .btn-signup {
+            background-color: #00D9C0; /* Rebel Teal */
+            color: #1A1A2E; /* Deep Space text for contrast */
+            font-weight: 700; /* bold */
+            padding: 0.875rem 1rem;
+            border-radius: 0.375rem;
+            width: 100%;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 217, 192, 0.3);
+        }
+        .btn-signup:hover {
+            background-color: #00C8A8;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 217, 192, 0.4);
+        }
+        .btn-signup:active {
+            transform: translateY(0px) scale(0.98);
+        }
+        .link-subtle {
+            font-size: 0.875rem; /* text-sm */
+            color: rgba(255,255,255,0.6);
+            transition: color 0.3s ease;
+        }
+        .link-subtle:hover {
+            color: #FF3EA5; /* Electric Pink */
+        }
+        .link-highlight-purple {
+            color: #A044FF; /* Power Purple */
+            font-weight: 600;
+        }
+        .link-highlight-purple:hover {
+            text-decoration: underline;
+        }
+        .paint-splatter-signup {
+            position: fixed; 
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            opacity: 0.08;
+            filter: blur(15px);
+            pointer-events: none;
+            z-index: -1; 
+        }
+        .checkbox-label {
+            font-size: 0.875rem; /* text-sm */
+            color: rgba(255,255,255,0.8);
+            cursor: pointer;
+        }
+        .checkbox-custom {
+            appearance: none;
+            width: 1.25rem; /* w-5 */
+            height: 1.25rem; /* h-5 */
+            border: 2px solid rgba(0, 217, 192, 0.6); /* Rebel Teal border */
+            border-radius: 0.25rem; /* rounded-sm */
+            margin-right: 0.5rem; /* mr-2 */
+            cursor: pointer;
+            position: relative;
+            flex-shrink: 0;
+            vertical-align: middle;
+        }
+        .checkbox-custom:checked {
+            background-color: #00D9C0; /* Rebel Teal */
+            border-color: #00D9C0;
+        }
+        .checkbox-custom:checked::after {
+            content: '✔';
+            color: #1A1A2E; /* Deep Space for checkmark */
+            font-size: 0.875rem;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .error-message {
+            background-color: rgba(255, 62, 165, 0.1); /* Electric Pink subtle bg */
+            color: #FF3EA5; /* Electric Pink text */
+            border: 1px solid rgba(255, 62, 165, 0.3);
+            padding: 0.75rem 1rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="paint-splatter-signup bg-electric-pink paint-splatter-signup-1"></div>
+    <div class="paint-splatter-signup bg-power-purple paint-splatter-signup-2"></div>
+
+    <div class="signup-card relative z-10">
+        <div class="text-center mb-8">
+            <a href="index.html" class="inline-block mb-4">
+                <img src="assets/images/logo.png" alt="SoloBoss AI Logo" class="h-20 mx-auto">
+            </a>
+            <h1 class="font-header text-3xl text-rebel-teal">Join the Rebellion!</h1>
+            <p class="font-body-alt text-sm text-white/70 mt-1">Create your SoloBoss account and unleash your AI team.</p>
+        </div>
+
+        <form id="signUpForm" class="space-y-5">
+            <div>
+                <label for="fullName" class="sr-only">Full Name / Boss Name</label>
+                <input id="fullName" name="fullName" type="text" autocomplete="name" required
+                       class="input-field-signup"
+                       placeholder="Full Name / Boss Name">
+            </div>
+            
+            <div>
+                <label for="email" class="sr-only">Email address</label>
+                <input id="email" name="email" type="email" autocomplete="email" required
+                       class="input-field-signup"
+                       placeholder="Email address">
+            </div>
+
+            <div>
+                <label for="dob" class="sr-only">Date of Birth</label>
+                <input id="dob" name="dob" type="date" required
+                       class="input-field-signup" title="Date of Birth">
+                <p class="text-xs text-white/50 mt-1 pl-1">You must be at least 18 years old.</p>
+            </div>
+
+            <div>
+                <label for="password" class="sr-only">Password</label>
+                <input id="password" name="password" type="password" autocomplete="new-password" required
+                       class="input-field-signup"
+                       placeholder="Create Password (min. 8 characters)">
+            </div>
+
+            <div>
+                <label for="confirmPassword" class="sr-only">Confirm Password</label>
+                <input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" required
+                       class="input-field-signup"
+                       placeholder="Confirm Password">
+            </div>
+
+            <div class="flex items-center pt-1">
+                <input id="newsletterOptIn" name="newsletterOptIn" type="checkbox" class="checkbox-custom">
+                <label for="newsletterOptIn" class="ml-2 checkbox-label">Yes, send me the SoloBoss monthly newsletter with tips & updates!</label>
+            </div>
+            
+            <div id="formErrorMessage" class="error-message hidden"></div>
+
+            <div class="pt-2">
+                <button type="submit" class="btn-signup">
+                    Sign Up & Rule
+                </button>
+            </div>
+        </form>
+
+        <p class="mt-8 text-center text-sm text-white/60">
+            Already a SoloBoss?
+            <a href="login.html" class="link-highlight-purple">
+                Log In Here, Boss!
+            </a>
+        </p>
+    </div>
+    
+    <footer class="absolute bottom-4 text-center w-full text-xs text-white/40 font-body-tech">
+        &copy; <span id="currentYear"></span> SoloBoss AI. Your Empire Awaits.
+    </footer>
+
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        
+        const signUpForm = document.getElementById('signUpForm');
+        const dobInput = document.getElementById('dob');
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+        const formErrorMessage = document.getElementById('formErrorMessage');
+        const signUpButton = signUpForm.querySelector('button[type="submit"]');
+
+        signUpForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            formErrorMessage.classList.add('hidden');
+            formErrorMessage.textContent = '';
+
+            // Age Validation
+            const dobValue = dobInput.value;
+            if (!dobValue) {
+                displayError("Please enter your Date of Birth.");
+                return;
+            }
+            const birthDate = new Date(dobValue);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDifference = today.getMonth() - birthDate.getMonth();
+            if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+
+            if (age < 18) {
+                displayError("You must be at least 18 years old to create an account.");
+                return;
+            }
+
+            // Password Match Validation
+            if (passwordInput.value !== confirmPasswordInput.value) {
+                displayError("Passwords do not match. Please re-enter.");
+                return;
+            }
+            
+            // Password Length (basic example)
+            if (passwordInput.value.length < 8) {
+                displayError("Password must be at least 8 characters long.");
+                return;
+            }
+
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const newsletterOptIn = document.getElementById('newsletterOptIn').checked;
+            
+            signUpButton.disabled = true;
+            signUpButton.textContent = 'Creating Account...';
+            
+            try {
+                // Store user data in local storage
+                const storedUsers = JSON.parse(localStorage.getItem('soloboss_users') || '{}');
+                const userKey = email.toLowerCase();
+                
+                if (storedUsers[userKey]) {
+                    displayError('An account with this email already exists.');
+                    return;
+                }
+                
+                // Create new user
+                storedUsers[userKey] = {
+                    fullName: fullName,
+                    email: email,
+                    password: password,
+                    dateOfBirth: dobValue,
+                    newsletterOptIn: newsletterOptIn,
+                    createdAt: new Date().toISOString()
+                };
+                
+                localStorage.setItem('soloboss_users', JSON.stringify(storedUsers));
+                sessionStorage.setItem('isLoggedIn', 'true');
+                sessionStorage.setItem('userEmail', email);
+                
+                displayError('Sign up successful! Redirecting...', 'success');
+                setTimeout(() => { window.location.href = 'app_hub.html'; }, 1500);
+            } catch (error) {
+                console.error('Signup error:', error);
+                displayError('Sign up failed. Please try again.');
+            } finally {
+                signUpButton.disabled = false;
+                signUpButton.textContent = 'Sign Up & Rule';
+            }
+        });
+
+        function displayError(message, type = 'error') {
+            formErrorMessage.textContent = message;
+            formErrorMessage.classList.remove('hidden');
+            
+            if (type === 'success') {
+                formErrorMessage.style.backgroundColor = 'rgba(0, 200, 151, 0.1)';
+                formErrorMessage.style.color = '#00C897';
+                formErrorMessage.style.borderColor = 'rgba(0, 200, 151, 0.3)';
+            } else {
+                formErrorMessage.style.backgroundColor = 'rgba(255, 62, 165, 0.1)';
+                formErrorMessage.style.color = '#FF3EA5';
+                formErrorMessage.style.borderColor = 'rgba(255, 62, 165, 0.3)';
+            }
+        }
+    </script>
+
+</body>
+</html>

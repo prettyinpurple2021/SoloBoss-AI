@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoloBoss AI - Your Complete AI Startup Team | Punk Rock Productivity for Solo Entrepreneurs</title>
+    <meta name="description" content="Get a complete AI startup team: strategist, designer, marketer, developer, and more. Perfect for solo entrepreneurs who want to build and scale fast with attitude.">
+    <meta name="keywords" content="AI assistant, solo entrepreneur, startup tools, AI team, business automation, productivity, AI agents">
+    <meta name="author" content="SoloBoss AI">
+    <link rel="canonical" href="https://soloboss-ai-deploy.netlify.app/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://soloboss-ai-deploy.netlify.app/">
+    <meta property="og:title" content="SoloBoss AI - Your AI Startup Team, Built for One!">
+    <meta property="og:description" content="Stop doing everything alone! Get a complete AI team for your solo business.">
+    <meta property="og:image" content="https://soloboss-ai-deploy.netlify.app/assets/images/og-image.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://soloboss-ai-deploy.netlify.app/">
+    <meta property="twitter:title" content="SoloBoss AI - Your AI Startup Team, Built for One!">
+    <meta property="twitter:description" content="Stop doing everything alone! Get a complete AI team for your solo business.">
+    <meta property="twitter:image" content="https://soloboss-ai-deploy.netlify.app/assets/images/og-image.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+    <link rel="manifest" href="assets/images/site.webmanifest">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/css/fonts.css" rel="stylesheet">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "SoloBoss AI",
+      "description": "AI-powered startup team for solo entrepreneurs. Get a complete AI team including strategist, designer, marketer, developer and more.",
+      "url": "https://soloboss-ai-deploy.netlify.app",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "description": "Free tier available"
+      },
+      "creator": {
+        "@type": "Organization",
+        "name": "SoloBoss AI",
+        "url": "https://soloboss-ai-deploy.netlify.app"
+      },
+      "featureList": [
+        "AI Startup Strategist",
+        "AI Brand Designer", 
+        "AI Marketing Maven",
+        "AI Technical Architect",
+        "AI Legal Helper",
+        "AI Executive Assistant",
+        "Productivity Dashboard",
+        "Content Management"
+      ]
+    }
+    </script>
+    
+    <!-- Visualization & Content Choices:
+        - Hero: Inform/Engage -> Headline, Sub-headline, CTA Button, Logo -> Click CTA -> Strong visual intro -> HTML/Tailwind
+        - Problem/Pain: Empathize/Inform -> Text blocks, "marked-up" style for emphasis -> Static -> Connect with user's struggles -> HTML/Tailwind/JS for styling
+        - Solution/Promise: Inform/Persuade -> Text blocks, benefit-driven language -> Static -> Introduce SoloBoss AI as the answer -> HTML/Tailwind
+        - Meet AI Team: Inform/Detail -> Cards for each agent (icon/color-coded) -> Hover for slight emphasis -> Showcase the 'virtual team' -> HTML/Tailwind (Unicode/CSS icons)
+        - Core Features: Inform/Detail -> Grid/List with icons & descriptions, "torn paper" effect on cards -> Static -> Highlight key functionalities -> HTML/Tailwind
+        - Brand Vibe/Showcase: Engage/Reinforce Brand -> Section with angled dividers, paint splatter accents (CSS), typography showcase -> Static -> Embody "Punk Rock Girlboss Tech" -> HTML/Tailwind/CSS effects
+        - How It Works: Inform/Clarify -> Simple 3-step visual process (HTML/CSS based) -> Static -> Easy understanding of usage -> HTML/Tailwind
+        - Testimonials: Build Trust -> Placeholder for quotes, styled cards -> Static -> Social proof -> HTML/Tailwind
+        - Final CTA: Convert -> Headline, Button -> Click CTA -> Final conversion point -> HTML/Tailwind
+        - Footer: Inform/Navigate -> Links, Copyright -> Static -> Standard footer elements -> HTML/Tailwind
+        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1A1A2E; /* Deep Space for main background */
+            color: #FFFFFF; /* Bold White for primary text */
+            overflow-x: hidden;
+        }
+        .font-heading { font-family: 'Emilys Candy', cursive; }
+        .font-body-alt { font-family: 'Henny Penny', cursive; }
+        .font-accent-alt { font-family: 'Crafty Girls', cursive; }
+
+        .bg-power-purple { background-color: #A044FF; }
+        .text-power-purple { color: #A044FF; }
+        .border-power-purple { border-color: #A044FF; }
+
+        .bg-electric-pink { background-color: #FF3EA5; }
+        .text-electric-pink { color: #FF3EA5; }
+        .border-electric-pink { border-color: #FF3EA5; }
+        
+        .bg-rebel-teal { background-color: #00D9C0; }
+        .text-rebel-teal { color: #00D9C0; }
+        .border-rebel-teal { border-color: #00D9C0; }
+
+        .bg-deep-space { background-color: #1A1A2E; }
+        .text-deep-space { color: #1A1A2E; }
+
+        .bg-success-green { background-color: #00C897; }
+        .text-success-green { color: #00C897; }
+
+        .nav-link {
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #FF3EA5; /* Electric Pink hover */
+        }
+
+        .cta-button {
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            box-shadow: 0px 4px 10px rgba(255, 62, 165, 0.4);
+        }
+        .cta-button:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0px 6px 15px rgba(255, 62, 165, 0.6);
+        }
+        
+        .section-angle-top::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px; /* Adjust height of the angle */
+            background-color: #1A1A2E; /* Match previous section bg */
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 40px)); /* Angled bottom */
+            z-index: 0;
+        }
+        .section-angle-bottom::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 80px; /* Adjust height of the angle */
+            background-color: #1A1A2E; /* Match current section bg if different, or next section bg */
+            clip-path: polygon(0 0, 100% 40px, 100% 100%, 0 100%); /* Angled top */
+            z-index: 0;
+        }
+        
+        .paint-splatter-accent { /* Basic CSS "splatter" */
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #FF3EA5;
+            border-radius: 50% 40% 30% 50% / 40% 50% 50% 30%;
+            opacity: 0.5;
+            animation: pulse-splatter 3s infinite ease-in-out;
+        }
+        @keyframes pulse-splatter {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+        }
+
+        .marked-up-text {
+            background: linear-gradient(to top, rgba(255,62,165,0.4) 0%, rgba(255,62,165,0.4) 40%, transparent 40%);
+            padding: 0 0.2em;
+        }
+        
+        .torn-paper-effect {
+            position: relative;
+            padding: 20px;
+            background-color: #2a2a3e; /* Slightly lighter than deep space */
+            border: 2px solid #A044FF;
+            box-shadow: 5px 5px 0px #A044FF; /* Power Purple shadow for punk effect */
+        }
+        .torn-paper-effect::before, .torn-paper-effect::after { /* Simplified torn edges */
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 10px;
+            background-size: 20px 10px;
+        }
+        .torn-paper-effect::before {
+            top: -2px; left: 0;
+            background-image: linear-gradient(135deg, #1A1A2E 25%, transparent 25%), linear-gradient(225deg, #1A1A2E 25%, transparent 25%);
+        }
+        .torn-paper-effect::after {
+            bottom: -2px; left: 0;
+            background-image: linear-gradient(45deg, #1A1A2E 25%, transparent 25%), linear-gradient(315deg, #1A1A2E 25%, transparent 25%);
+        }
+        .agent-card {
+             background-color: rgba(255, 255, 255, 0.05);
+             border: 1px solid rgba(255, 255, 255, 0.1);
+             transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .agent-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        .feature-icon {
+            font-size: 2rem; /* Unicode icons */
+            line-height: 1;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-deep-space sticky top-0 z-50 shadow-xl">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#hero" class="text-3xl font-heading text-power-purple hover:text-electric-pink transition-colors">
+                SoloBoss AI
+                <span class="block text-xs font-accent-alt text-rebel-teal -mt-1">Your AI Co-Founder</span>
+            </a>
+            <nav class="hidden md:flex space-x-6">
+                <a href="#problem" class="nav-link font-semibold">The Struggle</a>
+                <a href="#solution" class="nav-link font-semibold">Your AI Team</a>
+                <a href="#features" class="nav-link font-semibold">Features</a>
+                <a href="#brand-vibe" class="nav-link font-semibold">The Vibe</a>
+                <a href="signup.html" class="bg-electric-pink text-white px-4 py-2 rounded-md font-semibold hover:bg-power-purple transition-colors">Get Started</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none" title="Toggle navigation menu">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-deep-space/95 backdrop-blur-sm">
+            <a href="#problem" class="block nav-link px-6 py-3 font-semibold">The Struggle</a>
+            <a href="#solution" class="block nav-link px-6 py-3 font-semibold">Your AI Team</a>
+            <a href="#features" class="block nav-link px-6 py-3 font-semibold">Features</a>
+            <a href="#brand-vibe" class="block nav-link px-6 py-3 font-semibold">The Vibe</a>
+            <a href="signup.html" class="block bg-electric-pink text-white text-center mx-6 my-3 px-4 py-3 rounded-md font-semibold hover:bg-power-purple transition-colors">Get Started</a>
+        </div>
+    </header>
+
+    <section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden py-20 px-6 bg-gradient-to-br from-deep-space via-purple-900/30 to-deep-space">
+        <div class="paint-splatter-accent paint-splatter-cta-1"></div>
+        <div class="paint-splatter-accent paint-splatter-cta-2"></div>
+        <div class="paint-splatter-accent top-right"></div>
+
+        <div class="text-center z-10 relative">
+            <div class="mb-8">
+                <div class="inline-block bg-white/10 p-4 rounded-full shadow-2xl mb-6 backdrop-blur-sm">
+                     <img src="assets/images/logo.png" alt="SoloBoss AI Logo" class="h-24 md:h-32 mx-auto" loading="eager" decoding="async">
+                </div>
+                <p class="font-accent-alt text-rebel-teal text-xl md:text-2xl mb-2 tracking-wider">Tired of Doing It ALL Alone?</p>
+            </div>
+            <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl mb-6 leading-tight">
+                Meet <span class="text-power-purple">SoloBoss</span> <span class="text-electric-pink">AI</span>
+            </h1>
+            <p class="font-body-alt text-2xl md:text-3xl text-white/90 mb-10 max-w-3xl mx-auto">
+                Your AI-Powered Startup Team, Built for <span class="text-rebel-teal underline decoration-wavy decoration-electric-pink">ONE</span>.
+                Stop juggling, start conquering.
+            </p>
+            <a href="#cta-final" class="cta-button bg-electric-pink text-white font-bold text-xl px-10 py-4 rounded-lg shadow-lg hover:bg-power-purple transition-colors">
+                Unleash Your Inner Boss!
+            </a>
+        </div>
+    </section>
+
+    <section id="problem" class="py-16 md:py-24 bg-white text-deep-space relative section-angle-top">
+        <div class="container mx-auto px-6 z-10 relative">
+            <h2 class="font-heading text-4xl md:text-5xl text-center mb-4">The <span class="text-power-purple">Solo Founder</span> Struggle is REAL.</h2>
+            <p class="font-body-alt text-xl text-center text-gray-700 mb-12 max-w-2xl mx-auto">You're the CEO, CMO, CFO, and chief coffee maker. Sound familiar, <span class="font-accent-alt text-electric-pink text-2xl">Boss</span>?</p>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="p-6 bg-gray-100 rounded-lg shadow-md border-l-4 border-electric-pink">
+                    <h3 class="font-semibold text-2xl mb-3 font-accent-alt text-electric-pink">Time Thief</h3>
+                    <p class="text-gray-600">"I have <span class="marked-up-text">limited time</span> and I'm still working part-time to fund this dream!"</p>
+                </div>
+                <div class="p-6 bg-gray-100 rounded-lg shadow-md border-l-4 border-rebel-teal">
+                    <h3 class="font-semibold text-2xl mb-3 font-accent-alt text-rebel-teal">Hat Juggler</h3>
+                    <p class="text-gray-600">"Marketing, operations, finance... I'm <span class="marked-up-text">overwhelmed</span> wearing ALL the hats!"</p>
+                </div>
+                <div class="p-6 bg-gray-100 rounded-lg shadow-md border-l-4 border-power-purple">
+                    <h3 class="font-semibold text-2xl mb-3 font-accent-alt text-power-purple">Decision Dread</h3>
+                    <p class="text-gray-600">"Making big business decisions alone leads to <span class="marked-up-text">analysis paralysis</span>. Help!"</p>
+                </div>
+            </div>
+             <p class="text-center mt-12 text-lg text-gray-700">You're ambitious, you're learning, but you need tools that <span class="font-semibold text-power-purple">get you</span>.</p>
+        </div>
+    </section>
+
+    <section id="solution" class="py-16 md:py-24 bg-deep-space relative section-angle-bottom">
+        <div class="container mx-auto px-6 z-10 relative">
+            <h2 class="font-heading text-4xl md:text-5xl text-center mb-6">Your <span class="text-rebel-teal">Secret Weapon</span> Has Arrived.</h2>
+            <p class="font-body-alt text-xl text-center text-white/80 mb-12 max-w-3xl mx-auto">SoloBoss AI isn't just another tool. It's your dedicated <span class="font-accent-alt text-electric-pink text-2xl">AI Co-Founder System</span>, designed to amplify YOUR genius.</p>
+
+            <div class="grid md:grid-cols-2 gap-10 items-center">
+                <div class="text-center md:text-left">
+                    <h3 class="font-heading text-3xl text-power-purple mb-4">Meet Your Virtual Team!</h3>
+                    <p class="text-lg text-white/90 mb-4">Imagine having a Project Manager, Business Strategist, Designer, Developer, and Marketing Manager on call, 24/7. That's SoloBoss AI.</p>
+                    <p class="text-lg text-white/90 mb-6">Each AI agent has a <span class="font-semibold text-rebel-teal">unique personality</span> and specialized skills, ready to tackle your toughest challenges, so you can focus on what you do best: <span class="font-accent-alt text-electric-pink">being the Boss</span>.</p>
+                    <a href="#ai-team" class="cta-button bg-rebel-teal text-deep-space font-bold px-8 py-3 rounded-md hover:bg-power-purple hover:text-white transition-colors">Meet The Crew!</a>
+                </div>
+                <div class="relative p-4">
+                     <div class="absolute inset-0 bg-gradient-to-tr from-electric-pink to-power-purple rounded-lg transform -rotate-3 opacity-50 blur-xl"></div>
+                     <img src="https://placehold.co/500x350/2A2A3E/FFFFFF?text=AI+Team+Dashboard+Mockup" alt="SoloBoss AI Dashboard Mockup" class="rounded-lg shadow-2xl relative z-10 border-4 border-rebel-teal/50">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="ai-team" class="py-16 md:py-24 bg-white text-deep-space relative section-angle-top">
+        <div class="container mx-auto px-6 z-10 relative">
+            <h2 class="font-heading text-4xl md:text-5xl text-center mb-12">Your <span class="text-electric-pink">AI Dream Team</span> Awaits!</h2>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="agent-card p-6 rounded-xl shadow-lg border-t-4 border-rebel-teal bg-gray-50">
+                    <div class="text-3xl mb-3 text-rebel-teal">🛠️</div>
+                    <h3 class="font-heading text-2xl text-rebel-teal mb-2">Project Manager AI</h3>
+                    <p class="text-gray-600 text-sm mb-3">Breaks down big ideas into actionable steps, organizes projects, assists with timelines and prioritization.</p>
+                    <p class="font-semibold text-xs text-rebel-teal/80">Benefit: Clarity & a clear path forward.</p>
+                </div>
+                <div class="agent-card p-6 rounded-xl shadow-lg border-t-4 border-electric-pink bg-gray-50">
+                    <div class="text-3xl mb-3 text-electric-pink">💡</div>
+                    <h3 class="font-heading text-2xl text-electric-pink mb-2">Business Strategist AI</h3>
+                    <p class="text-gray-600 text-sm mb-3">Helps define goals, create product roadmaps, analyze target audiences, and provides strategic guidance.</p>
+                    <p class="font-semibold text-xs text-electric-pink/80">Benefit: Strategic direction & focus.</p>
+                </div>
+                <div class="agent-card p-6 rounded-xl shadow-lg border-t-4 border-power-purple bg-gray-50">
+                     <div class="text-3xl mb-3 text-power-purple">🎨</div>
+                    <h3 class="font-heading text-2xl text-power-purple mb-2">Designer AI</h3>
+                    <p class="text-gray-600 text-sm mb-3">Generates moodboards, branding ideas, layout sketches, and assists with visual identity.</p>
+                    <p class="font-semibold text-xs text-power-purple/80">Benefit: Pro design assets, zero hiring drama.</p>
+                </div>
+                <div class="agent-card p-6 rounded-xl shadow-lg border-t-4 border-orange-500 bg-gray-50">
+                     <div class="text-3xl mb-3 text-orange-500">💻</div>
+                    <h3 class="font-heading text-2xl text-orange-500 mb-2">Developer AI</h3>
+                    <p class="text-gray-600 text-sm mb-3">Assists with no-code flows, template creation, and guidance on feature logic/implementation.</p>
+                    <p class="font-semibold text-xs text-orange-500/80">Benefit: Tech guidance & faster building.</p>
+                </div>
+                <div class="agent-card p-6 rounded-xl shadow-lg border-t-4 border-green-500 bg-gray-50">
+                     <div class="text-3xl mb-3 text-green-500">📢</div>
+                    <h3 class="font-heading text-2xl text-green-500 mb-2">Marketing Manager AI</h3>
+                    <p class="text-gray-600 text-sm mb-3">Assists with marketing materials, social media, ad creation, and market insights.</p>
+                    <p class="font-semibold text-xs text-green-500/80">Benefit: Effective marketing & visibility.</p>
+                </div>
+                 <div class="agent-card p-6 rounded-xl shadow-lg border-t-4 border-gray-500 bg-gray-50 flex flex-col justify-center items-center text-center">
+                     <div class="text-3xl mb-3 text-gray-500">🚀</div>
+                    <h3 class="font-heading text-2xl text-gray-500 mb-2">And More To Come!</h3>
+                    <p class="text-gray-600 text-sm">We're always brewing up new AI talent to help you crush it.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="py-16 md:py-24 bg-deep-space relative section-angle-bottom">
+        <div class="container mx-auto px-6 z-10 relative">
+            <h2 class="font-heading text-4xl md:text-5xl text-center mb-12">Packed with <span class="text-power-purple">Boss-Level</span> Features</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="torn-paper-effect">
+                    <div class="feature-icon text-electric-pink mb-3">🎛️</div>
+                    <h3 class="font-semibold text-xl text-white mb-2">Unified Dashboard</h3>
+                    <p class="text-white/70 text-sm">Your central command for planning & building. No more app-switching chaos!</p>
+                </div>
+                <div class="torn-paper-effect">
+                    <div class="feature-icon text-rebel-teal mb-3">🎯</div>
+                    <h3 class="font-semibold text-xl text-white mb-2">Solo-Focused PM</h3>
+                    <p class="text-white/70 text-sm">Project & task management built for YOU, not a committee.</p>
+                </div>
+                <div class="torn-paper-effect">
+                    <div class="feature-icon text-power-purple mb-3">💾</div>
+                    <h3 class="font-semibold text-xl text-white mb-2">Downloadable Exports</h3>
+                    <p class="text-white/70 text-sm">Grab your plans, assets & brand kits. They're YOURS.</p>
+                </div>
+                <div class="torn-paper-effect">
+                    <div class="feature-icon text-success-green mb-3">📦</div>
+                    <h3 class="font-semibold text-xl text-white mb-2">File & Asset Storage</h3>
+                    <p class="text-white/70 text-sm">Keep your genius organized, all in one rebellious hub.</p>
+                </div>
+                <div class="torn-paper-effect">
+                     <div class="feature-icon text-electric-pink mb-3">⚡</div>
+                    <h3 class="font-semibold text-xl text-white mb-2">Modern Web Technology</h3>
+                    <p class="text-white/70 text-sm">Built with cutting-edge web standards for a seamless experience.</p>
+                </div>
+                <div class="torn-paper-effect">
+                    <div class="feature-icon text-rebel-teal mb-3">🎭</div>
+                    <h3 class="font-semibold text-xl text-white mb-2">AI Agent Personalities</h3>
+                    <p class="text-white/70 text-sm">Work with AI that's got character, not just code.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="brand-vibe" class="py-16 md:py-24 bg-white text-deep-space relative section-angle-top">
+        <div class="container mx-auto px-6 z-10 relative">
+            <h2 class="font-heading text-4xl md:text-5xl text-center mb-4">This Ain't Your Mama's Productivity App.</h2>
+            <p class="font-body-alt text-xl text-center text-gray-700 mb-12 max-w-2xl mx-auto">It's <span class="font-accent-alt text-power-purple text-2xl">Professional</span> meets <span class="font-accent-alt text-electric-pink text-2xl">Punk Rock Girlboss</span>. Clean, minimal, with a rebellious streak.</p>
+            
+            <div class="grid md:grid-cols-3 gap-8 text-center">
+                <div class="p-6">
+                    <h3 class="font-heading text-6xl text-power-purple mb-3">Aa</h3>
+                    <p class="font-semibold text-lg">Emilys Candy</p>
+                    <p class="text-sm text-gray-500">For Headers that ROAR</p>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-body-alt text-5xl text-rebel-teal mb-3 leading-tight">Story time</h3>
+                    <p class="font-semibold text-lg">Henny Penny</p>
+                    <p class="text-sm text-gray-500">For Body Text with Soul</p>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-accent-alt text-5xl text-electric-pink mb-3">Sparks!</h3>
+                    <p class="font-semibold text-lg">Crafty Girls</p>
+                    <p class="text-sm text-gray-500">For Accents that POP</p>
+                </div>
+            </div>
+            <div class="mt-12 p-8 bg-gray-100 rounded-lg shadow-inner">
+                <h4 class="font-semibold text-2xl text-center mb-6 text-deep-space">Key Visual Elements: Get Ready to Rock</h4>
+                <ul class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-4 text-gray-700 list-none p-0">
+                    <li class="flex items-center"><span class="text-electric-pink text-2xl mr-3">⚡</span> Paint splatter effects</li>
+                    <li class="flex items-center"><span class="text-rebel-teal text-2xl mr-3">📐</span> Angled dividers</li>
+                    <li class="flex items-center"><span class="text-power-purple text-2xl mr-3">✍️</span> "Marked up" text</li>
+                    <li class="flex items-center"><span class="text-electric-pink text-2xl mr-3">🎸</span> Vintage gig poster textures</li>
+                    <li class="flex items-center"><span class="text-rebel-teal text-2xl mr-3">📄</span> Torn-paper card effects</li>
+                    <li class="flex items-center"><span class="text-power-purple text-2xl mr-3">🤘</span> Sassy icons & sparkles</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+    <section id="how-it-works" class="py-16 md:py-24 bg-deep-space relative section-angle-bottom">
+        <div class="container mx-auto px-6 z-10 relative">
+            <h2 class="font-heading text-4xl md:text-5xl text-center mb-12">Launch Your Empire in <span class="text-rebel-teal">3 Simple Steps</span></h2>
+            <div class="grid md:grid-cols-3 gap-8 md:gap-12 text-center">
+                <div class="relative p-6">
+                    <div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-electric-pink text-white font-bold text-2xl w-12 h-12 rounded-full flex items-center justify-center shadow-lg">1</div>
+                    <div class="mt-8">
+                        <div class="text-5xl mb-4 text-electric-pink">💡</div>
+                        <h3 class="font-semibold text-xl text-white mb-2">Sign Up & Unleash</h3>
+                        <p class="text-white/70 text-sm">Join the SoloBoss revolution. It's quick, easy, and empowering.</p>
+                    </div>
+                </div>
+                <div class="relative p-6">
+                    <div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-power-purple text-white font-bold text-2xl w-12 h-12 rounded-full flex items-center justify-center shadow-lg">2</div>
+                    <div class="mt-8">
+                        <div class="text-5xl mb-4 text-power-purple">🤖</div>
+                        <h3 class="font-semibold text-xl text-white mb-2">Meet Your AI Crew</h3>
+                        <p class="text-white/70 text-sm">Connect with your specialized AI agents. They're ready to work!</p>
+                    </div>
+                </div>
+                <div class="relative p-6">
+                    <div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-rebel-teal text-white font-bold text-2xl w-12 h-12 rounded-full flex items-center justify-center shadow-lg">3</div>
+                    <div class="mt-8">
+                        <div class="text-5xl mb-4 text-rebel-teal">🚀</div>
+                        <h3 class="font-semibold text-xl text-white mb-2">Plan, Build & Conquer</h3>
+                        <p class="text-white/70 text-sm">Use your AI team and solo-focused tools to bring your vision to life.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="py-16 md:py-24 bg-white text-deep-space relative section-angle-top">
+        <div class="container mx-auto px-6 z-10 relative">
+            <h2 class="font-heading text-4xl md:text-5xl text-center mb-12">What <span class="text-power-purple">Solo Bosses</span> Are Saying...</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="p-8 bg-gray-100 rounded-lg shadow-lg italic relative">
+                    <span class="absolute top-4 left-4 font-heading text-6xl text-electric-pink/30 opacity-50">"</span>
+                    <p class="text-gray-700 mb-4 z-10 relative">"SoloBoss AI is a game-changer! It's like having a full team without the overhead. My productivity is through the roof!"</p>
+                    <p class="font-semibold text-right text-electric-pink">- Future Rockstar Founder</p>
+                </div>
+                <div class="p-8 bg-gray-100 rounded-lg shadow-lg italic relative">
+                     <span class="absolute top-4 left-4 font-heading text-6xl text-rebel-teal/30 opacity-50">"</span>
+                    <p class="text-gray-700 mb-4 z-10 relative">"Finally, a tool that understands the solo journey. The AI agents are brilliant and the vibe is just... me!"</p>
+                    <p class="font-semibold text-right text-rebel-teal">- Soon-to-be Mogul</p>
+                </div>
+            </div>
+            <p class="text-center mt-8 text-gray-600">(More awesome testimonials coming soon!)</p>
+        </div>
+    </section>
+
+    <section id="cta-final" class="py-20 md:py-32 bg-gradient-to-br from-power-purple via-electric-pink to-rebel-teal text-white text-center relative section-angle-bottom">
+         <div class="paint-splatter-accent paint-splatter-cta-1"></div>
+         <div class="paint-splatter-accent paint-splatter-cta-2"></div>
+        <div class="container mx-auto px-6 z-10 relative">
+            <h2 class="font-heading text-4xl md:text-6xl mb-6">Ready to Be the <span class="underline decoration-wavy decoration-white/50">Boss</span> You Were Born To Be?</h2>
+            <p class="font-body-alt text-xl md:text-2xl mb-10 max-w-2xl mx-auto">Stop dreaming, start doing. SoloBoss AI is your partner in rebellion and success.</p>
+            <a href="signup.html" class="cta-button bg-white text-deep-space font-bold text-xl px-12 py-5 rounded-lg shadow-2xl hover:bg-gray-200 transition-colors">
+                Claim Your Throne! (Get Started Free)
+            </a>
+            <p class="mt-6 text-sm text-white/80">(Limited spots for early rebels!)</p>
+        </div>
+    </section>
+
+    <footer class="bg-deep-space text-white/70 py-12 text-center text-sm">
+        <div class="container mx-auto px-6">
+            <a href="#hero" class="text-2xl font-heading text-power-purple hover:text-electric-pink transition-colors mb-4 inline-block">
+                SoloBoss AI
+            </a>
+            <div class="space-x-4 mb-4">
+                <a href="legal.html" class="hover:text-rebel-teal">Privacy Policy</a>
+                <a href="legal.html" class="hover:text-rebel-teal">Terms of Service</a>
+                <a href="help.html" class="hover:text-rebel-teal">Contact Us</a>
+            </div>
+            <p>&copy; <span id="currentYear"></span> SoloBoss AI. All Rights Reserved. Built for Bosses, by (AI-Powered) Bosses.</p>
+        </div>
+    </footer>
+
+    <!-- Local JavaScript Files -->
+    <script type="module" src="assets/js/app.js"></script>
+    <script type="module" src="assets/js/storage-manager.js"></script>
+
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = mobileMenu.querySelectorAll('a');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Simple scroll reveal for sections (optional enhancement)
+        const sections = document.querySelectorAll('section');
+        const options = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fadeInUp'); // Needs Tailwind animation utility or custom CSS
+                    // observer.unobserve(entry.target); // Optional: stop observing after first reveal
+                }
+            });
+        }, options);
+
+        // sections.forEach(section => {
+        //     observer.observe(section);
+        // });
+        // Add this to your <style> or a Tailwind config if you want animations:
+        // @keyframes fadeInUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+        // .animate-fadeInUp { animation:fadeInUp 0.5s ease-out forwards; opacity:0; }
+        // For simplicity, I'm not enabling this by default to keep JS minimal as per initial thought.
+    </script>
+
+</body>
+</html>

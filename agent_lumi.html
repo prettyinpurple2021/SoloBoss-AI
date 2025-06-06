@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumi - Legal & Docs Helper | SoloBoss AI</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/css/fonts.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #1A1A2E; /* Deep Space for main background of the shell */
+            color: #FFFFFF; /* Bold White */
+            overflow-x: hidden;
+        }
+        .font-header { font-family: 'Emilys Candy', cursive; }
+        .font-subheading { font-family: 'Henny Penny', cursive; } 
+        .font-accent-lumi-note { font-family: 'Henny Penny', cursive; }
+        .font-accent-alt { font-family: 'Crafty Girls', cursive; }
+        .font-body-lumi { font-family: 'Source_Serif_4', serif; } 
+        .font-body { font-family: 'Poppins', sans-serif; }
+        .font-ui { font-family: 'Inter', sans-serif; }
+
+        .bg-primary-purple { background-color: #A044FF; }
+        .text-primary-purple { color: #A044FF; }
+        .border-primary-purple { border-color: #A044FF; }
+
+        .bg-accent-teal { background-color: #00D9C0; }
+        .text-accent-teal { color: #00D9C0; }
+        .border-accent-teal { border-color: #00D9C0; }
+
+        .bg-accent-pink { background-color: #FF3EA5; }
+        .text-accent-pink { color: #FF3EA5; }
+        .border-accent-pink { border-color: #FF3EA5; }
+        
+        .bg-content-area { background-color: #232336; } /* Main content area background */
+        .bg-sidebar-dark { background-color: #131325; } /* Sidebar background */
+
+        .app-shell-sidebar {
+            border-right: 1px solid rgba(160, 68, 255, 0.2); 
+            transition: width 0.3s ease;
+        }
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem; 
+            border-radius: 0.375rem; 
+            color: rgba(255,255,255,0.7);
+            font-size: 0.875rem; 
+            font-weight: 500; 
+            transition: background-color 0.2s ease, color 0.2s ease, border-left-color 0.2s ease;
+            border-left: 4px solid transparent;
+        }
+        .sidebar-link:hover {
+            background-color: rgba(255, 62, 165, 0.1); 
+            color: #FF3EA5;
+            border-left-color: #FF3EA5;
+        }
+        .sidebar-link.active {
+            background-color: rgba(160, 68, 255, 0.2); 
+            color: #FFFFFF;
+            border-left-color: #A044FF;
+            font-weight: 600; 
+        }
+        .sidebar-link .icon {
+            margin-right: 0.75rem; 
+            width: 1.25rem; 
+            height: 1.25rem; 
+            opacity: 0.8;
+        }
+        .sidebar-link.active .icon {
+            opacity: 1;
+        }
+        .sidebar-group-title {
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem; 
+            font-weight: 600; 
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 1rem;
+        }
+
+        /* Styles from Lumi's Page (adapted for dark shell) */
+        .lumi-input-field, .lumi-select-field {
+            background-color: rgba(255,255,255,0.05); /* Darker inputs for dark shell */
+            border: 1px solid rgba(0, 217, 192, 0.4); /* Rebel Teal border */
+            border-radius: 0.375rem; 
+            padding: 0.75rem 1rem;
+            width: 100%;
+            color: #FFFFFF; 
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+            font-family: 'Inter', sans-serif;
+        }
+        .lumi-input-field::placeholder { color: rgba(255,255,255,0.4); }
+        .lumi-input-field:focus, .lumi-select-field:focus {
+            outline: none;
+            border-color: #FF3EA5; /* Electric Pink focus */
+            box-shadow: 0 0 0 3px rgba(255, 62, 165, 0.25);
+        }
+        .lumi-btn { /* General button style for Lumi's page actions */
+            padding-top: 0.75rem; 
+            padding-bottom: 0.75rem;
+            padding-left: 1.5rem; 
+            padding-right: 1.5rem;
+            border-radius: 0.375rem; 
+            font-weight: 600; 
+            transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out, box-shadow 0.2s ease;
+            min-height: 48px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .lumi-btn:active {
+            transform: scale(0.98);
+        }
+        .lumi-btn-teal { 
+            background-color: #00D9C0;
+            color: #1A1A2E; 
+            box-shadow: 0 2px 5px rgba(0, 217, 192, 0.3);
+        }
+        .lumi-btn-teal:hover {
+            background-color: #00bfa5;
+            box-shadow: 0 4px 10px rgba(0, 217, 192, 0.4);
+        }
+        
+        .lumi-content-card {
+            background-color: #2a2a3e; /* Card background within Lumi's content area */
+            border-radius: 0.5rem; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); 
+            padding: 1.5rem; 
+            border-left: 3px solid #00D9C0; /* Rebel Teal Accent for Lumi's cards */
+        }
+        .disclaimer-box { /* Kept the amber for strong warning */
+            background-color: #FEF3C7; 
+            border-left: 4px solid #F59E0B; 
+            padding: 1rem;
+            border-radius: 0.375rem;
+            color: #78350F; 
+        }
+        .checklist-item input[type="checkbox"] {
+            appearance: none;
+            width: 1.125rem; 
+            height: 1.125rem; 
+            border: 2px solid #00D9C0; 
+            border-radius: 0.25rem; 
+            margin-right: 0.75rem; 
+            cursor: pointer;
+            position: relative;
+            flex-shrink: 0;
+            background-color: rgba(255,255,255,0.1); /* Slightly visible checkbox bg */
+        }
+        .checklist-item input[type="checkbox"]:checked {
+            background-color: #00D9C0;
+        }
+        .checklist-item input[type="checkbox"]:checked::after {
+            content: '✔'; 
+            color: #1A1A2E; /* Dark check for contrast */
+            font-size: 0.75rem; 
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -52%);
+        }
+        .checklist-item label {
+            color: #E0E0E0; /* Light text for checklist items */
+            transition: color 0.2s ease, text-decoration 0.2s ease;
+        }
+        .checklist-item input[type="checkbox"]:checked + label {
+            text-decoration: line-through;
+            color: #9CA3AF; /* gray-400 */
+        }
+        .lumi-note { /* For notes within Lumi's sections */
+            background-color: rgba(0, 217, 192, 0.05); /* Teal subtle bg */
+            border-left: 3px solid #00D9C0; /* Teal border */
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem; 
+            color: #E0E0E0; 
+            border-radius: 0.25rem;
+            margin-top: 0.25rem;
+        }
+        .lumi-output-textarea {
+            background-color: rgba(0,0,0,0.15);
+            border: 1px solid rgba(0, 217, 192, 0.3);
+            color: #D1D5DB;
+        }
+    </style>
+</head>
+<body class="flex h-screen antialiased">
+
+    <aside id="appSidebar" class="app-shell-sidebar bg-sidebar-dark w-64 min-h-screen flex flex-col p-4 space-y-1 fixed inset-y-0 left-0 z-40 overflow-y-auto">
+        <a href="soloboss_ai_app_shell.html" class="block text-center py-4 mb-4 border-b border-white/10">
+            <img src="assets/images/logo.png" alt="SoloBoss AI Logo" class="h-16 mx-auto mb-2">
+            <h1 class="font-header text-2xl text-power-purple">SoloBoss AI</h1>
+        </a>
+
+        <a href="soloboss_ai_app_shell.html" data-page="hub" class="sidebar-link">
+            <span class="icon">🏠</span> Hub / Dashboard
+        </a>
+        
+        <div>
+            <p class="sidebar-group-title">AI Agents</p>
+            <a href="soloboss_agent_vox.html" data-page="vox" class="sidebar-link">
+                <span class="icon">🧠</span> Vox (EA)
+            </a>
+            <a href="soloboss_agent_lexi.html" data-page="lexi" class="sidebar-link">
+                <span class="icon">💡</span> Lexi (Strategist)
+            </a>
+            <a href="soloboss_agent_roxie.html" data-page="roxie" class="sidebar-link">
+                <span class="icon">🎨</span> Roxie (Designer)
+            </a>
+            <a href="soloboss_agent_quinn.html" data-page="quinn" class="sidebar-link">
+                <span class="icon">📢</span> Quinn (Marketing)
+            </a>
+            <a href="soloboss_agent_vex.html" data-page="vex" class="sidebar-link">
+                <span class="icon">/>_</span> Vex (Tech Architect)
+            </a>
+            <a href="soloboss_agent_lumi.html" data-page="lumi" class="sidebar-link">
+                <span class="icon">⚖️</span> Lumi (Legal & Docs)
+            </a>
+            <a href="#" data-page="glitch" class="sidebar-link opacity-50 cursor-not-allowed" title="Glitch - Coming Soon!">
+                <span class="icon">🐞</span> Glitch (QA)
+            </a>
+        </div>
+
+        <div>
+            <p class="sidebar-group-title">Workspace</p>
+            <a href="soloboss_ai_briefcase.html" data-page="briefcase" class="sidebar-link">
+                <span class="icon">🧰</span> The Briefcase
+            </a>
+        </div>
+        
+        <div class="mt-auto pt-4 border-t border-white/10">
+             <a href="soloboss_ai_user_profile.html" data-page="profile" class="sidebar-link">
+                <span class="icon">👤</span> My Profile
+            </a>
+             <a href="soloboss_ai_subscription_billing.html" data-page="billing" class="sidebar-link">
+                <span class="icon">💳</span> Subscription
+            </a>
+             <a href="soloboss_ai_help_support.html" data-page="help" class="sidebar-link">
+                <span class="icon">❓</span> Boss Manual (Help)
+            </a>
+            <a href="soloboss_ai_login_page.html" class="sidebar-link mt-2 text-red-400 hover:bg-red-500/20 hover:text-red-300 hover:border-red-400">
+                <span class="icon">🚪</span> Logout
+            </a>
+        </div>
+    </aside>
+
+    <main class="flex-1 ml-64 bg-content-area p-6 md:p-10 overflow-y-auto">
+        <div class="container mx-auto max-w-3xl section-spacing"> 
+            <header class="text-center mb-8 md:mb-12">
+                <div class="inline-block bg-accent-teal p-3 rounded-full shadow-lg mb-3">
+                    <svg class="w-8 h-8 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg> 
+                </div>
+                <h1 class="font-header text-accent-teal text-3xl sm:text-4xl md:text-[28px] font-bold">Lumi – Legal & Docs Helper</h1>
+                <p class="font-body text-white/80 text-base sm:text-lg md:text-[16px] mt-2">
+                    Your calm, precise, and meticulous guide through paperwork and compliance.
+                </p>
+            </header>
+
+            <section class="disclaimer-box mb-8 md:mb-12">
+                <h3 class="font-semibold text-lg mb-2">🚨 Important Legal Disclaimer</h3>
+                <p class="text-sm font-body">
+                    Lumi and SoloBoss AI provide information and document templates for informational purposes only. <strong class="font-bold">We are not a law firm and do not provide legal advice.</strong>
+                    The information and documents generated are not a substitute for advice from a qualified attorney licensed in your jurisdiction.
+                    You should always consult with your own attorney for any legal matters or before finalizing any legal documents. Your use of SoloBoss AI does not create an attorney-client relationship.
+                </p>
+            </section>
+
+            <section class="lumi-content-card">
+                <h2 class="font-header text-primary-purple text-2xl md:text-[24px] font-bold mb-4">Document Drafting Assistant</h2>
+                <p class="font-body text-white/70 text-sm mb-1">Lumi: "Let's prepare a foundational draft. Select a document type to begin, and please provide the necessary details."</p>
+                
+                <div class="mb-4">
+                    <label for="docType" class="block text-sm font-medium text-white/80 mb-1">Document Type:</label>
+                    <select id="docType" class="lumi-select-field text-sm appearance-none">
+                        <option value="tos">Terms of Service</option>
+                        <option value="privacy">Privacy Policy</option>
+                        <option value="nda">Simple Non-Disclosure Agreement (NDA)</option>
+                        <option value="service_agreement">Basic Service Agreement</option>
+                    </select>
+                </div>
+
+                <div id="docInputsContainer" class="space-y-4 mb-6">
+                    <div class="doc-input-group" data-doc-type="tos privacy service_agreement nda">
+                        <label for="companyName" class="block text-sm font-medium text-white/80 mb-1">Your Company/Brand Name:</label>
+                        <input type="text" id="companyName" class="lumi-input-field text-sm" placeholder="E.g., SoloBoss AI LLC">
+                    </div>
+                    <div class="doc-input-group hidden" data-doc-type="tos privacy service_agreement">
+                        <label for="websiteUrl" class="block text-sm font-medium text-white/80 mb-1">Website/App URL:</label>
+                        <input type="url" id="websiteUrl" class="lumi-input-field text-sm" placeholder="E.g., https://soloboss.ai">
+                    </div>
+                    <div class="doc-input-group hidden" data-doc-type="nda service_agreement">
+                        <label for="counterpartyName" class="block text-sm font-medium text-white/80 mb-1">Other Party's Name (for NDA/Agreement):</label>
+                        <input type="text" id="counterpartyName" class="lumi-input-field text-sm" placeholder="E.g., Partner Innovations Inc.">
+                    </div>
+                    <div class="doc-input-group hidden" data-doc-type="service_agreement">
+                        <label for="serviceDescription" class="block text-sm font-medium text-white/80 mb-1">Brief Description of Services Provided:</label>
+                        <textarea id="serviceDescription" rows="2" class="lumi-input-field text-sm" placeholder="E.g., AI-powered marketing content generation and strategy."></textarea>
+                    </div>
+                </div>
+
+                <button id="generateDocBtn" type="button" class="lumi-btn lumi-btn-teal w-full md:w-auto">Generate Document Draft</button>
+
+                <div id="docOutputSection" class="mt-6 hidden">
+                    <h3 class="font-body-lumi text-accent-teal text-lg font-semibold mb-2">Lumi's Draft: <span id="generatedDocTitle" class="font-header"></span></h3>
+                    <textarea id="generatedDocText" rows="12" class="lumi-input-field lumi-output-textarea text-xs font-mono" readonly aria-label="Generated document text"></textarea>
+                    <div id="lumiDraftingNote" class="lumi-note mt-2 hidden"></div>
+                    <p class="text-xs text-white/60 mt-2 font-body-lumi">Remember: This is a starting point. <strong class="font-semibold">Consult your attorney for finalization.</strong></p>
+                </div>
+            </section>
+
+            <section class="lumi-content-card">
+                <h2 class="font-header text-primary-purple text-2xl md:text-[24px] font-bold mb-4">Startup Compliance Checklist</h2>
+                <p class="font-body-lumi text-white/70 text-sm mb-1">Lumi: "A systematic approach ensures foundational integrity, Boss. Let's review key startup milestones."</p>
+                <div id="complianceChecklist" class="space-y-1 mt-4">
+                    </div>
+                <div id="checklistItemNote" class="lumi-note mt-3 hidden"></div>
+            </section>
+
+            <section class="lumi-content-card text-center">
+                <h3 class="font-header text-primary-purple text-xl md:text-[20px] font-bold mb-2">Document Organization Hub</h3>
+                <p class="font-body-lumi text-white/70 text-sm mb-3">Lumi will help you keep all your important startup documents neatly organized and accessible. (Full feature coming soon!)</p>
+                <div class="text-4xl text-accent-teal opacity-50">🗂️</div>
+            </section>
+
+            <section id="lumiGeneralTipSection" class="mt-8 md:mt-10 text-center hidden">
+                <div class="inline-block bg-content-area p-4 rounded-lg shadow-sm border border-accent-teal max-w-md">
+                    <p id="lumiGeneralTipText" class="font-accent-lumi-note text-sm text-white/90"></p>
+                </div>
+            </section>
+        </div>
+        </main>
+
+    <!-- Local JavaScript Files -->
+    <script type="module" src="assets/js/app.js"></script>
+    <script type="module" src="assets/js/"></script>
+    <script type="module" src="assets/js/storage-manager.js"></script>
+    <script type="module" src="assets/js/"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarLinks = document.querySelectorAll('.sidebar-link');
+            const currentPage = 'lumi'; // Set this for the current page
+
+            sidebarLinks.forEach(link => {
+                if (link.dataset.page === currentPage) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        });
+        
+        // Script from Lumi's Enhanced Response Page
+        const docTypeSelect = document.getElementById('docType');
+        const docInputsContainer = document.getElementById('docInputsContainer');
+        const allDocInputGroups = docInputsContainer.querySelectorAll('.doc-input-group');
+        const generateDocBtn = document.getElementById('generateDocBtn');
+        const docOutputSection = document.getElementById('docOutputSection');
+        const generatedDocTitleEl = document.getElementById('generatedDocTitle');
+        const generatedDocTextEl = document.getElementById('generatedDocText');
+        const lumiDraftingNoteEl = document.getElementById('lumiDraftingNote');
+
+        const complianceChecklistEl = document.getElementById('complianceChecklist');
+        const checklistItemNoteEl = document.getElementById('checklistItemNote');
+        
+        const lumiGeneralTipSection = document.getElementById('lumiGeneralTipSection');
+        const lumiGeneralTipTextEl = document.getElementById('lumiGeneralTipText');
+
+        function getRandomItem(arr) {
+            if (!arr || arr.length === 0) return "";
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        const generalTips = [
+            "Document everything, Boss. A clear paper trail is a founder's best friend. From meeting minutes to contract versions – keep it meticulous.",
+            "Regularly review your standard agreements. Laws and business needs change. Proactivity prevents problems.",
+            "When in doubt, consult counsel. An ounce of prevention (legal advice) is worth a pound of cure (litigation).",
+            "Understand the intellectual property you're creating and how to protect it. This is a core asset."
+        ];
+
+        const checklistData = [
+            { id: "checkBizName", text: "Business Name Registration / DBA", note: "Ensure your chosen name is available and properly registered in your jurisdiction. This varies by state/country." },
+            { id: "checkEIN", text: "Obtain EIN (Employer Identification Number)", note: "Required for most business types in the US for tax purposes, even if you don't have employees." },
+            { id: "checkBank", text: "Open Business Bank Account", note: "Crucial for separating personal and business finances. Simplifies accounting and enhances professionalism." },
+            { id: "checkFounder", text: "Basic Founder's Agreement (if co-founders)", note: "Defines roles, equity, responsibilities, and exit clauses. Essential for partnerships." },
+            { id: "checkWebsiteDocs", text: "Website Terms of Service & Privacy Policy Drafted", note: "Legally required in many places if you collect user data. Protects you and informs users." },
+            { id: "checkInsurance", text: "Consider Business Insurance (e.g., General Liability, E&O)", note: "Protects against unforeseen events and liabilities. Type depends on your business." }
+        ];
+
+        function updateDocInputsVisibility() {
+            if (!docTypeSelect || !allDocInputGroups) return;
+            const selectedType = docTypeSelect.value;
+            allDocInputGroups.forEach(group => {
+                const relevantTypes = group.dataset.docType.split(' ');
+                if (relevantTypes.includes(selectedType)) {
+                    group.classList.remove('hidden');
+                } else {
+                    group.classList.add('hidden');
+                }
+            });
+        }
+        
+        if (docTypeSelect) {
+            docTypeSelect.addEventListener('change', updateDocInputsVisibility);
+            updateDocInputsVisibility(); 
+        }
+
+        // Add Gemini API function
+        async function callGeminiAPI(prompt) {
+            const apiUrl = "https://us-central1-soloboss-ai-fun.cloudfunctions.net/geminiProxy";
+            const payload = { contents: [{ role: "user", parts: [{ text: prompt }] }] };
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    let errorMessage = 'Unknown error';
+                    if (errorData && errorData.error && errorData.error.message) {
+                        errorMessage = errorData.error.message;
+                    }
+                    throw new Error(`API request failed with status ${response.status}. Details: ${errorMessage}`);
+                }
+                const result = await response.json();
+                if (result && result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts && 
+                    result.candidates[0].content.parts.length > 0 && result.candidates[0].content.parts[0].text) {
+                    return result.candidates[0].content.parts[0].text;
+                } else {
+                    throw new Error("Unexpected response structure from API.");
+                }
+            } catch (error) {
+                throw error; 
+            }
+        }
+
+        if (generateDocBtn) {
+            generateDocBtn.addEventListener('click', async () => {
+                const companyName = document.getElementById('companyName')?.value.trim() || "[Your Company Name]";
+                const websiteUrl = document.getElementById('websiteUrl')?.value.trim() || "[Your Website URL]";
+                const counterpartyName = document.getElementById('counterpartyName')?.value.trim() || "[Other Party Name]";
+                const serviceDescription = document.getElementById('serviceDescription')?.value.trim() || "[Description of Services]";
+                const selectedDocTypeOption = docTypeSelect.options[docTypeSelect.selectedIndex];
+                const selectedDocTypeName = selectedDocTypeOption.text;
+                const selectedDocTypeValue = selectedDocTypeOption.value;
+
+                // Disable button and show loading
+                generateDocBtn.disabled = true;
+                generateDocBtn.textContent = 'Generating...';
+
+                try {
+                    // Use Gemini API to generate enhanced documents
+                    const prompt = `You are Lumi, a meticulous legal AI assistant specialized in startup and business documentation. 
+
+Generate a comprehensive ${selectedDocTypeName} for:
+Company: ${companyName}
+Website: ${websiteUrl}
+Counterparty: ${counterpartyName}
+Services: ${serviceDescription}
+
+Create a professional, detailed document that includes:
+1. Proper legal structure and sections
+2. Clear, understandable language
+3. Industry-standard clauses
+4. Appropriate disclaimers
+5. All necessary legal protections
+
+Keep it comprehensive but accessible. Include standard sections that would typically be found in a ${selectedDocTypeName}. Remember to mark placeholder sections that need customization.
+
+IMPORTANT: Start with a clear disclaimer that this is a template for informational purposes only and requires attorney review for finalization.`;
+
+                    const generatedDoc = await callGeminiAPI(prompt);
+                    
+                    // Generate Lumi's note
+                    const notePrompt = `You are Lumi, a legal AI assistant. Give a short, practical legal tip about ${selectedDocTypeName} documents. Focus on what business owners should pay special attention to. Keep it under 80 words and make it actionable.`;
+                    const lumiNote = await callGeminiAPI(notePrompt);
+
+                    // Display the generated content
+                    if(generatedDocTitleEl) generatedDocTitleEl.textContent = selectedDocTypeName;
+                    if(generatedDocTextEl) generatedDocTextEl.value = generatedDoc;
+                    
+                    if (lumiDraftingNoteEl) {
+                        lumiDraftingNoteEl.textContent = lumiNote;
+                        lumiDraftingNoteEl.classList.remove('hidden');
+                    }
+
+                    // Save to localStorage for user
+                    saveAgentContent('lumi', generatedDoc);
+                    saveAgentContent('lumi', lumiNote);
+
+                } catch (error) {
+                    console.error('Error generating document:', error);
+                    
+                    // Fallback to original static document generation
+                    let draftText = `// DRAFT: ${selectedDocTypeName} //\n`;
+                    draftText += `// Generated by Lumi for ${companyName} //\n`;
+                    draftText += `// Date: ${new Date().toLocaleDateString()} //\n`;
+                    draftText += `// IMPORTANT: THIS IS A TEMPLATE FOR INFORMATIONAL PURPOSES ONLY. CONSULT WITH A QUALIFIED ATTORNEY. //\n\n`;
+                    
+                    let lumiNote = "";
+
+                    switch(selectedDocTypeValue) {
+                        case 'tos':
+                            draftText += `SECTION 1: INTRODUCTION\nWelcome to ${companyName}! These Terms of Service ("Terms") govern your use of our website located at ${websiteUrl} (the "Service") operated by ${companyName}.\n\nSECTION 2: ACCEPTANCE OF TERMS\nBy accessing or using the Service, you agree to be bound by these Terms...\n\n[...More sections like User Accounts, IP Rights, Termination, Limitation of Liability, Governing Law would follow...]\n\nSECTION X: CONTACT US\nIf you have any questions, please contact us at [Your Contact Info].`;
+                            lumiNote = `Lumi's Drafting Note: For Terms of Service, clearly define user responsibilities, IP rights, and dispute resolution. Be specific about prohibited uses.`;
+                            break;
+                        case 'privacy':
+                            draftText += `PRIVACY POLICY FOR ${companyName}\nEffective Date: ${new Date().toLocaleDateString()}\n\n1. INTRODUCTION\n${companyName} ("us", "we", or "our") operates ${websiteUrl} (the "Service"). This page informs you of our policies regarding the collection, use, and disclosure of personal data...\n\n2. INFORMATION COLLECTION AND USE\nWe collect Personal Data (e.g., email, name) and Usage Data...\n\n[...More sections like Use of Data, Data Retention, Your Rights (GDPR/CCPA), Cookies, Security, Changes...]\n\n3. CONTACT US\nFor questions, contact us at [Your Contact Info].`;
+                            lumiNote = `Lumi's Drafting Note: Ensure transparency on data collection, usage, storage, and user rights. Comply with GDPR/CCPA as applicable.`;
+                            break;
+                        case 'nda':
+                            draftText += `NON-DISCLOSURE AGREEMENT (NDA)\n\nBetween: ${companyName} ("Disclosing Party") AND ${counterpartyName} ("Receiving Party")\nEffective Date: ${new Date().toLocaleDateString()}\n\n1. PURPOSE: To explore a potential business relationship...\n\n2. CONFIDENTIAL INFORMATION: Includes all non-public information...\n\n3. OBLIGATIONS: Receiving Party shall protect Confidential Information and use it solely for the Purpose...\n\n[...More sections like Exclusions, Term, Return of Information, No License, Governing Law...]\n\nSigned:\nDisclosing Party: __________________\nReceiving Party: __________________`;
+                            lumiNote = `Lumi's Drafting Note: Clearly define "Confidential Information," obligations of the recipient, term of confidentiality, and any exclusions.`;
+                            break;
+                        case 'service_agreement':
+                            draftText += `SERVICE AGREEMENT\n\nBetween: ${companyName} ("Service Provider") AND ${counterpartyName} ("Client")\nEffective Date: ${new Date().toLocaleDateString()}\n\n1. SERVICES TO BE PERFORMED:\nService Provider will perform the following services: ${serviceDescription}.\n\n2. PAYMENT:\nClient shall pay Service Provider [Amount] as follows: [Payment Terms]...\n\n3. TERM: This agreement starts on [Start Date] and ends on [End Date/Condition]...\n\n[...More sections like Independent Contractor, Confidentiality, IP Ownership, Termination, Limitation of Liability...]\n\nSigned:\nService Provider: __________________\nClient: __________________`;
+                            lumiNote = `Lumi's Drafting Note: Detail scope of work, payment terms, timelines, and responsibilities. Clarify IP ownership of deliverables.`;
+                            break;
+                    }
+                    if(generatedDocTitleEl) generatedDocTitleEl.textContent = selectedDocTypeName;
+                    if(generatedDocTextEl) generatedDocTextEl.value = draftText;
+                    
+                    if (lumiDraftingNoteEl) {
+                        if (lumiNote) {
+                            lumiDraftingNoteEl.textContent = lumiNote;
+                            lumiDraftingNoteEl.classList.remove('hidden');
+                        } else {
+                            lumiDraftingNoteEl.classList.add('hidden');
+                        }
+                    }
+                } finally {
+                    generateDocBtn.disabled = false;
+                    generateDocBtn.textContent = 'Generate Document Draft';
+                }
+
+                if(docOutputSection) docOutputSection.classList.remove('hidden');
+                if(docOutputSection) docOutputSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                
+                if (lumiGeneralTipTextEl && generalTips.length > 0) {
+                    lumiGeneralTipTextEl.textContent = getRandomItem(generalTips);
+                    if(lumiGeneralTipSection) lumiGeneralTipSection.classList.remove('hidden');
+                }
+            });
+        }
+
+        function populateChecklist() {
+            if (!complianceChecklistEl) return;
+            complianceChecklistEl.innerHTML = ''; 
+            checklistData.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'checklist-item flex items-start p-3 bg-white/5 hover:bg-white/10 rounded-md transition-colors';
+                
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = item.id;
+                checkbox.name = item.id;
+                checkbox.dataset.note = item.note; 
+                
+                const label = document.createElement('label');
+                label.htmlFor = item.id;
+                label.className = 'text-sm text-white/80 cursor-pointer flex-grow font-body-lumi';
+                label.textContent = item.text;
+                
+                div.appendChild(checkbox);
+                div.appendChild(label);
+                complianceChecklistEl.appendChild(div);
+
+                checkbox.addEventListener('change', function() {
+                    if(checklistItemNoteEl) {
+                        checklistItemNoteEl.textContent = this.dataset.note;
+                        checklistItemNoteEl.classList.remove('hidden');
+                        if (!this.checked) { 
+                            setTimeout(() => { 
+                                if (!this.checked && checklistItemNoteEl) checklistItemNoteEl.classList.add('hidden');
+                            }, 3000);
+                        }
+                    }
+                });
+            });
+        }
+        populateChecklist();
+        
+        if (lumiGeneralTipTextEl && generalTips.length > 0) {
+            lumiGeneralTipTextEl.textContent = getRandomItem(generalTips);
+            if(lumiGeneralTipSection) lumiGeneralTipSection.classList.remove('hidden');
+        }
+
+        // Helper to save agent content
+        function saveAgentContent(agent, content) {
+            const userEmail = sessionStorage.getItem('userEmail');
+            if (!userEmail) return;
+            const key = `soloboss_agent_${agent}_${userEmail}`;
+            let history = JSON.parse(localStorage.getItem(key) || '[]');
+            history.push({ content, timestamp: Date.now() });
+            localStorage.setItem(key, JSON.stringify(history));
+        }
+    </script>
+
+</body>
+</html>

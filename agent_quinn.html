@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quinn - Marketing Assistant | SoloBoss AI</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/css/fonts.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #1A1A2E; 
+            color: #FFFFFF; 
+            overflow-x: hidden;
+        }
+        .font-header { font-family: 'Emilys Candy', cursive; }
+        .font-subheading { font-family: 'Henny Penny', cursive; } 
+        .font-accent-alt { font-family: 'Crafty Girls', cursive; }
+        .font-accent-quinn-tip { font-family: 'Crafty Girls', cursive; }
+        .font-body { font-family: 'Poppins', sans-serif; }
+        .font-ui { font-family: 'Inter', sans-serif; }
+
+        .bg-primary-purple { background-color: #A044FF; }
+        .text-primary-purple { color: #A044FF; }
+        .border-primary-purple { border-color: #A044FF; }
+        .bg-electric-pink { background-color: #FF3EA5; }
+        .text-electric-pink { color: #FF3EA5; }
+        .border-electric-pink { border-color: #FF3EA5; }
+        .bg-rebel-teal { background-color: #00D9C0; }
+        .text-rebel-teal { color: #00D9C0; }
+        .border-rebel-teal { border-color: #00D9C0; }
+        .bg-content-area { background-color: #232336; } 
+        .bg-sidebar-dark { background-color: #131325; } 
+
+        .app-shell-sidebar {
+            border-right: 1px solid rgba(160, 68, 255, 0.2); 
+            transition: width 0.3s ease;
+        }
+        .sidebar-link {
+            display: flex; align-items: center; padding: 0.75rem 1rem; 
+            border-radius: 0.375rem; color: rgba(255,255,255,0.7);
+            font-size: 0.875rem; font-weight: 500; 
+            transition: background-color 0.2s ease, color 0.2s ease, border-left-color 0.2s ease;
+            border-left: 4px solid transparent;
+        }
+        .sidebar-link:hover {
+            background-color: rgba(255, 62, 165, 0.1); color: #FF3EA5;
+            border-left-color: #FF3EA5;
+        }
+        .sidebar-link.active {
+            background-color: rgba(160, 68, 255, 0.2); color: #FFFFFF;
+            border-left-color: #A044FF; font-weight: 600; 
+        }
+        .sidebar-link .icon { margin-right: 0.75rem; width: 1.25rem; height: 1.25rem; opacity: 0.8; }
+        .sidebar-link.active .icon { opacity: 1; }
+        .sidebar-group-title {
+            padding: 0.5rem 1rem; font-size: 0.75rem; font-weight: 600; 
+            color: rgba(255,255,255,0.4); text-transform: uppercase;
+            letter-spacing: 0.05em; margin-top: 1rem;
+        }
+
+        .quinn-input-field { 
+            background-color: rgba(255,255,255,0.05); 
+            border: 1px solid rgba(160, 68, 255, 0.4); 
+            border-radius: 0.375rem; padding: 0.75rem 1rem;
+            width: 100%; color: #FFFFFF;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+        }
+        .quinn-input-field:focus {
+            outline: none; border-color: #FF3EA5; 
+            box-shadow: 0 0 0 3px rgba(255, 62, 165, 0.25);
+        }
+        .quinn-btn { 
+            padding-top: 0.75rem; padding-bottom: 0.75rem;
+            padding-left: 1.5rem; padding-right: 1.5rem;
+            border-radius: 0.375rem; font-weight: 700; 
+            transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out, box-shadow 0.2s ease;
+            min-height: 48px; display: inline-flex;
+            align-items: center; justify-content: center; text-align: center;
+        }
+        .quinn-btn:active { transform: scale(0.98); }
+        .quinn-btn-purple {
+            background-color: #A044FF; color: #FFFFFF;
+            box-shadow: 0 2px 5px rgba(160, 68, 255, 0.3);
+        }
+        .quinn-btn-purple:hover {
+            background-color: #8c3add; box-shadow: 0 4px 10px rgba(160, 68, 255, 0.4);
+        }
+        .quinn-btn-teal-outline {
+            background-color: transparent; color: #00D9C0; border: 2px solid #00D9C0;
+        }
+        .quinn-btn-teal-outline:hover { background-color: rgba(0, 217, 192, 0.1); }
+        .quinn-btn-pink {
+            background-color: #FF3EA5; color: #FFFFFF;
+            box-shadow: 0 2px 5px rgba(255, 105, 180, 0.3);
+        }
+        .quinn-btn-pink:hover {
+            background-color: #f05aa0; box-shadow: 0 4px 10px rgba(255, 105, 180, 0.4);
+        }
+        .quinn-btn-small {
+            padding: 0.375rem 0.75rem; font-size: 0.75rem; 
+            font-weight: 600; 
+        }
+
+        .quinn-content-card { 
+            background-color: #2a2a3e; 
+            border-radius: 0.5rem; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); 
+            padding: 1.5rem; 
+            border-left: 3px solid #FF3EA5; 
+        }
+        .quinn-output-response-card { 
+            background-color: rgba(255,255,255,0.03); 
+            border-radius: 0.5rem; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15); 
+            padding: 1rem 1.5rem; 
+            border-left: 4px solid #00D9C0; 
+            margin-bottom: 1rem; 
+        }
+         .quinn-tip-card {
+            background-color: rgba(255, 62, 165, 0.05); 
+            border: 1px solid rgba(255, 62, 165, 0.2); 
+            border-left-width: 4px;
+            border-left-color: #FF3EA5; 
+            padding: 1rem;
+            border-radius: 0.375rem; 
+        }
+        .quinn-pill-tag {
+            display: inline-block; padding: 0.375rem 0.875rem; 
+            border-radius: 9999px; font-size: 0.875rem; 
+            font-weight: 500; border: 1px solid rgba(255,255,255,0.2); 
+            color: rgba(255,255,255,0.7); background-color: rgba(255,255,255,0.05);
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease, border 0.2s ease;
+        }
+        .quinn-pill-tag.active {
+            background-color: #FF3EA5; color: #FFFFFF; border-color: #FF3EA5;
+        }
+        .quinn-pill-tag:hover {
+            background-color: rgba(255, 62, 165, 0.2); color: #FF3EA5; border-color: #FF3EA5;
+        }
+        
+        .loading-indicator {
+            display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+            padding: 1rem; background-color: rgba(255, 62, 165, 0.1); 
+            border-radius: 0.375rem; color: #FF3EA5;
+        }
+        .loading-spinner {
+            width: 16px; height: 16px; border: 2px solid transparent;
+            border-top: 2px solid #FF3EA5; border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+
+<body class="bg-deep-space min-h-screen flex">
+    <aside class="app-shell-sidebar bg-sidebar-dark w-64 min-h-screen p-4 flex flex-col">
+        <div class="mb-8">
+            <a href="index.html" class="text-power-purple font-header text-2xl font-bold">SoloBoss AI</a>
+            <p class="text-xs text-white/60 mt-1">Your AI-powered business team</p>
+        </div>
+
+        <nav class="flex-1">
+            <a href="app_hub.html" data-page="hub" class="sidebar-link">
+                <span class="icon">🏠</span> Hub / Dashboard
+            </a>
+            
+            <div>
+                <p class="sidebar-group-title">AI Agents</p>
+                <a href="agent_vox.html" data-page="vox" class="sidebar-link">
+                    <span class="icon">🧠</span> Vox (EA)
+                </a>
+                <a href="agent_lexi.html" data-page="lexi" class="sidebar-link">
+                    <span class="icon">💡</span> Lexi (Strategist)
+                </a>
+                <a href="agent_roxie.html" data-page="roxie" class="sidebar-link">
+                    <span class="icon">🎨</span> Roxie (Designer)
+                </a>
+                <a href="agent_quinn.html" data-page="quinn" class="sidebar-link">
+                    <span class="icon">📢</span> Quinn (Marketing)
+                </a>
+                <a href="agent_vex.html" data-page="vex" class="sidebar-link">
+                    <span class="icon">/>_</span> Vex (Tech Architect)
+                </a>
+                <a href="agent_lumi.html" data-page="lumi" class="sidebar-link">
+                    <span class="icon">⚖️</span> Lumi (Legal & Docs)
+                </a>
+                <a href="#" data-page="glitch" class="sidebar-link opacity-50 cursor-not-allowed" title="Glitch - Coming Soon!">
+                    <span class="icon">🐞</span> Glitch (QA)
+                </a>
+            </div>
+
+            <div>
+                <p class="sidebar-group-title">Workspace</p>
+                <a href="briefcase.html" data-page="briefcase" class="sidebar-link">
+                    <span class="icon">💼</span> Briefcase
+                </a>
+                <a href="profile.html" data-page="profile" class="sidebar-link">
+                    <span class="icon">👤</span> Profile
+                </a>
+            </div>
+        </nav>
+
+        <div class="mt-auto pt-4 border-t border-white/10">
+            <a href="help.html" class="sidebar-link">
+                <span class="icon">❓</span> Help & Support
+            </a>
+            <a href="index.html" class="sidebar-link">
+                <span class="icon">🚪</span> Logout
+            </a>
+        </div>
+    </aside>
+
+    <main class="flex-1 bg-content-area overflow-auto">
+        <div class="max-w-4xl mx-auto px-6 py-8">
+            <div class="text-center mb-8">
+                <h1 class="font-header text-4xl md:text-5xl text-electric-pink font-bold mb-4">Meet Quinn 📢</h1>
+                <p class="font-body text-lg text-white/80 max-w-2xl mx-auto">Your social-savvy hype queen for crafting scroll-stopping content and campaigns that convert!</p>
+            </div>
+
+            <!-- Content Type Selector -->
+            <section class="quinn-content-card mb-6">
+                <h2 class="font-subheading text-xl text-primary-purple mb-4">What type of content do you need?</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    <button class="content-type-btn quinn-pill-tag active" data-type="social">Social Posts</button>
+                    <button class="content-type-btn quinn-pill-tag" data-type="email">Email Copy</button>
+                    <button class="content-type-btn quinn-pill-tag" data-type="ads">Ad Copy</button>
+                    <button class="content-type-btn quinn-pill-tag" data-type="landing">Landing Page</button>
+                </div>
+            </section>
+
+            <!-- Content Input -->
+            <section class="quinn-content-card mb-6">
+                <label for="contentPrompt" class="block text-sm font-medium text-white/80 mb-2 font-body">Describe what you need:</label>
+                <textarea id="contentPrompt" rows="4" class="quinn-input-field mb-4 font-body" placeholder="E.g., Promoting my new digital planner for busy entrepreneurs. Emphasize time-saving and organization benefits."></textarea>
+                
+                <div class="grid md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label for="targetAudience" class="block text-sm font-medium text-white/80 mb-1 font-body">Target Audience:</label>
+                        <input type="text" id="targetAudience" class="quinn-input-field font-body" placeholder="E.g., Solo entrepreneurs, busy professionals">
+                    </div>
+                    <div>
+                        <label for="callToAction" class="block text-sm font-medium text-white/80 mb-1 font-body">Desired Action:</label>
+                        <input type="text" id="callToAction" class="quinn-input-field font-body" placeholder="E.g., Download free template, Sign up, Buy now">
+                    </div>
+                </div>
+
+                <button id="generateContentBtn" class="quinn-btn quinn-btn-purple w-full font-ui">✨ Generate Content ✨</button>
+            </section>
+
+            <!-- Tone Selector -->
+            <section class="quinn-content-card mb-6">
+                <h3 class="font-subheading text-lg text-rebel-teal mb-3">Tone of Voice</h3>
+                <div class="flex flex-wrap gap-2">
+                    <button class="tone-btn quinn-pill-tag active font-ui" data-tone="professional">Professional</button>
+                    <button class="tone-btn quinn-pill-tag font-ui" data-tone="friendly">Friendly</button>
+                    <button class="tone-btn quinn-pill-tag font-ui" data-tone="bold">Bold & Edgy</button>
+                    <button class="tone-btn quinn-pill-tag font-ui" data-tone="playful">Playful</button>
+                    <button class="tone-btn quinn-pill-tag font-ui" data-tone="urgent">Urgent</button>
+                    <button class="tone-btn quinn-pill-tag font-ui" data-tone="inspiring">Inspiring</button>
+                </div>
+            </section>
+
+            <!-- Loading State -->
+            <div id="loadingSection" class="loading-indicator hidden mb-6">
+                <div class="loading-spinner"></div>
+                <span>Quinn is crafting your killer content...</span>
+            </div>
+
+            <!-- Output Section -->
+            <section id="outputSection" class="hidden mb-6">
+                <h2 class="font-header text-2xl text-white mb-4">Quinn's Content Creations 🔥</h2>
+                <div id="contentOutput" class="space-y-4">
+                    <!-- Generated content will appear here -->
+                </div>
+            </section>
+
+            <!-- Quinn's Tip -->
+            <section id="quinnTipSection" class="quinn-tip-card hidden">
+                <h4 class="font-accent-quinn-tip text-lg text-electric-pink mb-2">Quinn's Pro Tip 💡</h4>
+                <p id="quinnTipText" class="text-sm text-white/80"></p>
+            </section>
+
+            <!-- Export Options -->
+            <section id="exportSection" class="mt-8 hidden">
+                <div class="grid md:grid-cols-2 gap-4">
+                    <button class="quinn-btn quinn-btn-teal-outline w-full">Save to Briefcase</button>
+                    <button class="quinn-btn quinn-btn-pink w-full">Download as Text</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Local JavaScript Files -->
+    <script type="module" src="assets/js/app.js"></script>
+    <script type="module" src="assets/js/"></script>
+    <script type="module" src="assets/js/storage-manager.js"></script>
+    <script type="module" src="assets/js/"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarLinks = document.querySelectorAll('.sidebar-link');
+            const currentPage = 'quinn';
+
+            sidebarLinks.forEach(link => {
+                link.classList.toggle('active', link.dataset.page === currentPage);
+            });
+        });
+
+        // Gemini API function
+        async function callGeminiAPI(prompt) {
+            const apiUrl = "https://us-central1-soloboss-ai-fun.cloudfunctions.net/geminiProxy";
+            const payload = { contents: [{ role: "user", parts: [{ text: prompt }] }] };
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    let errorMessage = 'Unknown error';
+                    if (errorData && errorData.error && errorData.error.message) {
+                        errorMessage = errorData.error.message;
+                    }
+                    throw new Error(`API request failed with status ${response.status}. Details: ${errorMessage}`);
+                }
+                const result = await response.json();
+                if (result && result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts && 
+                    result.candidates[0].content.parts.length > 0 && result.candidates[0].content.parts[0].text) {
+                    return result.candidates[0].content.parts[0].text;
+                } else {
+                    throw new Error("Unexpected response structure from API.");
+                }
+            } catch (error) {
+                throw error; 
+            }
+        }
+
+        // UI Elements
+        const contentTypeBtns = document.querySelectorAll('.content-type-btn');
+        const toneBtns = document.querySelectorAll('.tone-btn');
+        const generateBtn = document.getElementById('generateContentBtn');
+        const loadingSection = document.getElementById('loadingSection');
+        const outputSection = document.getElementById('outputSection');
+        const contentOutput = document.getElementById('contentOutput');
+        const quinnTipSection = document.getElementById('quinnTipSection');
+        const quinnTipText = document.getElementById('quinnTipText');
+        const exportSection = document.getElementById('exportSection');
+
+        let selectedContentType = 'social';
+        let selectedTone = 'professional';
+
+        // Content type selection
+        contentTypeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                contentTypeBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                selectedContentType = btn.dataset.type;
+            });
+        });
+
+        // Tone selection
+        toneBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                toneBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                selectedTone = btn.dataset.tone;
+            });
+        });
+
+        // Generate content
+        generateBtn.addEventListener('click', async () => {
+            const contentPrompt = document.getElementById('contentPrompt').value.trim();
+            const targetAudience = document.getElementById('targetAudience').value.trim();
+            const callToAction = document.getElementById('callToAction').value.trim();
+
+            if (!contentPrompt) {
+                alert('Please describe what content you need!');
+                return;
+            }
+
+            // Show loading
+            generateBtn.disabled = true;
+            generateBtn.textContent = '✨ Generating...';
+            loadingSection.classList.remove('hidden');
+            outputSection.classList.add('hidden');
+
+            try {
+                const prompt = `You are Quinn, a sassy, creative marketing AI assistant. Generate ${selectedContentType} content with a ${selectedTone} tone.
+
+Content request: ${contentPrompt}
+Target audience: ${targetAudience || 'general audience'}
+Call to action: ${callToAction || 'engage with the content'}
+
+Create 3 different variations of ${selectedContentType} content. For each variation:
+1. Make it engaging and scroll-stopping
+2. Include relevant emojis
+3. Match the ${selectedTone} tone perfectly
+4. Include the call to action naturally
+5. Keep it appropriate for the target audience
+
+Format as:
+**Variation 1:**
+[content]
+
+**Variation 2:**
+[content]
+
+**Variation 3:**
+[content]
+
+Keep each variation concise but impactful. Make Quinn's personality shine through - she's confident, creative, and knows what converts!`;
+
+                const response = await callGeminiAPI(prompt);
+                displayGeneratedContent(response);
+
+                // Save to localStorage for user
+                saveAgentContent('quinn', response);
+
+                // Generate Quinn's tip
+                const tipPrompt = `You are Quinn, a marketing AI. Give a short, practical marketing tip related to ${selectedContentType} and ${selectedTone} tone. Keep it under 50 words and make it actionable.`;
+                const tip = await callGeminiAPI(tipPrompt);
+                quinnTipText.textContent = tip;
+                quinnTipSection.classList.remove('hidden');
+
+                // Save tip to localStorage for user
+                saveAgentContent('quinn', tip);
+
+            } catch (error) {
+                console.error('Error generating content:', error);
+                
+                // Fallback content
+                const fallbackContent = generateFallbackContent(selectedContentType, contentPrompt, selectedTone);
+                displayGeneratedContent(fallbackContent);
+                
+                quinnTipText.textContent = "Pro tip: Test different headlines and see what resonates with your audience. A/B testing is your best friend!";
+                quinnTipSection.classList.remove('hidden');
+            } finally {
+                generateBtn.disabled = false;
+                generateBtn.textContent = '✨ Generate Content ✨';
+                loadingSection.classList.add('hidden');
+            }
+        });
+
+        function displayGeneratedContent(content) {
+            contentOutput.innerHTML = '';
+            
+            const variations = content.split('**Variation').filter(v => v.trim());
+            
+            variations.forEach((variation, index) => {
+                if (index === 0 && !variation.includes('1:')) return; // Skip if first split doesn't contain variation
+                
+                const card = document.createElement('div');
+                card.className = 'quinn-output-response-card';
+                
+                const cleanedVariation = variation.replace(/^\d+:\*\*/, '').replace(/^\*\*/, '').trim();
+                
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <h4 class="font-semibold text-rebel-teal">Variation ${index || index + 1}</h4>
+                        <button class="copy-btn quinn-btn-small quinn-btn-pink" data-content="${cleanedVariation.replace(/"/g, '&quot;')}">Copy</button>
+                    </div>
+                    <div class="content-preview whitespace-pre-wrap text-sm text-white/90">${cleanedVariation}</div>
+                `;
+                
+                contentOutput.appendChild(card);
+            });
+
+            // Add copy functionality
+            const copyBtns = contentOutput.querySelectorAll('.copy-btn');
+            copyBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const content = btn.dataset.content;
+                    navigator.clipboard.writeText(content).then(() => {
+                        btn.textContent = 'Copied!';
+                        setTimeout(() => btn.textContent = 'Copy', 2000);
+                    });
+                });
+            });
+
+            outputSection.classList.remove('hidden');
+            exportSection.classList.remove('hidden');
+        }
+
+        function generateFallbackContent(type, prompt, tone) {
+            const fallbacks = {
+                social: [
+                    "🚀 Ready to transform your business? " + prompt + " Perfect for busy professionals who want results without the hassle! #productivity",
+                    "✨ Stop scrolling and start succeeding! " + prompt + " Join thousands who've already made the switch. Your future self will thank you! 💪",
+                    "🔥 Game-changer alert! " + prompt + " Why struggle when you can streamline? Get started today! 👇"
+                ],
+                email: [
+                    "Subject: The solution you've been waiting for\n\nHi there! " + prompt + " Ready to see real results? Click here to get started!",
+                    "Subject: Transform your workflow today\n\n" + prompt + " Join our community of successful entrepreneurs who've made the change.",
+                    "Subject: Your productivity upgrade is here\n\n" + prompt + " Don't let another day go by without this game-changing solution."
+                ],
+                ads: [
+                    "Transform Your Business Today! " + prompt + " Limited time offer - Get started now!",
+                    "Join 10,000+ Successful Entrepreneurs! " + prompt + " See results in 30 days or your money back.",
+                    "The Smart Choice for Modern Business! " + prompt + " Click to learn more!"
+                ],
+                landing: [
+                    "Welcome to Your Success Story! " + prompt + " Ready to join thousands of satisfied customers?",
+                    "Finally, A Solution That Works! " + prompt + " Get instant access today!",
+                    "Your Business Breakthrough Starts Here! " + prompt + " Don't wait - transform your results now!"
+                ]
+            };
+
+            const variations = fallbacks[type] || fallbacks.social;
+            return variations.map((content, index) => `**Variation ${index + 1}:**\n${content}`).join('\n\n');
+        }
+
+        // Helper to save agent content
+        function saveAgentContent(agent, content) {
+            const userEmail = sessionStorage.getItem('userEmail');
+            if (!userEmail) return;
+            const key = `soloboss_agent_${agent}_${userEmail}`;
+            let history = JSON.parse(localStorage.getItem(key) || '[]');
+            history.push({ content, timestamp: Date.now() });
+            localStorage.setItem(key, JSON.stringify(history));
+        }
+    </script>
+</body>
+</html> 

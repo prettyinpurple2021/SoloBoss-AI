@@ -1,0 +1,37 @@
+/* SoloBoss AI - Web-Safe Font Alternatives */
+
+/* Replace Google Fonts with web-safe alternatives */
+.font-heading, .font-header { 
+    font-family: 'Comic Sans MS', 'Marker Felt', cursive, fantasy; 
+}
+
+.font-body-alt { 
+    font-family: 'Brush Script MT', 'Lucida Handwriting', cursive, fantasy; 
+}
+
+.font-accent-alt { 
+    font-family: 'Chalkduster', 'Bradley Hand', cursive, fantasy; 
+}
+
+/* Main body font using web-safe alternatives */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Fallback system fonts for better compatibility */
+.font-system {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.font-mono {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Custom font weight classes */
+.font-light { font-weight: 300; }
+.font-normal { font-weight: 400; }
+.font-medium { font-weight: 500; }
+.font-semibold { font-weight: 600; }
+.font-bold { font-weight: 700; }
+.font-extrabold { font-weight: 800; }
+.font-black { font-weight: 900; } 

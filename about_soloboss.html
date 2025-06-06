@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About SoloBoss AI - Our Story</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/css/fonts.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1A1A2E; /* Deep Space */
+            color: #FFFFFF; /* Bold White */
+            overflow-x: hidden;
+        }
+        .font-header { font-family: 'Emilys Candy', cursive; }
+        .font-body-alt { font-family: 'Henny Penny', cursive; }
+        .font-accent-alt { font-family: 'Crafty Girls', cursive; }
+
+        .bg-power-purple { background-color: #A044FF; }
+        .text-power-purple { color: #A044FF; }
+        .border-power-purple { border-color: #A044FF; }
+
+        .bg-electric-pink { background-color: #FF3EA5; }
+        .text-electric-pink { color: #FF3EA5; }
+        .border-electric-pink { border-color: #FF3EA5; }
+        
+        .bg-rebel-teal { background-color: #00D9C0; }
+        .text-rebel-teal { color: #00D9C0; }
+        .border-rebel-teal { border-color: #00D9C0; }
+
+        .bg-content-card-dark { background-color: #232336; } /* Slightly lighter dark for cards */
+        
+        .btn-cta {
+            background-color: #FF3EA5; /* Electric Pink */
+            color: #FFFFFF;
+            font-family: 'Emilys Candy', cursive;
+            font-size: 1.25rem; /* text-xl */
+            padding: 0.75rem 2rem; /* py-3 px-8 */
+            border-radius: 0.5rem; /* rounded-lg */
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 62, 165, 0.3);
+            display: inline-block;
+            text-align: center;
+        }
+        .btn-cta:hover {
+            background-color: #E04A9A;
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 6px 20px rgba(255, 62, 165, 0.4);
+        }
+        .section-divider {
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #A044FF, #FF3EA5, #00D9C0, transparent);
+            margin: 3rem auto; /* my-12 */
+            border-radius: 5px;
+            opacity: 0.6;
+        }
+        .story-paragraph {
+            font-family: 'Inter', sans-serif; /* More readable for longer text */
+            font-size: 1.05rem; /* Slightly larger for readability */
+            line-height: 1.8;
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 1.5rem; /* mb-6 */
+        }
+        .story-paragraph strong {
+            color: #FF3EA5; /* Electric Pink for emphasis */
+            font-weight: 700;
+        }
+        .story-paragraph .highlight-teal {
+            color: #00D9C0; /* Rebel Teal */
+            font-family: 'Henny Penny', cursive;
+        }
+        .founder-avatar-placeholder {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.1);
+            border: 3px dashed #A044FF; /* Power Purple */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem auto;
+            color: rgba(255,255,255,0.5);
+        }
+        .sparkle { /* Simple sparkle effect */
+            display: inline-block;
+            animation: sparkle-anim 1.5s infinite;
+            color: #FFD700; /* Gold for sparkle */
+        }
+        @keyframes sparkle-anim {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.3) rotate(15deg); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="py-6 px-4 md:px-8 bg-deep-space/90 backdrop-blur-md shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2">
+                <img src="assets/images/logo.png" alt="SoloBoss AI Logo" class="h-10 md:h-12">
+                <span class="font-header text-2xl md:text-3xl text-power-purple">SoloBoss AI</span>
+            </a>
+            <nav class="space-x-4 md:space-x-6">
+                <a href="pricing.html" class="text-sm text-white/80 hover:text-rebel-teal font-semibold">Pricing</a>
+                <a href="help.html" class="text-sm text-white/80 hover:text-rebel-teal font-semibold">Help</a>
+                <a href="login.html" class="text-sm text-white/80 hover:text-rebel-teal font-semibold">Log In</a>
+                <a href="signup.html" class="text-sm bg-electric-pink text-white px-4 py-2 rounded-md font-semibold hover:bg-pink-700 transition-colors">Sign Up</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 md:px-8 py-10 md:py-16">
+        
+        <section class="text-center mb-12 md:mb-16 pt-8">
+            <h1 class="font-header text-4xl sm:text-5xl md:text-6xl text-white mb-4">
+                This is <span class="text-electric-pink">Our Rebellion</span>.
+            </h1>
+            <p class="font-body-alt text-xl md:text-2xl text-white/80 max-w-3xl mx-auto">
+                SoloBoss AI wasn't just built; it was forged in the fires of solo founder frustration and fueled by a passion for AI and a whole lot of <span class="font-accent-alt text-rebel-teal">sparkle</span> <span class="sparkle">✨</span>.
+            </p>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <section class="mb-12 md:mb-16 max-w-3xl mx-auto">
+            <h2 class="font-header text-3xl md:text-4xl text-power-purple text-center mb-6">The SoloBoss Manifesto</h2>
+            <div class="bg-content-card-dark p-6 md:p-8 rounded-xl shadow-2xl border border-power-purple/30">
+                <ul class="space-y-4">
+                    <li class="flex items-start">
+                        <span class="font-accent-alt text-2xl text-electric-pink mr-3 mt-1">⚡</span>
+                        <p class="font-body-alt text-lg text-white/90">To <strong class="text-electric-pink">empower every solo founder</strong> with an AI-driven "dream team" that gets their unique hustle.</p>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="font-accent-alt text-2xl text-rebel-teal mr-3 mt-1">🤘</span>
+                        <p class="font-body-alt text-lg text-white/90">To <strong class="text-rebel-teal">ditch the overwhelm</strong> of team-focused tools and provide a sanctuary of productivity built for ONE.</p>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="font-accent-alt text-2xl text-power-purple mr-3 mt-1">💡</span>
+                        <p class="font-body-alt text-lg text-white/90">To prove that with the right (AI) partners and a dash of <strong class="text-power-purple">rebellious creativity</strong>, any solo dream can become a reality.</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <section class="mb-12 md:mb-16 max-w-4xl mx-auto">
+            <h2 class="font-header text-3xl md:text-4xl text-rebel-teal text-center mb-8">From Solo Struggles to AI Sidekicks: <br class="sm:hidden"> The SoloBoss AI Rebellion</h2>
+            
+            <p class="story-paragraph">Ever felt like the world of productivity tools was built for an army, but you're a one-person battalion? Yeah, me too. My name is Fran, and I'm the engineering tech student and AI enthusiast who sparked the SoloBoss AI rebellion.</p>
+            <p class="story-paragraph">My journey into the digital world started young – think Neopets guild websites and those first thrilling lines of HTML. That <span class="highlight-teal">spark for design and creation</span> never faded. I dove deeper into web design, always eager to build, to make things *happen*. But I kept hitting the same wall: every awesome tool, every promising platform, seemed laser-focused on <strong>teams</strong>.</p>
+            <p class="story-paragraph">Trying to bend team-centric software like Airtable or HubSpot to fit my solo workflow? Honestly, it was usually more exhausting than the actual project I was trying to tackle. The overwhelm was real, often leading to that dreaded 'why even bother?' feeling and a pile of abandoned projects. It felt like trying to pilot a mega-freighter when all I needed was a <span class="highlight-teal">supercharged, custom-built starfighter</span>.</p>
+            <p class="story-paragraph">Here's the kicker: for me, 'just build a team' isn't an option. I live with a brand of social anxiety that can make a simple 'good morning' feel like a final boss battle. My brain just... short-circuits. Communicating, collaborating in the traditional sense? It's my kryptonite. But that anxiety, as frustrating as it is, couldn't kill my insatiable drive to create, to build, to be <strong>productive</strong> on my own terms. I love to design, I'm obsessed with anything that <span class="highlight-teal">sparkles with potential</span>, and I knew there had to be a better way.</p>
+            <p class="story-paragraph">Then came the AI revolution. Suddenly, I found <strong>my</strong> kind of team. Chatting with AI agents? Effortless. Brainstorming with Google's AI? My new favorite jam session. These digital minds didn't care about social awkwardness; they just cared about ideas and execution.</p>
+            <p class="story-paragraph">One day, deep in another fruitless search for that elusive solo-friendly productivity powerhouse, the lightning bolt struck. I was already trying to launch my own startup. Why not <strong>create</strong> the very tool I was desperately seeking? After an intense brainstorming marathon (shoutout to my Gemini AI for being the ultimate thought partner!), SoloBoss AI was born.</p>
+            <p class="story-paragraph">And let me tell you, she's a force to be reckoned with. SoloBoss AI isn't just an app; it's the <span class="highlight-teal">digital co-founder</span> I always needed – a suite of specialized AI agents ready to be <strong>your</strong> project manager, strategist, designer, developer, marketer, and more. It's built from the ground up for the solo warriors, the indie hackers, the creative powerhouses who are forging their own paths.</p>
+            <p class="story-paragraph">SoloBoss AI is young, but her potential to grow into a titan of industry, helping countless other solo founders crush their goals, is electrifying. I'm here to nurture her, teach her, and grow right alongside her – and to invite you to join this <span class="highlight-teal">rebellion against one-size-fits-all productivity</span>.</p>
+            <p class="story-paragraph text-center font-header text-xl text-electric-pink">Welcome to the future of solo success. Welcome to SoloBoss AI.</p>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <section class="mb-12 md:mb-16 max-w-2xl mx-auto text-center">
+            <h2 class="font-header text-3xl md:text-4xl text-electric-pink mb-8">Meet the Rebel Founder <span class="sparkle">✨</span></h2>
+            <div class="bg-content-card-dark p-6 rounded-xl shadow-2xl border border-electric-pink/30">
+                <div class="founder-avatar-placeholder">
+                    <span class="font-accent-alt text-4xl">F</span> </div>
+                <h3 class="font-header text-2xl text-white mb-2">Fran - Chief SoloBoss Officer</h3>
+                <p class="font-body-alt text-md text-power-purple mb-3">(And Proud Engineering Tech Student / AI Tinkerer)</p>
+                <p class="text-sm text-white/80 mb-4">
+                    "I'm on a mission to prove that solo doesn't mean struggling. With a little AI magic, a lot of passion, and a sprinkle of sparkle, we can build incredible things. SoloBoss AI is my love letter to every founder brave enough to go it alone. Let's build our empires, our way!"
+                </p>
+                <p class="text-xs text-rebel-teal font-accent-alt">Fueled by coffee, code, and creativity (and a healthy obsession with glitter).</p>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <section class="text-center py-10">
+            <h2 class="font-header text-3xl md:text-4xl text-white mb-6">Ready to Join the SoloBoss Rebellion?</h2>
+            <p class="font-body-alt text-lg text-white/80 mb-8 max-w-xl mx-auto">
+                Stop trying to fit into team-shaped boxes. Your AI crew is waiting to help you build, strategize, design, and market like the powerhouse you are.
+            </p>
+            <a href="signup.html" class="btn-cta">
+                Unleash Your AI Team Now!
+            </a>
+        </section>
+
+    </main>
+
+    <footer class="bg-deep-space/50 text-white/60 py-8 text-center text-xs mt-12 border-t border-white/10">
+        <div class="container mx-auto px-6">
+            <p class="mb-2 font-accent-alt text-sm text-power-purple">SoloBoss AI - Your AI Co-Founder, Built for One.</p>
+            <p>&copy; <span id="currentYear"></span> SoloBoss AI. Forged by Solo Founders, For Solo Founders.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+
+</body>
+</html>

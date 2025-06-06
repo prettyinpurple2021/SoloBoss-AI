@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - SoloBoss AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/css/fonts.css" rel="stylesheet">
+    <!-- Visualization & Content Choices:
+        - Hero/Intro: Inform/Engage -> Main page title & compelling tagline -> Static -> Set the tone, highlight value -> HTML/Tailwind
+        - Plan Comparison Grid: Inform/Interact -> Cards for each plan (name, price, feature list, CTA button) -> Static mock data, CTAs link to signup -> Easy comparison, drive sign-ups -> HTML/Tailwind
+        - FAQ Section: Inform -> Accordion list of Q&A related to pricing/plans -> JS for expand/collapse -> Address common user concerns -> HTML/Tailwind/JS
+        - Final CTA: Interact/Convert -> Headline & Button -> Mock action -> Last chance to convert -> HTML/Tailwind
+        - Overall UI: Consistent Branding -> Use of brand fonts, colors, "punk rock girlboss" elements -> Static -> Reinforce SoloBoss AI brand identity -> HTML/Tailwind/CSS
+        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1A1A2E; /* Deep Space */
+            color: #FFFFFF; /* Bold White */
+            overflow-x: hidden;
+        }
+        .font-header { font-family: 'Emilys Candy', cursive; }
+        .font-body-alt { font-family: 'Henny Penny', cursive; }
+        .font-accent-alt { font-family: 'Crafty Girls', cursive; }
+
+        .bg-power-purple { background-color: #A044FF; }
+        .text-power-purple { color: #A044FF; }
+        .border-power-purple { border-color: #A044FF; }
+
+        .bg-electric-pink { background-color: #FF3EA5; }
+        .text-electric-pink { color: #FF3EA5; }
+        .border-electric-pink { border-color: #FF3EA5; }
+        
+        .bg-rebel-teal { background-color: #00D9C0; }
+        .text-rebel-teal { color: #00D9C0; }
+        .border-rebel-teal { border-color: #00D9C0; }
+        
+        .bg-success-green { background-color: #00C897; }
+        .text-success-green { color: #00C897; }
+        
+        .bg-content-card-dark { background-color: #232336; }
+
+        .pricing-plan-card {
+            background-color: #2a2a3e; 
+            border: 1px solid rgba(160, 68, 255, 0.3); /* Power Purple border */
+            border-radius: 0.75rem; /* rounded-xl */
+            padding: 2rem 1.5rem; /* p-8 md:p-6 */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%; 
+            position: relative;
+            overflow: hidden;
+        }
+        .pricing-plan-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(160, 68, 255, 0.35);
+        }
+        .pricing-plan-card.highlighted { /* For the most popular plan */
+            border-color: #FF3EA5; /* Electric Pink */
+            box-shadow: 0 0 25px rgba(255, 62, 165, 0.3), 0 0 15px rgba(255, 62, 165, 0.2) inset;
+            transform: scale(1.03);
+        }
+         .pricing-plan-card.highlighted:hover {
+            transform: translateY(-8px) scale(1.05);
+         }
+        .highlight-banner {
+            position: absolute;
+            top: -1px; /* Adjust to sit nicely on the border */
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%) rotate(-3deg);
+            background-color: #FF3EA5;
+            color: white;
+            padding: 0.375rem 1rem;
+            font-family: 'Crafty Girls', cursive;
+            font-size: 0.875rem; /* text-sm */
+            border-radius: 0.25rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+
+        .btn-plan-select {
+            background-color: #FF3EA5; /* Electric Pink */
+            color: #FFFFFF;
+            font-family: 'Emilys Candy', cursive;
+            font-size: 1.125rem; /* text-lg */
+            padding: 0.625rem 1.5rem; /* py-2.5 px-6 */
+            border-radius: 0.375rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-top: auto; /* Pushes button to bottom of card */
+            width: 100%;
+        }
+        .btn-plan-select:hover {
+            background-color: #E04A9A;
+            transform: translateY(-2px);
+        }
+        .btn-plan-select.free {
+            background-color: #00D9C0; /* Rebel Teal for free plan */
+            color: #1A1A2E;
+        }
+        .btn-plan-select.free:hover {
+            background-color: #00C8A8;
+        }
+        
+        .feature-list li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.5rem; /* mb-2 */
+            font-size: 0.875rem; /* text-sm */
+            color: rgba(255,255,255,0.8);
+        }
+        .feature-list li::before {
+            content: '⚡'; /* Sparkle or other icon */
+            color: #FF3EA5; /* Electric Pink */
+            margin-right: 0.5rem; /* mr-2 */
+            font-size: 0.875rem;
+            line-height: 1.5; /* Adjust for vertical alignment */
+        }
+        .feature-list li.dimmed {
+             color: rgba(255,255,255,0.5);
+        }
+         .feature-list li.dimmed::before {
+            color: rgba(255,255,255,0.3);
+         }
+
+        .accordion-button {
+            background-color: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #E0E0E0;
+            padding: 1rem 1.5rem;
+            width: 100%;
+            text-align: left;
+            border-radius: 0.375rem;
+            transition: background-color 0.3s ease;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .accordion-button:hover, .accordion-button.open {
+            background-color: rgba(160, 68, 255, 0.15); /* Power Purple subtle hover/open */
+            color: #A044FF;
+        }
+        .accordion-content {
+            padding: 0 1.5rem;
+            background-color: rgba(35,35,54, 0.7); 
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+            border-left: 1px solid rgba(255,255,255,0.1);
+            border-right: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom-left-radius: 0.375rem;
+            border-bottom-right-radius: 0.375rem;
+            color: #D1D5DB; /* gray-300 */
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        .accordion-content.open {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        .accordion-icon {
+            transition: transform 0.3s ease;
+            font-size: 1.25rem;
+        }
+        .accordion-button.open .accordion-icon {
+            transform: rotate(135deg);
+        }
+        .paint-splatter-pricing {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            opacity: 0.06;
+            filter: blur(10px);
+            pointer-events: none;
+        }
+        .paint-splatter-pricing.paint-splatter-1 {
+            top: 10%; 
+            left: 5%; 
+            background-color: #A044FF; /* Power Purple */
+            animation: sparkle-anim 10s infinite alternate;
+        }
+        .paint-splatter-pricing.paint-splatter-2 {
+            bottom: 20%; 
+            right: 8%; 
+            width: 150px; 
+            height: 150px; 
+            background-color: #FF3EA5; /* Electric Pink */
+            animation: sparkle-anim 12s infinite alternate-reverse;
+        }
+        @keyframes sparkle-anim {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.06; }
+            50% { transform: scale(1.1) rotate(10deg); opacity: 0.12; }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="py-6 px-4 md:px-8 bg-deep-space/90 backdrop-blur-md shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2">
+                <img src="assets/images/logo.png" alt="SoloBoss AI Logo" class="h-10 md:h-12">
+                <span class="font-header text-2xl md:text-3xl text-power-purple">SoloBoss AI</span>
+            </a>
+            <nav class="space-x-4 md:space-x-6">
+                <a href="about_soloboss.html" class="text-sm text-white/80 hover:text-rebel-teal font-semibold">About</a>
+                <a href="help.html" class="text-sm text-white/80 hover:text-rebel-teal font-semibold">Help</a>
+                <a href="login.html" class="text-sm text-white/80 hover:text-rebel-teal font-semibold">Log In</a>
+                <a href="signup.html" class="text-sm bg-electric-pink text-white px-4 py-2 rounded-md font-semibold hover:bg-pink-700 transition-colors">Sign Up Free</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 md:px-8 py-10 md:py-16 relative">
+        <div class="paint-splatter-pricing paint-splatter-1"></div>
+        <div class="paint-splatter-pricing paint-splatter-2"></div>
+
+        <section class="text-center mb-12 md:mb-16 pt-8">
+            <h1 class="font-header text-4xl sm:text-5xl md:text-6xl text-white mb-4">
+                Fuel Your <span class="text-electric-pink">Solo Rebellion</span>.
+            </h1>
+            <p class="font-body-alt text-xl md:text-2xl text-white/80 max-w-3xl mx-auto">
+                Choose your arsenal. Plans built for Bosses, by Bosses (with a little help from our AI crew). No hidden fees, no team-sized headaches.
+            </p>
+        </section>
+
+        <section id="pricing-plans" class="mb-12 md:mb-16">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 items-stretch">
+                
+                <div class="pricing-plan-card">
+                    <h3 class="font-header text-2xl text-white/90 mb-1">Spark Plug</h3>
+                    <p class="font-accent-alt text-sm text-rebel-teal mb-3">Ignite Your Ideas</p>
+                    <p class="text-4xl font-bold text-white mb-1">$0 <span class="text-lg text-white/60">/ month</span></p>
+                    <p class="text-xs text-white/50 mb-6">Perfect for getting started & testing the waters.</p>
+                    <ul class="feature-list mb-6 flex-grow">
+                        <li>Access to Vox (EA) & Lexi (Strategist)</li>
+                        <li>Up to 3 Active Projects</li>
+                        <li>500MB File Storage</li>
+                        <li>Community Support Access</li>
+                        <li class="dimmed">Full AI Agent Suite</li>
+                        <li class="dimmed">Priority Support</li>
+                    </ul>
+                    <a href="signup.html" class="btn-plan-select free">Start For Free 🤘</a>
+                </div>
+
+                <div class="pricing-plan-card highlighted">
+                    <div class="highlight-banner">Most Popular!</div>
+                    <h3 class="font-header text-2xl text-electric-pink mb-1">Rebel Pro</h3>
+                    <p class="font-accent-alt text-sm text-power-purple mb-3">Unleash Your Power</p>
+                    <p class="text-4xl font-bold text-white mb-1">$29 <span class="text-lg text-white/60">/ month</span></p>
+                    <p class="text-xs text-white/50 mb-6">For serious solo founders ready to scale.</p>
+                    <ul class="feature-list mb-6 flex-grow">
+                        <li><strong class="text-electric-pink">Access to ALL AI Agents!</strong></li>
+                        <li>Unlimited Project Creation</li>
+                        <li>10GB File Storage in "The Briefcase"</li>
+                        <li>Priority Support (Human & AI)</li>
+                        <li>Early Access to New Features & Agents</li>
+                        <li>Downloadable Brand Kits & Strategies</li>
+                    </ul>
+                    <a href="signup.html?plan=pro" class="btn-plan-select">Go Rebel Pro! ✨</a>
+                </div>
+
+                <div class="pricing-plan-card">
+                    <h3 class="font-header text-2xl text-power-purple mb-1">Boss Mode</h3>
+                    <p class="font-accent-alt text-sm text-electric-pink mb-3">Total Domination</p>
+                    <p class="text-4xl font-bold text-white mb-1">$79 <span class="text-lg text-white/60">/ month</span></p>
+                    <p class="text-xs text-white/50 mb-6">For the ultimate SoloBoss ready to conquer.</p>
+                    <ul class="feature-list mb-6 flex-grow">
+                        <li>Everything in Rebel Pro, PLUS:</li>
+                        <li><strong class="text-power-purple">Dedicated Onboarding Specialist</strong></li>
+                        <li>50GB File Storage</li>
+                        <li>Advanced Analytics & Reporting Suite</li>
+                        <li>Exclusive "Boss Level" Workshops & Masterminds</li>
+                        <li>Custom Agent Tuning (Coming Soon!)</li>
+                    </ul>
+                    <a href="signup.html?plan=boss" class="btn-plan-select bg-power-purple hover:bg-purple-700">Achieve Boss Mode 🚀</a>
+                </div>
+            </div>
+            <p class="text-center text-xs text-white/50 mt-8">All prices in USD. Cancel or change your plan anytime. No complicated contracts, promise!</p>
+        </section>
+
+        <section id="pricing-faq" class="max-w-3xl mx-auto mb-12 md:mb-16">
+            <h2 class="font-header text-3xl text-rebel-teal text-center mb-8">Your Burning Questions, Answered</h2>
+            <div class="space-y-3">
+                <div class="accordion-item">
+                    <button class="accordion-button">
+                        <span>Is there really a free plan? What's the catch?</span>
+                        <span class="accordion-icon text-xl font-light transform">+</span>
+                    </button>
+                    <div class="accordion-content">
+                        <p>Absolutely, Boss! The "Spark Plug" plan is 100% free, forever. It gives you access to core agents like Vox (Executive Assistant) and Lexi (Strategist) with some limitations on projects and storage. The "catch"? We're betting you'll love the power so much, you'll want to upgrade to unleash the full AI crew and dominate even harder!</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-button">
+                        <span>Can I change my plan later?</span>
+                        <span class="accordion-icon text-xl font-light transform">+</span>
+                    </button>
+                    <div class="accordion-content">
+                        <p>Of course! You're the Boss, remember? You can upgrade or downgrade your plan at any time directly from your Subscription & Billing settings inside the app. Changes usually take effect at the start of your next billing cycle.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-button">
+                        <span>What payment methods do you accept?</span>
+                        <span class="accordion-icon text-xl font-light transform">+</span>
+                    </button>
+                    <div class="accordion-content">
+                        <p>We accept all major credit cards (Visa, Mastercard, American Express, etc.) through our secure payment processor. We're all about making things easy and secure for you.</p>
+                    </div>
+                </div>
+                 <div class="accordion-item">
+                    <button class="accordion-button">
+                        <span>What happens if I cancel my subscription?</span>
+                        <span class="accordion-icon text-xl font-light transform">+</span>
+                    </button>
+                    <div class="accordion-content">
+                        <p>If you cancel a paid plan, you'll retain access to your current plan's features until the end of your current billing period. After that, your account will typically revert to the "Spark Plug" (Free) plan, and you'll still have access to your data according to that plan's limits. We don't hold your genius hostage!</p>
+                    </div>
+                </div>
+                 <div class="accordion-item">
+                    <button class="accordion-button">
+                        <span>Are there any discounts for annual billing?</span>
+                        <span class="accordion-icon text-xl font-light transform">+</span>
+                    </button>
+                    <div class="accordion-content">
+                        <p>We're always looking for ways to give our Bosses more value! While not shown here, we often run promotions or offer discounts for annual subscriptions. Keep an eye on our announcements or check the billing page inside the app for the latest deals!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="text-center py-10 bg-content-card-dark rounded-xl shadow-2xl border border-electric-pink/30">
+            <h2 class="font-header text-3xl md:text-4xl text-white mb-4">Ready to Pick Your Power?</h2>
+            <p class="font-body-alt text-lg text-white/80 mb-8 max-w-xl mx-auto">
+                Your AI dream team is assembled. Your solo empire awaits its commander. Choose your plan and let's start building something legendary.
+            </p>
+            <a href="signup.html" class="btn-plan-select bg-electric-pink hover:bg-pink-700 text-xl px-10 py-3.5">
+                Sign Up & Unleash SoloBoss AI!
+            </a>
+        </section>
+
+    </main>
+
+    <footer class="bg-deep-space/50 text-white/60 py-8 text-center text-xs mt-12 border-t border-white/10">
+        <div class="container mx-auto px-6">
+            <p class="mb-2 font-accent-alt text-sm text-power-purple">SoloBoss AI - Your AI Co-Founder, Built for One.</p>
+            <p>&copy; <span id="currentYear"></span> SoloBoss AI. No Teams Required. Ever.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        const accordionButtons = document.querySelectorAll('.accordion-button');
+        accordionButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const icon = button.querySelector('.accordion-icon');
+                
+                // Close other open accordions
+                // accordionButtons.forEach(btn => {
+                //     if (btn !== button && btn.classList.contains('open')) {
+                //         btn.classList.remove('open');
+                //         btn.nextElementSibling.style.maxHeight = null;
+                //         btn.nextElementSibling.classList.remove('open');
+                //         btn.querySelector('.accordion-icon').style.transform = 'rotate(0deg)';
+                //     }
+                // });
+
+                button.classList.toggle('open');
+                
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                    content.classList.remove('open');
+                    icon.style.transform = 'rotate(0deg)';
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    content.classList.add('open');
+                    icon.style.transform = 'rotate(135deg)';
+                } 
+            });
+        });
+    </script>
+
+</body>
+</html>

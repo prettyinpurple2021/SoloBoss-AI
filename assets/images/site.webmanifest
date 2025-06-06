@@ -1,0 +1,23 @@
+{
+    "name": "SoloBoss AI - Your AI Startup Team",
+    "short_name": "SoloBoss AI",
+    "description": "AI-powered productivity platform for solo entrepreneurs and creators",
+    "icons": [
+        {
+            "src": "favicon-32x32.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        },
+        {
+            "src": "apple-touch-icon.png",
+            "sizes": "180x180",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#A044FF",
+    "background_color": "#1A1A2E",
+    "display": "standalone",
+    "start_url": "/",
+    "scope": "/",
+    "orientation": "portrait-primary"
+} 

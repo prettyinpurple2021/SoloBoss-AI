@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Briefcase - Saved Content | SoloBoss AI</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/css/fonts.css" rel="stylesheet">
+    <link href="assets/css/styles.css" rel="stylesheet">
+    <link href="assets/css/components.css" rel="stylesheet">
+    <script src="assets/js/app.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #1A1A2E; color: #FFFFFF; }
+        .briefcase-section { background: #232336; border-radius: 1.25rem; padding: 2rem; margin-bottom: 2.5rem; box-shadow: 0 8px 32px rgba(160,68,255,0.10), 0 1.5px 0 #A044FF inset; border-left: 6px solid #A044FF; position: relative; }
+        .briefcase-header { font-family: 'Emilys Candy', cursive; color: #A044FF; font-size: 2.5rem; letter-spacing: 1px; text-shadow: 0 2px 12px #A044FF33; }
+        .agent-title { font-family: 'Henny Penny', cursive; color: #00D9C0; font-size: 1.35rem; margin-bottom: 0.5rem; letter-spacing: 0.5px; }
+        .history-entry { background: linear-gradient(90deg, #232336 80%, #A044FF11 100%); border-radius: 0.75rem; padding: 1.25rem 1rem; margin-bottom: 1.25rem; display: flex; justify-content: space-between; align-items: flex-start; box-shadow: 0 2px 8px #A044FF11; border: 1.5px solid #A044FF22; transition: box-shadow 0.2s, border 0.2s; }
+        .history-entry:hover { box-shadow: 0 6px 24px #A044FF33, 0 0 0 2px #FF3EA5; border-color: #FF3EA5; }
+        .history-content { color: #fff; font-size: 1.05rem; word-break: break-word; font-family: 'Poppins', sans-serif; }
+        .history-actions { display: flex; gap: 0.5rem; align-items: center; }
+        .btn-copy, .btn-delete, .btn-edit, .btn-favorite, .btn-details { font-size: 0.95rem; background: #00D9C0; color: #1A1A2E; border: none; border-radius: 0.25rem; padding: 0.25rem 0.85rem; cursor: pointer; transition: background 0.2s, color 0.2s, box-shadow 0.2s; font-family: 'Inter', sans-serif; font-weight: 600; }
+        .btn-copy:hover, .btn-edit:hover, .btn-details:hover { background: #A044FF; color: #fff; }
+        .btn-delete { background: #FF3EA5; color: #fff; }
+        .btn-delete:hover { background: #A044FF; }
+        .btn-favorite { background: #232336; color: #FF3EA5; border: 1.5px solid #FF3EA5; font-size: 1.2rem; padding: 0.15rem 0.7rem; border-radius: 0.5rem; }
+        .btn-favorite:hover { background: #FF3EA5; color: #fff; }
+        .btn-favorite[aria-pressed="true"] { background: #FF3EA5; color: #fff; }
+        .export-btn { background: #A044FF; color: #fff; border: none; border-radius: 0.25rem; padding: 0.5rem 1.25rem; margin-right: 1rem; cursor: pointer; font-weight: 700; font-family: 'Inter', sans-serif; box-shadow: 0 2px 8px #A044FF22; }
+        .export-btn:hover { background: #00D9C0; color: #1A1A2E; }
+        .search-bar { width: 100%; padding: 0.5rem 1rem; border-radius: 0.375rem; border: 1.5px solid #A044FF; background: #18182f; color: #fff; margin-bottom: 1.5rem; font-size: 1.05rem; font-family: 'Poppins', sans-serif; transition: border 0.2s; }
+        .search-bar:focus { border-color: #FF3EA5; outline: none; }
+        .filter-select { padding: 0.5rem 1rem; border-radius: 0.375rem; border: 1.5px solid #00D9C0; background: #18182f; color: #fff; margin-bottom: 1.5rem; font-size: 1.05rem; font-family: 'Poppins', sans-serif; }
+        .filter-select:focus { border-color: #FF3EA5; outline: none; }
+        #undoDeleteBar { background: #00D9C0; color: #1A1A2E; font-weight: 600; font-family: 'Inter', sans-serif; box-shadow: 0 4px 24px #00D9C055; border: 2px solid #A044FF; }
+        #entryModal { background: rgba(26,26,46,0.92); animation: fadeIn 0.3s; }
+        #entryModal .bg-content-area { box-shadow: 0 8px 32px #A044FF33; border: 2px solid #A044FF; }
+        #modalAgent { font-family: 'Henny Penny', cursive; color: #00D9C0; font-size: 1.15rem; }
+        #modalContent { font-family: 'Poppins', sans-serif; color: #fff; font-size: 1.05rem; }
+        #modalMeta { color: #FF3EA5; font-family: 'Inter', sans-serif; }
+        
+        /* New classes to replace inline styles */
+        .briefcase-controls { margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+        .filter-controls { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+        .bulk-delete-btn { background: #FF3EA5 !important; }
+        .undo-btn { background: #A044FF !important; }
+        .undo-delete-bar { 
+            display: none; 
+            position: fixed; 
+            bottom: 1.5rem; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            background: #00D9C0; 
+            color: #1A1A2E; 
+            padding: 1rem 1.5rem; 
+            border-radius: 0.5rem; 
+            box-shadow: 0 4px 24px #00D9C055; 
+            z-index: 50; 
+            align-items: center; 
+            gap: 1rem; 
+            font-weight: 600; 
+            font-family: 'Inter', sans-serif; 
+            border: 2px solid #A044FF; 
+        }
+        .entry-modal { 
+            display: none; 
+            position: fixed; 
+            inset: 0; 
+            z-index: 50; 
+            align-items: center; 
+            justify-content: center; 
+            background: rgba(0,0,0,0.6); 
+        }
+        
+        @media (max-width: 768px) {
+            .briefcase-controls { flex-direction: column; }
+            .filter-controls { flex-direction: column; align-items: stretch; }
+        }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        /* Playful paint splatters */
+        .paint-splatter { position: absolute; border-radius: 50%; opacity: 0.10; pointer-events: none; z-index: 0; }
+        .splatter-purple { background: #A044FF; width: 120px; height: 120px; top: -40px; left: -40px; filter: blur(10px); }
+        .splatter-pink { background: #FF3EA5; width: 90px; height: 90px; bottom: -30px; right: -30px; filter: blur(8px); }
+        .splatter-teal { background: #00D9C0; width: 70px; height: 70px; top: 50%; left: 90%; transform: translateY(-50%); filter: blur(12px); }
+        @media (max-width: 600px) {
+            .briefcase-section { padding: 1rem; }
+            .briefcase-header { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto max-w-3xl py-10 relative">
+        <span class="paint-splatter splatter-purple"></span>
+        <span class="paint-splatter splatter-pink"></span>
+        <span class="paint-splatter splatter-teal"></span>
+        <h1 class="briefcase-header mb-8 text-center">🧰 The Briefcase</h1>
+        <div class="briefcase-controls">
+            <div class="filter-controls">
+                <select id="agentFilter" class="filter-select" title="Filter by Agent" aria-label="Filter by Agent">
+                    <option value="all">All Agents</option>
+                    <option value="vox">Vox</option>
+                    <option value="lexi">Lexi</option>
+                    <option value="roxie">Roxie</option>
+                    <option value="quinn">Quinn</option>
+                    <option value="vex">Vex</option>
+                    <option value="lumi">Lumi</option>
+                </select>
+                
+                <input type="text" id="searchBar" placeholder="Search entries..." class="search-bar" title="Search entries" aria-label="Search entries">
+                
+                <input type="date" id="dateFrom" class="filter-select" title="Filter from date" aria-label="Filter from date">
+                <input type="date" id="dateTo" class="filter-select" title="Filter to date" aria-label="Filter to date">
+                
+                <select id="sortSelect" class="filter-select" title="Sort entries" aria-label="Sort entries">
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                    <option value="favorite">Favorites First</option>
+                </select>
+            </div>
+            <div>
+                <button id="bulkDeleteBtn" class="export-btn bulk-delete-btn">Bulk Delete</button>
+                <button id="exportJsonBtn" class="export-btn">Export JSON</button>
+                <button id="exportCsvBtn" class="export-btn">Export CSV</button>
+            </div>
+        </div>
+        <div id="briefcaseContent"></div>
+        <div id="undoDeleteBar" class="undo-delete-bar">
+            <span>Entry deleted.</span>
+            <button id="undoDeleteBtn" class="export-btn undo-btn">Undo</button>
+        </div>
+        <!-- Entry Details Modal -->
+        <div id="entryModal" class="entry-modal">
+            <div class="bg-content-area rounded-lg p-8 max-w-lg w-full relative">
+                <button id="closeModalBtn" class="absolute top-2 right-2 text-xl text-white">&times;</button>
+                <h2 class="font-header text-primary-purple text-2xl mb-2">Entry Details</h2>
+                <div id="modalAgent" class="agent-title mb-2"></div>
+                <div id="modalContent" class="history-content mb-4"></div>
+                <div id="modalMeta" class="text-xs text-white/60 mb-2"></div>
+                <button id="modalEditBtn" class="export-btn mb-2">Edit</button>
+                <button id="modalFavoriteBtn" class="export-btn mb-2">Favorite</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Local JavaScript Files -->
+    <script type="module" src="assets/js/app.js"></script>
+    <script type="module" src="assets/js/"></script>
+    <script type="module" src="assets/js/storage-manager.js"></script>
+    <script type="module" src="assets/js/"></script>
+
+    <script>
+        const agentNames = { vox: 'Vox', lexi: 'Lexi', roxie: 'Roxie', quinn: 'Quinn', vex: 'Vex', lumi: 'Lumi' };
+        
+        // Updated to use new storage system
+        async function getAllAgentHistories() {
+            const agents = Object.keys(agentNames);
+            const histories = {};
+            
+            if (window.StorageManager) {
+                for (const agent of agents) {
+                    try {
+                        const conversations = await window.StorageManager.getConversations(agent);
+                        histories[agent] = conversations.map(conv => ({
+                            content: conv.content.content || conv.content,
+                            timestamp: conv.timestamp || conv.content.timestamp,
+                            favorite: conv.content.favorite || false
+                        }));
+                    } catch (error) {
+                        console.error(`Error fetching ${agent} conversations:`, error);
+                        histories[agent] = [];
+                    }
+                }
+            } else {
+                // Fallback to localStorage
+                const userEmail = sessionStorage.getItem('userEmail');
+                if (!userEmail) return {};
+                
+                agents.forEach(agent => {
+                    const key = `soloboss_agent_${agent}_${userEmail}`;
+                    histories[agent] = JSON.parse(localStorage.getItem(key) || '[]');
+                });
+            }
+            
+            return histories;
+        }
+        
+        let lastDeleted = null;
+        let lastDeletedAgent = null;
+        let lastDeletedIndex = null;
+        
+        async function renderBriefcase() {
+            const histories = await getAllAgentHistories();
+            const filter = document.getElementById('agentFilter').value;
+            const search = document.getElementById('searchBar').value.toLowerCase();
+            const dateFrom = document.getElementById('dateFrom').value;
+            const dateTo = document.getElementById('dateTo').value;
+            const sort = document.getElementById('sortSelect').value;
+            const contentDiv = document.getElementById('briefcaseContent');
+            contentDiv.innerHTML = '';
+            let selectedEntries = [];
+            Object.entries(histories).forEach(([agent, entries]) => {
+                if (filter !== 'all' && agent !== filter) return;
+                if (!entries.length) return;
+                let filtered = entries.map((entry, idx) => ({...entry, _idx: idx, _agent: agent}));
+                if (search) filtered = filtered.filter(entry => entry.content.toLowerCase().includes(search));
+                if (dateFrom) filtered = filtered.filter(entry => new Date(entry.timestamp) >= new Date(dateFrom));
+                if (dateTo) filtered = filtered.filter(entry => new Date(entry.timestamp) <= new Date(dateTo + 'T23:59:59'));
+                if (sort === 'oldest') filtered.sort((a, b) => a.timestamp - b.timestamp);
+                else if (sort === 'favorite') filtered.sort((a, b) => (b.favorite||0) - (a.favorite||0) || b.timestamp - a.timestamp);
+                else filtered.sort((a, b) => b.timestamp - a.timestamp);
+                if (!filtered.length) return;
+                const section = document.createElement('section');
+                section.className = 'briefcase-section';
+                section.innerHTML = `<div class="agent-title">${agentNames[agent]}</div>`;
+                filtered.forEach((entry, idx) => {
+                    const div = document.createElement('div');
+                    div.className = 'history-entry';
+                    div.innerHTML = `
+                        <input type="checkbox" class="select-entry mr-2 mt-1" data-agent="${agent}" data-idx="${entry._idx}">
+                        <span class="history-content${entry.favorite ? ' text-accent-teal font-bold' : ''}">${entry.content.replace(/\n/g, '<br>')}</span>
+                        <div class="history-actions">
+                            <button class="btn-copy">Copy</button>
+                            <button class="btn-edit">Edit</button>
+                            <button class="btn-favorite">${entry.favorite ? '★' : '☆'}</button>
+                            <button class="btn-details">Details</button>
+                            <button class="btn-delete">Delete</button>
+                        </div>`;
+                    div.querySelector('.btn-copy').addEventListener('click', () => {
+                        navigator.clipboard.writeText(entry.content);
+                    });
+                    div.querySelector('.btn-edit').addEventListener('click', () => {
+                        editEntry(agent, entry._idx, div);
+                    });
+                    div.querySelector('.btn-favorite').addEventListener('click', () => {
+                        toggleFavorite(agent, entry._idx);
+                    });
+                    div.querySelector('.btn-details').addEventListener('click', () => {
+                        showEntryModal(agent, entry._idx);
+                    });
+                    div.querySelector('.btn-delete').addEventListener('click', () => {
+                        deleteHistoryEntry(agent, entry._idx);
+                    });
+                    section.appendChild(div);
+                });
+                contentDiv.appendChild(section);
+            });
+        }
+        function editEntry(agent, idx, div) {
+            const userEmail = sessionStorage.getItem('userEmail');
+            const key = `soloboss_agent_${agent}_${userEmail}`;
+            let history = JSON.parse(localStorage.getItem(key) || '[]');
+            const entry = history[idx];
+            const textarea = document.createElement('textarea');
+            textarea.value = entry.content;
+            textarea.className = 'search-bar mb-2';
+            div.querySelector('.history-content').replaceWith(textarea);
+            textarea.focus();
+            textarea.addEventListener('blur', () => {
+                entry.content = textarea.value;
+                history[idx] = entry;
+                localStorage.setItem(key, JSON.stringify(history));
+                renderBriefcase();
+            });
+        }
+        function toggleFavorite(agent, idx) {
+            const userEmail = sessionStorage.getItem('userEmail');
+            const key = `soloboss_agent_${agent}_${userEmail}`;
+            let history = JSON.parse(localStorage.getItem(key) || '[]');
+            history[idx].favorite = !history[idx].favorite;
+            localStorage.setItem(key, JSON.stringify(history));
+            renderBriefcase();
+        }
+        function deleteHistoryEntry(agent, index) {
+            const userEmail = sessionStorage.getItem('userEmail');
+            const key = `soloboss_agent_${agent}_${userEmail}`;
+            let history = JSON.parse(localStorage.getItem(key) || '[]');
+            lastDeleted = history[index];
+            lastDeletedAgent = agent;
+            lastDeletedIndex = index;
+            history.splice(index, 1);
+            localStorage.setItem(key, JSON.stringify(history));
+            renderBriefcase();
+            showUndoBar();
+        }
+        function showUndoBar() {
+            const bar = document.getElementById('undoDeleteBar');
+            bar.style.display = 'flex';
+            setTimeout(() => { bar.style.display = 'none'; }, 8000);
+        }
+        document.getElementById('undoDeleteBtn').addEventListener('click', () => {
+            if (lastDeleted && lastDeletedAgent != null && lastDeletedIndex != null) {
+                const userEmail = sessionStorage.getItem('userEmail');
+                const key = `soloboss_agent_${lastDeletedAgent}_${userEmail}`;
+                let history = JSON.parse(localStorage.getItem(key) || '[]');
+                history.splice(lastDeletedIndex, 0, lastDeleted);
+                localStorage.setItem(key, JSON.stringify(history));
+                renderBriefcase();
+                document.getElementById('undoDeleteBar').style.display = 'none';
+                lastDeleted = null; lastDeletedAgent = null; lastDeletedIndex = null;
+            }
+        });
+        document.getElementById('bulkDeleteBtn').addEventListener('click', () => {
+            const checked = document.querySelectorAll('.select-entry:checked');
+            if (!checked.length) return alert('Select entries to delete.');
+            if (!confirm('Delete selected entries?')) return;
+            checked.forEach(box => {
+                deleteHistoryEntry(box.dataset.agent, parseInt(box.dataset.idx));
+            });
+        });
+        // Entry Details Modal
+        function showEntryModal(agent, idx) {
+            const userEmail = sessionStorage.getItem('userEmail');
+            const key = `soloboss_agent_${agent}_${userEmail}`;
+            let history = JSON.parse(localStorage.getItem(key) || '[]');
+            const entry = history[idx];
+            document.getElementById('modalAgent').textContent = agentNames[agent];
+            document.getElementById('modalContent').innerHTML = entry.content.replace(/\n/g, '<br>');
+            document.getElementById('modalMeta').textContent = `Saved: ${new Date(entry.timestamp).toLocaleString()}${entry.favorite ? ' | ★ Favorite' : ''}`;
+            document.getElementById('entryModal').style.display = 'flex';
+            document.getElementById('modalEditBtn').onclick = () => { document.getElementById('entryModal').style.display = 'none'; editEntry(agent, idx, null); };
+            document.getElementById('modalFavoriteBtn').onclick = () => { toggleFavorite(agent, idx); document.getElementById('entryModal').style.display = 'none'; };
+        }
+        document.getElementById('closeModalBtn').addEventListener('click', () => {
+            document.getElementById('entryModal').style.display = 'none';
+        });
+        window.addEventListener('DOMContentLoaded', renderBriefcase);
+        document.getElementById('agentFilter').addEventListener('change', renderBriefcase);
+        document.getElementById('searchBar').addEventListener('input', renderBriefcase);
+        document.getElementById('dateFrom').addEventListener('change', renderBriefcase);
+        document.getElementById('dateTo').addEventListener('change', renderBriefcase);
+        document.getElementById('sortSelect').addEventListener('change', renderBriefcase);
+        document.getElementById('exportJsonBtn').addEventListener('click', async () => {
+            const histories = await getAllAgentHistories();
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(histories, null, 2));
+            const dlAnchor = document.createElement('a');
+            dlAnchor.setAttribute('href', dataStr);
+            dlAnchor.setAttribute('download', 'soloboss_briefcase.json');
+            document.body.appendChild(dlAnchor);
+            dlAnchor.click();
+            document.body.removeChild(dlAnchor);
+        });
+        document.getElementById('exportCsvBtn').addEventListener('click', async () => {
+            const histories = await getAllAgentHistories();
+            let csv = 'Agent,Content,Timestamp\n';
+            Object.entries(histories).forEach(([agent, entries]) => {
+                entries.forEach(entry => {
+                    csv += `${agentNames[agent]},"${entry.content.replace(/"/g, '""').replace(/\n/g, ' ')}",${new Date(entry.timestamp).toLocaleString()}\n`;
+                });
+            });
+            const dataStr = "data:text/csv;charset=utf-8," + encodeURIComponent(csv);
+            const dlAnchor = document.createElement('a');
+            dlAnchor.setAttribute('href', dataStr);
+            dlAnchor.setAttribute('download', 'soloboss_briefcase.csv');
+            document.body.appendChild(dlAnchor);
+            dlAnchor.click();
+            document.body.removeChild(dlAnchor);
+        });
+    </script>
+</body>
+</html>

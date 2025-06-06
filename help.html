@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boss Manual - Help & Support | SoloBoss AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/css/fonts.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1A1A2E; /* Deep Space for main background of the shell */
+            color: #FFFFFF; /* Bold White */
+            overflow-x: hidden;
+        }
+        .font-header { font-family: 'Emilys Candy', cursive; }
+        .font-body-alt { font-family: 'Henny Penny', cursive; }
+        .font-accent-alt { font-family: 'Crafty Girls', cursive; }
+
+        .bg-power-purple { background-color: #A044FF; }
+        .text-power-purple { color: #A044FF; }
+        .border-power-purple { border-color: #A044FF; }
+
+        .bg-electric-pink { background-color: #FF3EA5; }
+        .text-electric-pink { color: #FF3EA5; }
+        .border-electric-pink { border-color: #FF3EA5; }
+        
+        .bg-rebel-teal { background-color: #00D9C0; }
+        .text-rebel-teal { color: #00D9C0; }
+        .border-rebel-teal { border-color: #00D9C0; }
+        
+        .bg-success-green { background-color: #00C897; }
+        .text-success-green { color: #00C897; }
+
+        .bg-content-area { background-color: #232336; } /* Main content area background */
+        .bg-sidebar-dark { background-color: #131325; } /* Sidebar background */
+
+        .app-shell-sidebar {
+            border-right: 1px solid rgba(160, 68, 255, 0.2); 
+            transition: width 0.3s ease;
+        }
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem; 
+            border-radius: 0.375rem; 
+            color: rgba(255,255,255,0.7);
+            font-size: 0.875rem; 
+            font-weight: 500; 
+            transition: background-color 0.2s ease, color 0.2s ease, border-left-color 0.2s ease;
+            border-left: 4px solid transparent;
+        }
+        .sidebar-link:hover {
+            background-color: rgba(255, 62, 165, 0.1); 
+            color: #FF3EA5;
+            border-left-color: #FF3EA5;
+        }
+        .sidebar-link.active {
+            background-color: rgba(160, 68, 255, 0.2); 
+            color: #FFFFFF;
+            border-left-color: #A044FF;
+            font-weight: 600; 
+        }
+        .sidebar-link .icon {
+            margin-right: 0.75rem; 
+            width: 1.25rem; 
+            height: 1.25rem; 
+            opacity: 0.8;
+        }
+        .sidebar-link.active .icon {
+            opacity: 1;
+        }
+        .sidebar-group-title {
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem; 
+            font-weight: 600; 
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 1rem;
+        }
+
+        /* Styles from Help & Support Page */
+        .search-input {
+            background-color: rgba(255,255,255,0.05);
+            border: 1px solid rgba(160, 68, 255, 0.4); 
+            border-radius: 0.375rem; 
+            padding: 0.75rem 1.25rem;
+            color: #FFFFFF;
+        }
+        .search-input::placeholder { color: rgba(255,255,255,0.4); }
+        .search-input:focus {
+            outline: none;
+            border-color: #FF3EA5; 
+            box-shadow: 0 0 0 3px rgba(255, 62, 165, 0.3);
+        }
+        .accordion-button {
+            background-color: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #E0E0E0;
+            padding: 1rem 1.5rem;
+            width: 100%;
+            text-align: left;
+            border-radius: 0.375rem;
+            transition: background-color 0.3s ease;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .accordion-button:hover, .accordion-button.open {
+            background-color: rgba(160, 68, 255, 0.15); 
+            color: #A044FF;
+        }
+        .accordion-content {
+            padding: 0 1.5rem;
+            background-color: rgba(35,35,54, 0.7); 
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+            border-left: 1px solid rgba(255,255,255,0.1);
+            border-right: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom-left-radius: 0.375rem;
+            border-bottom-right-radius: 0.375rem;
+            color: #D1D5DB; 
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        .accordion-content.open {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        .accordion-icon {
+            transition: transform 0.3s ease;
+            font-size: 1.25rem;
+        }
+        .accordion-button.open .accordion-icon {
+            transform: rotate(135deg);
+        }
+        .help-section-card {
+            background-color: #2a2a3e; /* Darker than main content area, but lighter than sidebar */
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            /* border-left: 3px solid #A044FF;  Using specific accents below */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .contact-input {
+            background-color: rgba(255,255,255,0.05);
+            border: 1px solid rgba(0, 217, 192, 0.4); 
+            border-radius: 0.375rem;
+            padding: 0.75rem 1rem;
+            width: 100%;
+            color: #FFFFFF;
+        }
+        .contact-input::placeholder { color: rgba(255,255,255,0.4); }
+        .contact-input:focus {
+            outline: none;
+            border-color: #FF3EA5; 
+            box-shadow: 0 0 0 3px rgba(255, 62, 165, 0.3);
+        }
+        .btn-contact {
+            background-color: #FF3EA5; 
+            color: #FFFFFF;
+            font-weight: 700;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .btn-contact:hover {
+            background-color: #E04A9A;
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body class="flex h-screen antialiased">
+
+    <aside id="appSidebar" class="app-shell-sidebar bg-sidebar-dark w-64 min-h-screen flex flex-col p-4 space-y-1 fixed inset-y-0 left-0 z-40 overflow-y-auto">
+        <a href="soloboss_ai_app_shell.html" class="block text-center py-4 mb-4 border-b border-white/10">
+            <img src="assets/images/logo.png" alt="SoloBoss AI Logo" class="h-16 mx-auto mb-2">
+            <h1 class="font-header text-2xl text-power-purple">SoloBoss AI</h1>
+        </a>
+
+        <a href="soloboss_ai_app_shell.html" data-page="hub" class="sidebar-link">
+            <span class="icon">🏠</span> Hub / Dashboard
+        </a>
+        
+        <div>
+            <p class="sidebar-group-title">AI Agents</p>
+            <a href="soloboss_agent_vox.html" data-page="vox" class="sidebar-link">
+                <span class="icon">🧠</span> Vox (EA)
+            </a>
+            <a href="soloboss_agent_lexi.html" data-page="lexi" class="sidebar-link">
+                <span class="icon">💡</span> Lexi (Strategist)
+            </a>
+            <a href="soloboss_agent_roxie.html" data-page="roxie" class="sidebar-link">
+                <span class="icon">🎨</span> Roxie (Designer)
+            </a>
+            <a href="soloboss_agent_quinn.html" data-page="quinn" class="sidebar-link">
+                <span class="icon">📢</span> Quinn (Marketing)
+            </a>
+            <a href="soloboss_agent_vex.html" data-page="vex" class="sidebar-link">
+                <span class="icon">/>_</span> Vex (Tech Architect)
+            </a>
+            <a href="soloboss_agent_lumi.html" data-page="lumi" class="sidebar-link">
+                <span class="icon">⚖️</span> Lumi (Legal & Docs)
+            </a>
+            <a href="#" data-page="glitch" class="sidebar-link opacity-50 cursor-not-allowed" title="Glitch - Coming Soon!">
+                <span class="icon">🐞</span> Glitch (QA)
+            </a>
+        </div>
+
+        <div>
+            <p class="sidebar-group-title">Workspace</p>
+            <a href="soloboss_ai_briefcase.html" data-page="briefcase" class="sidebar-link">
+                <span class="icon">🧰</span> The Briefcase
+            </a>
+        </div>
+        
+        <div class="mt-auto pt-4 border-t border-white/10">
+             <a href="soloboss_ai_user_profile.html" data-page="profile" class="sidebar-link">
+                <span class="icon">👤</span> My Profile
+            </a>
+             <a href="soloboss_ai_subscription_billing.html" data-page="billing" class="sidebar-link">
+                <span class="icon">💳</span> Subscription
+            </a>
+             <a href="soloboss_ai_help_support.html" data-page="help" class="sidebar-link">
+                <span class="icon">❓</span> Boss Manual (Help)
+            </a>
+            <a href="soloboss_ai_login_page.html" class="sidebar-link mt-2 text-red-400 hover:bg-red-500/20 hover:text-red-300 hover:border-red-400">
+                <span class="icon">🚪</span> Logout
+            </a>
+        </div>
+    </aside>
+
+    <main class="flex-1 ml-64 bg-content-area p-6 md:p-10 overflow-y-auto">
+        <div class="text-center mb-10 md:mb-12">
+            <h2 class="font-header text-4xl md:text-5xl text-white">Need Some Intel, <span class="text-rebel-teal">Boss?</span></h2>
+            <p class="font-body-alt text-lg text-white/70 mt-2 max-w-xl mx-auto">Your ultimate guide to conquering SoloBoss AI. No fluff, just firepower.</p>
+        </div>
+
+        <section class="mb-10 md:mb-12 max-w-2xl mx-auto">
+            <div class="relative">
+                <input type="search" placeholder="Search the manual (e.g., 'how to use Lexi', 'billing info')..." class="search-input w-full pl-10">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <svg class="w-5 h-5 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                </div>
+            </div>
+        </section>
+
+        <div class="grid lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 space-y-10">
+                <section id="faqs" class="help-section-card border-l-power-purple">
+                    <h3 class="font-header text-2xl text-electric-pink mb-6">Frequently Asked Questions 💣</h3>
+                    <div class="space-y-3">
+                        <div class="accordion-item">
+                            <button class="accordion-button">
+                                <span>What exactly IS SoloBoss AI?</span>
+                                <span class="accordion-icon text-xl font-light transform">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <p class="text-sm">SoloBoss AI is your AI-powered startup team dashboard, specifically designed for solo founders like you! It's a digital co-founder system with specialized AI agents to help you plan, build, and launch your business without the overwhelm of traditional team-focused tools.</p>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <button class="accordion-button">
+                                <span>How do the AI Agents work?</span>
+                                <span class="accordion-icon text-xl font-light transform">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <p class="text-sm">Each AI agent (Vox, Lexi, Roxie, etc.) has a unique personality and a specific set of skills. You interact with them through their dedicated pages to get help with tasks like daily planning (Vox), business strategy (Lexi), brand design (Roxie), marketing content (Quinn), tech advice (Vex), and legal docs (Lumi). Think of them as your specialist virtual teammates!</p>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <button class="accordion-button">
+                                <span>Is SoloBoss AI free? What about my budget?</span>
+                                <span class="accordion-icon text-xl font-light transform">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <p class="text-sm">We get it, Boss! Budgets are real. SoloBoss AI will have different tiers, including a free option to get you started with core features. We'll always be transparent about pricing for any premium features. Check out our [Link to Public Pricing Page - pricing_page_for_main.html] for the latest details.</p>
+                            </div>
+                        </div>
+                         <div class="accordion-item">
+                            <button class="accordion-button">
+                                <span>Can I save the work my AI agents help me create?</span>
+                                <span class="accordion-icon text-xl font-light transform">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <p class="text-sm">Absolutely! That's what "The Briefcase" is for. You can save strategies from Lexi, content from Quinn, brand kits from Roxie, and other important outputs. You'll be able to view, manage, and often download these assets directly from your Briefcase.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="troubleshooting" class="help-section-card border-l-rebel-teal">
+                    <h3 class="font-header text-2xl text-rebel-teal mb-6">Troubleshooting Common "Glitches" ⚡</h3>
+                    <ul class="list-disc list-inside space-y-2 text-sm text-white/80 pl-2">
+                        <li><strong class="text-rebel-teal">Page not loading correctly?</strong> Try a hard refresh (Ctrl+Shift+R or Cmd+Shift+R). Sometimes browsers get stuck in their ways.</li>
+                        <li><strong class="text-rebel-teal">AI Agent seems confused?</strong> Rephrase your prompt to be more specific. Clearer input = better output, Boss!</li>
+                        <li><strong class="text-rebel-teal">Button not working?</strong> Ensure your internet connection is stable. If it persists, that might be a job for Glitch (our QA agent) – or our support team!</li>
+                        <li><strong class="text-rebel-teal">Can't find a saved item?</strong> Double-check "The Briefcase" and use any available search or filter options.</li>
+                    </ul>
+                </section>
+            </div>
+
+            <div class="lg:col-span-1 space-y-10">
+                <section id="quick-start" class="help-section-card border-l-electric-pink">
+                    <h3 class="font-header text-xl text-electric-pink mb-4">Quick Start Guides 🚀</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="soloboss_agent_vox.html" class="text-white/80 hover:text-electric-pink transition-colors underline">Setting Up Your First Project with Vox</a></li>
+                        <li><a href="soloboss_agent_lexi.html" class="text-white/80 hover:text-electric-pink transition-colors underline">Getting Strategic Insights from Lexi</a></li>
+                        <li><a href="soloboss_agent_roxie.html" class="text-white/80 hover:text-electric-pink transition-colors underline">Creating Your First Brand Kit with Roxie</a></li>
+                        <li><a href="soloboss_agent_quinn.html" class="text-white/80 hover:text-electric-pink transition-colors underline">Generating Marketing Copy with Quinn</a></li>
+                    </ul>
+                </section>
+
+                <section id="agent-intel" class="help-section-card border-l-rebel-teal">
+                    <h3 class="font-header text-xl text-rebel-teal mb-4">Meet Your AI Crew 🤖</h3>
+                    <div class="space-y-3 text-xs">
+                        <p><strong class="text-power-purple">Vox:</strong> Your EA for daily plans & tasks.</p>
+                        <p><strong class="text-electric-pink">Lexi:</strong> Biz strategy & idea validation.</p>
+                        <p><strong class="text-rebel-teal">Roxie:</strong> Branding, design, & style kits.</p>
+                        <p><strong class="text-yellow-400">Quinn:</strong> Marketing copy & social content.</p>
+                        <p><strong class="text-blue-400">Vex:</strong> Tech specs & architecture.</p>
+                        <p><strong class="text-green-400">Lumi:</strong> Legal docs & compliance help.</p>
+                        <p><strong class="text-gray-400">Glitch (Beta):</strong> QA & bug spotting.</p>
+                    </div>
+                     <a href="soloboss_ai_app_shell.html" class="mt-4 inline-block text-xs text-rebel-teal hover:underline">Go to Agent Hub →</a>
+                </section>
+
+                <section id="contact-support" class="help-section-card border-l-power-purple">
+                    <h3 class="font-header text-xl text-power-purple mb-4">Need a Human, Boss? 🤘</h3>
+                    <p class="text-sm text-white/80 mb-4">If the manual doesn't cut it, or Glitch is on a coffee break, reach out to our support squad.</p>
+                    <form action="#" method="POST" class="space-y-4">
+                        <div>
+                            <label for="supportSubject" class="sr-only">Subject</label>
+                            <input type="text" name="supportSubject" id="supportSubject" class="contact-input text-sm" placeholder="Subject (e.g., Issue with Vox)">
+                        </div>
+                        <div>
+                            <label for="supportMessage" class="sr-only">Your Message</label>
+                            <textarea name="supportMessage" id="supportMessage" rows="4" class="contact-input text-sm" placeholder="Describe your issue here, Boss..."></textarea>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn-contact w-full text-sm">Send Rebel Yell (Message)</button>
+                        </div>
+                    </form>
+                     <p class="text-xs text-center mt-3 text-white/50">Or email us directly: <a href="mailto:support@soloboss.ai" class="hover:text-electric-pink underline">support@soloboss.ai</a></p>
+                </section>
+            </div>
+        </div>
+        </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarLinks = document.querySelectorAll('.sidebar-link');
+            const currentPage = 'help'; // Set this for the current page
+
+            sidebarLinks.forEach(link => {
+                if (link.dataset.page === currentPage) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        });
+        
+        const accordionButtons = document.querySelectorAll('.accordion-button');
+        accordionButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const icon = button.querySelector('.accordion-icon');
+                
+                // Optional: Close other open accordions
+                // accordionButtons.forEach(btn => {
+                //     if (btn !== button && btn.classList.contains('open')) {
+                //         btn.classList.remove('open');
+                //         btn.nextElementSibling.style.maxHeight = null;
+                //         btn.nextElementSibling.classList.remove('open');
+                //         btn.querySelector('.accordion-icon').style.transform = 'rotate(0deg)';
+                //     }
+                // });
+
+                button.classList.toggle('open');
+                
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                    content.classList.remove('open');
+                    if (icon) icon.style.transform = 'rotate(0deg)';
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    content.classList.add('open');
+                    if (icon) icon.style.transform = 'rotate(135deg)';
+                } 
+            });
+        });
+    </script>
+
+</body>
+</html>
