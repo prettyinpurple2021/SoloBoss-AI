@@ -29,8 +29,14 @@
     <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
     <link rel="manifest" href="assets/images/site.webmanifest">
     
+    <!-- Preload critical resources -->
+    <link rel="preload" href="assets/images/logo.png" as="image">
+    <link rel="preload" href="assets/css/styles.css" as="style">
+    <link rel="preload" href="assets/css/performance.css" as="style">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="assets/css/fonts.css" rel="stylesheet">
+    <link href="assets/css/performance.css" rel="stylesheet">
     
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -65,19 +71,6 @@
       ]
     }
     </script>
-    
-    <!-- Visualization & Content Choices:
-        - Hero: Inform/Engage -> Headline, Sub-headline, CTA Button, Logo -> Click CTA -> Strong visual intro -> HTML/Tailwind
-        - Problem/Pain: Empathize/Inform -> Text blocks, "marked-up" style for emphasis -> Static -> Connect with user's struggles -> HTML/Tailwind/JS for styling
-        - Solution/Promise: Inform/Persuade -> Text blocks, benefit-driven language -> Static -> Introduce SoloBoss AI as the answer -> HTML/Tailwind
-        - Meet AI Team: Inform/Detail -> Cards for each agent (icon/color-coded) -> Hover for slight emphasis -> Showcase the 'virtual team' -> HTML/Tailwind (Unicode/CSS icons)
-        - Core Features: Inform/Detail -> Grid/List with icons & descriptions, "torn paper" effect on cards -> Static -> Highlight key functionalities -> HTML/Tailwind
-        - Brand Vibe/Showcase: Engage/Reinforce Brand -> Section with angled dividers, paint splatter accents (CSS), typography showcase -> Static -> Embody "Punk Rock Girlboss Tech" -> HTML/Tailwind/CSS effects
-        - How It Works: Inform/Clarify -> Simple 3-step visual process (HTML/CSS based) -> Static -> Easy understanding of usage -> HTML/Tailwind
-        - Testimonials: Build Trust -> Placeholder for quotes, styled cards -> Static -> Social proof -> HTML/Tailwind
-        - Final CTA: Convert -> Headline, Button -> Click CTA -> Final conversion point -> HTML/Tailwind
-        - Footer: Inform/Navigate -> Links, Copyright -> Static -> Standard footer elements -> HTML/Tailwind
-        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 
     <style>
         html {
@@ -204,6 +197,23 @@
             font-size: 2rem; /* Unicode icons */
             line-height: 1;
         }
+
+        /* Performance optimizations */
+        .hero-section {
+            contain: layout style paint;
+        }
+
+        /* Improved loading states */
+        .loading-skeleton {
+            background: linear-gradient(90deg, #2a2a3e 25%, #3a3a4e 50%, #2a2a3e 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -221,7 +231,7 @@
                 <a href="#brand-vibe" class="nav-link font-semibold">The Vibe</a>
                 <a href="signup.html" class="bg-electric-pink text-white px-4 py-2 rounded-md font-semibold hover:bg-power-purple transition-colors">Get Started</a>
             </nav>
-            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none" title="Toggle navigation menu">
+            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none" title="Toggle navigation menu" aria-label="Toggle navigation menu">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
         </div>
@@ -234,7 +244,7 @@
         </div>
     </header>
 
-    <section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden py-20 px-6 bg-gradient-to-br from-deep-space via-purple-900/30 to-deep-space">
+    <section id="hero" class="hero-section min-h-screen flex items-center justify-center relative overflow-hidden py-20 px-6 bg-gradient-to-br from-deep-space via-purple-900/30 to-deep-space">
         <div class="paint-splatter-accent paint-splatter-cta-1"></div>
         <div class="paint-splatter-accent paint-splatter-cta-2"></div>
         <div class="paint-splatter-accent top-right"></div>
@@ -242,7 +252,7 @@
         <div class="text-center z-10 relative">
             <div class="mb-8">
                 <div class="inline-block bg-white/10 p-4 rounded-full shadow-2xl mb-6 backdrop-blur-sm">
-                     <img src="assets/images/logo.png" alt="SoloBoss AI Logo" class="h-24 md:h-32 mx-auto" loading="eager" decoding="async">
+                     <img src="assets/images/logo.png" alt="SoloBoss AI Logo" class="h-24 md:h-32 mx-auto" loading="eager" decoding="async" width="128" height="128">
                 </div>
                 <p class="font-accent-alt text-rebel-teal text-xl md:text-2xl mb-2 tracking-wider">Tired of Doing It ALL Alone?</p>
             </div>
@@ -296,7 +306,7 @@
                 </div>
                 <div class="relative p-4">
                      <div class="absolute inset-0 bg-gradient-to-tr from-electric-pink to-power-purple rounded-lg transform -rotate-3 opacity-50 blur-xl"></div>
-                     <img src="https://placehold.co/500x350/2A2A3E/FFFFFF?text=AI+Team+Dashboard+Mockup" alt="SoloBoss AI Dashboard Mockup" class="rounded-lg shadow-2xl relative z-10 border-4 border-rebel-teal/50">
+                     <img src="https://placehold.co/500x350/2A2A3E/FFFFFF?text=AI+Team+Dashboard+Mockup" alt="SoloBoss AI Dashboard Mockup" class="rounded-lg shadow-2xl relative z-10 border-4 border-rebel-teal/50" loading="lazy" width="500" height="350">
                 </div>
             </div>
         </div>
@@ -497,9 +507,12 @@
         </div>
     </footer>
 
-    <!-- Local JavaScript Files -->
+    <!-- Load JavaScript -->
     <script type="module" src="assets/js/app.js"></script>
     <script type="module" src="assets/js/storage-manager.js"></script>
+    <script type="module" src="assets/js/error-handler.js"></script>
+    <script type="module" src="assets/js/accessibility.js"></script>
+    <script type="module" src="assets/js/security.js"></script>
 
     <script>
         document.getElementById('currentYear').textContent = new Date().getFullYear();
@@ -518,29 +531,28 @@
             });
         });
 
-        // Simple scroll reveal for sections (optional enhancement)
-        const sections = document.querySelectorAll('section');
-        const options = {
-            threshold: 0.1,
-            rootMargin: "0px 0px -50px 0px"
-        };
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-fadeInUp'); // Needs Tailwind animation utility or custom CSS
-                    // observer.unobserve(entry.target); // Optional: stop observing after first reveal
-                }
+        // Performance monitoring
+        if ('performance' in window) {
+            window.addEventListener('load', () => {
+                setTimeout(() => {
+                    const perfData = performance.getEntriesByType('navigation')[0];
+                    console.log('Page load time:', perfData.loadEventEnd - perfData.loadEventStart, 'ms');
+                }, 0);
             });
-        }, options);
+        }
 
-        // sections.forEach(section => {
-        //     observer.observe(section);
-        // });
-        // Add this to your <style> or a Tailwind config if you want animations:
-        // @keyframes fadeInUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
-        // .animate-fadeInUp { animation:fadeInUp 0.5s ease-out forwards; opacity:0; }
-        // For simplicity, I'm not enabling this by default to keep JS minimal as per initial thought.
+        // Service worker registration for offline support
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch(registrationError => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
     </script>
 
 </body>

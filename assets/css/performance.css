@@ -1,0 +1,44 @@
+/* Performance Optimizations */
+
+/* Reduce paint and layout thrashing */
+* {
+    box-sizing: border-box;
+}
+
+/* Optimize animations */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Improve font loading */
+.font-header, .font-body-alt, .font-accent-alt {
+    font-display: swap;
+}
+
+/* Optimize images */
+img {
+    max-width: 100%;
+    height: auto;
+    loading: lazy;
+}
+
+/* Critical CSS for above-the-fold content */
+.hero-section {
+    contain: layout style paint;
+}
+
+/* Reduce repaints */
+.paint-splatter, .paint-splatter-accent {
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+/* Optimize scrolling */
+.overflow-y-auto {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+}
