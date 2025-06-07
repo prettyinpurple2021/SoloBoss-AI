@@ -234,4 +234,30 @@
 
             try {
                 const response = await fetch(functionUrl, {
-                    method: 'POST
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ idea: idea, stage: stage })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Server error: ${response.statusText}`);
+                }
+
+                const result = await response.json();
+                
+                // Use marked.parse() to render the AI's response with formatting
+                validationContent.innerHTML = marked.parse(result.validation || errorMessage);
+                monetizationContent.innerHTML = marked.parse(result.monetization || errorMessage);
+                personaContent.innerHTML = marked.parse(result.persona || errorMessage);
+
+            } catch (error) {
+                console.error("Error fetching strategy:", error);
+                validationContent.innerHTML = errorMessage;
+                monetizationContent.innerHTML = errorMessage;
+                personaContent.innerHTML = errorMessage;
+            } finally {
+                getStrategyBtn.disabled = false;
+                getStrategyBtn.innerHTML = "🚀 Get Strategy";
+            }
+        });
+    </script>
