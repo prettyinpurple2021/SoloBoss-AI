@@ -1,15 +1,37 @@
+<script src="https://cdn.tailwindcss.com"></script>  <link href="assets/css/fonts.css" rel="stylesheet"> <link rel="icon" type="image/png" href="assets/images/favicon-32x32.png"> ```
+
+The path `assets/css/fonts.css` tells the browser to look for a folder named `assets` in the same location as your HTML file. When you uploaded the new HTML file, the `assets` folder (containing your fonts and images) likely didn't get uploaded with it, so the links are now broken.
+
+### The Fix: Let's Re-link Your Styles
+
+We are going to replace the local file links with direct web links, just like the one for Tailwind CSS. This makes your HTML file "self-contained" so it doesn't have to look for other local files.
+
+I have taken the final working code from our previous conversation and updated the `<head>` section to pull the fonts directly from Google Fonts.
+
+**Please replace the entire content of your `lexi.html` file with this new, corrected code.** This version restores all your original styling.
+
+---
+
+### **Your New, Corrected `lexi.html` Code**
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lexi - Startup Strategist | SoloBoss AI</title>
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+  
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="assets/css/fonts.css" rel="stylesheet">
-  <style>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Emilys+Candy&family=Henny+Penny&family=Inter:wght@700&family=Poppins&display=swap" rel="stylesheet">
+
+    <style>
     body { font-family: 'Poppins', sans-serif; background-color: #1A1A2E; color: #FFFFFF; overflow-x: hidden; }
     .lexi-header { font-family: 'Emilys Candy', cursive; color: #A044FF; font-size: 2.2rem; text-align: center; margin-top: 2rem; }
     .lexi-subtitle { font-family: 'Henny Penny', cursive; color: #00D9C0; font-size: 1.15rem; text-align: center; margin-bottom: 2.5rem; }
