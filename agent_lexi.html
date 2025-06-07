@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lexi - Startup Strategist | SoloBoss AI</title>
   
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -70,60 +70,48 @@
  
  <script>
     document.getElementById('getStrategyBtn').addEventListener('click', async () => {
-        // Get references to all the HTML elements we need to interact with
         const getStrategyBtn = document.getElementById('getStrategyBtn');
         const validationContent = document.getElementById('validationContent');
         const monetizationContent = document.getElementById('monetizationContent');
         const personaContent = document.getElementById('personaContent');
         const outputSection = document.getElementById('strategicInsightsOutput');
 
-        // Show a loading state to the user so they know something is happening
         getStrategyBtn.disabled = true;
         getStrategyBtn.innerHTML = "🤔 Lexi is thinking...";
         validationContent.innerHTML = "Please wait, fetching insights...";
         monetizationContent.innerHTML = "Please wait, fetching insights...";
         personaContent.innerHTML = "Please wait, fetching insights...";
-        outputSection.classList.remove('hidden'); // Show the output cards
+        outputSection.classList.remove('hidden');
         
-        // This is the URL for the secure Serverless Function you created.
         const functionUrl = "https://faas-nyc1-2ef2e6cc.doserverless.co/api/v1/web/fn-59b513ef-33a1-4927-ab7f-c9499209f503/default/lexi-strategist"; 
 
-        // Get the user's input from the form fields
         const idea = document.getElementById('businessIdea').value;
         const stage = document.getElementById('ideaStage').value;
 
         try {
-            // Make a SINGLE, secure call to our backend function
             const response = await fetch(functionUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                // Send the user's idea and stage to the function
                 body: JSON.stringify({ idea: idea, stage: stage })
             });
 
             if (!response.ok) {
-                // If the server function itself has an error, handle it
                 throw new Error(`Server error: ${response.statusText}`);
             }
 
-            // The function returns a single package with all three AI responses
             const result = await response.json();
             
-            // Use the 'marked.parse()' function to convert the AI's markdown into HTML
-            // This will correctly render headings, lists, bold text, etc.
             validationContent.innerHTML = marked.parse(result.validation || "No response received.");
             monetizationContent.innerHTML = marked.parse(result.monetization || "No response received.");
             personaContent.innerHTML = marked.parse(result.persona || "No response received.");
 
         } catch (error) {
-            // If anything goes wrong, show a user-friendly error message
             console.error("Error fetching strategy:", error);
             const errorMessage = "Oops — Lexi hit a snag. Please try again in a bit.";
             validationContent.innerHTML = errorMessage;
             monetizationContent.innerHTML = errorMessage;
             personaContent.innerHTML = errorMessage;
         } finally {
-            // No matter what happens (success or error), re-enable the button
             getStrategyBtn.disabled = false;
             getStrategyBtn.innerHTML = "🚀 Get Strategy";
         }
