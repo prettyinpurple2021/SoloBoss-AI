@@ -1,20 +1,3 @@
-<script src="https://cdn.tailwindcss.com"></script>  <link href="assets/css/fonts.css" rel="stylesheet"> <link rel="icon" type="image/png" href="assets/images/favicon-32x32.png"> ```
-
-The path `assets/css/fonts.css` tells the browser to look for a folder named `assets` in the same location as your HTML file. When you uploaded the new HTML file, the `assets` folder (containing your fonts and images) likely didn't get uploaded with it, so the links are now broken.
-
-### The Fix: Let's Re-link Your Styles
-
-We are going to replace the local file links with direct web links, just like the one for Tailwind CSS. This makes your HTML file "self-contained" so it doesn't have to look for other local files.
-
-I have taken the final working code from our previous conversation and updated the `<head>` section to pull the fonts directly from Google Fonts.
-
-**Please replace the entire content of your `lexi.html` file with this new, corrected code.** This version restores all your original styling.
-
----
-
-### **Your New, Corrected `lexi.html` Code**
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
