@@ -1,104 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lexi - Startup Strategist | SoloBoss AI</title>
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="assets/css/fonts.css" rel="stylesheet">
-  <style>
-    body { font-family: 'Poppins', sans-serif; background-color: #1A1A2E; color: #FFFFFF; overflow-x: hidden; }
-    .lexi-header { font-family: 'Emilys Candy', cursive; color: #A044FF; font-size: 2.2rem; text-align: center; margin-top: 2rem; }
-    .lexi-subtitle { font-family: 'Henny Penny', cursive; color: #00D9C0; font-size: 1.15rem; text-align: center; margin-bottom: 2.5rem; }
-    .lexi-input-field { background-color: rgba(255,255,255,0.08); border: 1px solid rgba(160, 68, 255, 0.5); border-radius: 0.375rem; padding: 0.75rem 1rem; width: 100%; color: #FFFFFF; }
-    .lexi-btn { background: #00D9C0; color: #1A1A2E; border: none; border-radius: 0.5rem; padding: 0.5rem 1.5rem; font-size: 1.05rem; font-family: 'Inter', sans-serif; font-weight: 700; cursor: pointer; }
-    .lexi-btn:hover { background: #A044FF; color: #fff; }
-    .lexi-content-card { background: #232336; border-radius: 1.25rem; padding: 2rem; margin-bottom: 2.5rem; border-left: 6px solid #A044FF; }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lexi - Startup Strategist | SoloBoss AI</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="assets/css/fonts.css" rel="stylesheet">
+  <style>
+    body { font-family: 'Poppins', sans-serif; background-color: #1A1A2E; color: #FFFFFF; overflow-x: hidden; }
+    .lexi-header { font-family: 'Emilys Candy', cursive; color: #A044FF; font-size: 2.2rem; text-align: center; margin-top: 2rem; }
+    .lexi-subtitle { font-family: 'Henny Penny', cursive; color: #00D9C0; font-size: 1.15rem; text-align: center; margin-bottom: 2.5rem; }
+    .lexi-input-field { background-color: rgba(255,255,255,0.08); border: 1px solid rgba(160, 68, 255, 0.5); border-radius: 0.375rem; padding: 0.75rem 1rem; width: 100%; color: #FFFFFF; }
+    .lexi-btn { background: #00D9C0; color: #1A1A2E; border: none; border-radius: 0.5rem; padding: 0.5rem 1.5rem; font-size: 1.05rem; font-family: 'Inter', sans-serif; font-weight: 700; cursor: pointer; transition: background-color 0.3s, color 0.3s; }
+    .lexi-btn:hover { background: #A044FF; color: #fff; }
+    .lexi-btn:disabled { background-color: #555; cursor: not-allowed; }
+    .lexi-content-card { background: #232336; border-radius: 1.25rem; padding: 2rem; margin-bottom: 2.5rem; border-left: 6px solid #A044FF; }
+    /* Styles for the AI-generated content */
+    .lexi-content-card h3 { font-size: 1.1em; color: #00D9C0; margin-top: 1em; }
+    .lexi-content-card ul { list-style-type: disc; padding-left: 20px; }
+    .lexi-content-card p, .lexi-content-card li { margin-bottom: 0.5em; }
+  </style>
 </head>
 <body class="flex h-screen">
-  <main class="flex-1 mx-auto p-6 md:p-10">
-    <div class="container mx-auto max-w-2xl py-10">
-      <h1 class="lexi-header">Lexi - Startup Strategist</h1>
-      <div class="lexi-subtitle">Your AI-powered business coach for validation, monetization, and more.</div>
-      <section class="lexi-content-card">
-        <label for="businessIdea" class="block text-sm font-medium text-white/80 mb-1">What's your business idea?</label>
-        <textarea id="businessIdea" name="businessIdea" rows="4" class="lexi-input-field mb-4" placeholder="E.g., A digital planner for neurodivergent creators"></textarea>
+  <main class="flex-1 mx-auto p-6 md:p-10">
+    <div class="container mx-auto max-w-2xl py-10">
+      <h1 class="lexi-header">Lexi - Startup Strategist</h1>
+      <div class="lexi-subtitle">Your AI-powered business coach for validation, monetization, and more.</div>
+      <section class="lexi-content-card">
+        <label for="businessIdea" class="block text-sm font-medium text-white/80 mb-1">What's your business idea?</label>
+        <textarea id="businessIdea" name="businessIdea" rows="4" class="lexi-input-field mb-4" placeholder="E.g., A digital planner for neurodivergent creators"></textarea>
 
-        <label for="ideaStage" class="block text-sm font-medium text-white/80 mb-1">What stage are you in?</label>
-        <select id="ideaStage" name="ideaStage" class="lexi-input-field mb-6">
-          <option>Just an idea</option>
-          <option>Prototyping</option>
-          <option>Pre-launch</option>
-          <option>Launched</option>
-        </select>
+        <label for="ideaStage" class="block text-sm font-medium text-white/80 mb-1">What stage are you in?</label>
+        <select id="ideaStage" name="ideaStage" class="lexi-input-field mb-6">
+          <option>Just an idea</option>
+          <option>Prototyping</option>
+          <option>Pre-launch</option>
+          <option>Launched</option>
+        </select>
 
-        <button type="button" id="getStrategyBtn" class="lexi-btn w-full">🚀 Get Strategy</button>
-      </section>
+        <button type="button" id="getStrategyBtn" class="lexi-btn w-full">🚀 Get Strategy</button>
+      </section>
 
-      <section id="strategicInsightsOutput" class="mt-6 hidden">
-        <div class="lexi-content-card">
-          <h3 class="text-primary-purple text-xl font-bold mb-2">Idea Validation Deep Dive</h3>
-          <div id="validationContent" class="text-white/70 text-sm"></div>
-        </div>
-        <div class="lexi-content-card">
-          <h3 class="text-primary-purple text-xl font-bold mb-2">Monetization Pathways</h3>
-          <div id="monetizationContent" class="text-white/70 text-sm"></div>
-        </div>
-        <div class="lexi-content-card">
-          <h3 class="text-primary-purple text-xl font-bold mb-2">Ideal User Persona Sketch</h3>
-          <div id="personaContent" class="text-white/70 text-sm"></div>
-        </div>
-      </section>
-    </div>
-  </main>
-  <script>
-    async function callLexiAPI(prompt) {
-      const apiUrl = "https://agents.anyscaleapis.com/v1/agents/mQF_TJyd3HU1Y51mdjg6OCDokynX2Qe4/generate";
-      const payload = { input: prompt };
+      <section id="strategicInsightsOutput" class="mt-6 hidden">
+        <div class="lexi-content-card">
+          <h3 class="text-primary-purple text-xl font-bold mb-2">Idea Validation Deep Dive</h3>
+          <div id="validationContent" class="text-white/70 text-sm"></div>
+        </div>
+        <div class="lexi-content-card">
+          <h3 class="text-primary-purple text-xl font-bold mb-2">Monetization Pathways</h3>
+          <div id="monetizationContent" class="text-white/70 text-sm"></div>
+        </div>
+        <div class="lexi-content-card">
+          <h3 class="text-primary-purple text-xl font-bold mb-2">Ideal User Persona Sketch</h3>
+          <div id="personaContent" class="text-white/70 text-sm"></div>
+        </div>
+      </section>
+    </div>
+  </main>
 
-      try {
-        const response = await fetch(apiUrl, {
-          method: 'POST',
-          headers: {
-            'Authorization': 'Bearer mQF_TJyd3HU1Y51mdjg6OCDokynX2Qe4',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(payload)
-        });
-        const result = await response.json();
-        if (result && result.output) {
-          return result.output;
-        } else {
-          throw new Error('No output returned.');
-        }
-      } catch (error) {
-        console.error("Lexi API error:", error);
-        return "Oops — Lexi hit a snag. Try again in a bit.";
-      }
-    }
-
+ <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+ 
+ <script>
     document.getElementById('getStrategyBtn').addEventListener('click', async () => {
-      const idea = document.getElementById('businessIdea').value;
-      const stage = document.getElementById('ideaStage').value;
+        // Get references to all the HTML elements we need to interact with
+        const getStrategyBtn = document.getElementById('getStrategyBtn');
+        const validationContent = document.getElementById('validationContent');
+        const monetizationContent = document.getElementById('monetizationContent');
+        const personaContent = document.getElementById('personaContent');
+        const outputSection = document.getElementById('strategicInsightsOutput');
 
-      const validationPrompt = `You are Lexi, the SoloBoss AI strategist. The founder has this idea: "${idea}" and is currently at the "${stage}" stage. Provide 3 validation strategies to test the idea with confident, clear, and actionable steps.`;
-      const monetizationPrompt = `You are Lexi. For the startup idea "${idea}", provide 2-3 monetization strategies that would be ideal for the "${stage}" stage. Include bullet points and founder-friendly advice.`;
-      const personaPrompt = `You are Lexi. Create a quick user persona for "${idea}". Include their name, pain points, goals, and motivations in a short outline.`;
+        // Show a loading state to the user so they know something is happening
+        getStrategyBtn.disabled = true;
+        getStrategyBtn.innerHTML = "🤔 Lexi is thinking...";
+        validationContent.innerHTML = "Please wait, fetching insights...";
+        monetizationContent.innerHTML = "Please wait, fetching insights...";
+        personaContent.innerHTML = "Please wait, fetching insights...";
+        outputSection.classList.remove('hidden'); // Show the output cards
+        
+        // This is the URL for the secure Serverless Function you created.
+        const functionUrl = "https://faas-nyc1-2ef2e6cc.doserverless.co/api/v1/web/fn-59b513ef-33a1-4927-ab7f-c9499209f503/default/lexi-strategist"; 
 
-      const validation = await callLexiAPI(validationPrompt);
-      const monetization = await callLexiAPI(monetizationPrompt);
-      const persona = await callLexiAPI(personaPrompt);
+        // Get the user's input from the form fields
+        const idea = document.getElementById('businessIdea').value;
+        const stage = document.getElementById('ideaStage').value;
 
-      document.getElementById('validationContent').innerHTML = validation.replace(/\n/g, '<br>');
-      document.getElementById('monetizationContent').innerHTML = monetization.replace(/\n/g, '<br>');
-      document.getElementById('personaContent').innerHTML = persona.replace(/\n/g, '<br>');
+        try {
+            // Make a SINGLE, secure call to our backend function
+            const response = await fetch(functionUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                // Send the user's idea and stage to the function
+                body: JSON.stringify({ idea: idea, stage: stage })
+            });
 
-      document.getElementById('strategicInsightsOutput').classList.remove('hidden');
+            if (!response.ok) {
+                // If the server function itself has an error, handle it
+                throw new Error(`Server error: ${response.statusText}`);
+            }
+
+            // The function returns a single package with all three AI responses
+            const result = await response.json();
+            
+            // Use the 'marked.parse()' function to convert the AI's markdown into HTML
+            // This will correctly render headings, lists, bold text, etc.
+            validationContent.innerHTML = marked.parse(result.validation || "No response received.");
+            monetizationContent.innerHTML = marked.parse(result.monetization || "No response received.");
+            personaContent.innerHTML = marked.parse(result.persona || "No response received.");
+
+        } catch (error) {
+            // If anything goes wrong, show a user-friendly error message
+            console.error("Error fetching strategy:", error);
+            const errorMessage = "Oops — Lexi hit a snag. Please try again in a bit.";
+            validationContent.innerHTML = errorMessage;
+            monetizationContent.innerHTML = errorMessage;
+            personaContent.innerHTML = errorMessage;
+        } finally {
+            // No matter what happens (success or error), re-enable the button
+            getStrategyBtn.disabled = false;
+            getStrategyBtn.innerHTML = "🚀 Get Strategy";
+        }
     });
-  </script>
+ </script>
+
 </body>
 </html>
